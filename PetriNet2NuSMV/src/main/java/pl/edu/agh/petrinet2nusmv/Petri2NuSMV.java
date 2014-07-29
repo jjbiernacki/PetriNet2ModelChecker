@@ -28,6 +28,7 @@ public class Petri2NuSMV {
     private JButton openButton;
     private JTextArea nuSMVTextArea;
     private JButton parseButton;
+    private JTabbedPane tabbedPane1;
     private JFrame frame;
     Parser parser = Parser.CPNPARSER;
     String generatedNuSMVFileContent = "";

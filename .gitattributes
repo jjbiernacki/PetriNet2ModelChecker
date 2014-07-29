@@ -5,6 +5,14 @@ PetriNet2NuSMV/lib/jgoodies-forms-1.7.2.jar -text
 PetriNet2NuSMV/res/logo.png -text
 PetriNet2NuSMV/res/logo_przyciete.png -text
 PetriNet2NuSMV/src/main/java/META-INF/MANIFEST.MF -text
+PetriNet2NuSMV/src/main/java/pl/edu/agh/cpn2rtcpn/Arc.java -text
+PetriNet2NuSMV/src/main/java/pl/edu/agh/cpn2rtcpn/InputErrorException.java -text
+PetriNet2NuSMV/src/main/java/pl/edu/agh/cpn2rtcpn/Page.java -text
+PetriNet2NuSMV/src/main/java/pl/edu/agh/cpn2rtcpn/Place.java -text
+PetriNet2NuSMV/src/main/java/pl/edu/agh/cpn2rtcpn/Subpage.java -text
+PetriNet2NuSMV/src/main/java/pl/edu/agh/cpn2rtcpn/Transition.java -text
+PetriNet2NuSMV/src/main/java/pl/edu/agh/cpn2rtcpn/XmlParse.java -text
+PetriNet2NuSMV/src/main/java/pl/edu/agh/cpn2rtcpn/XmlWriter.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/AboutDialog.form -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/AboutDialog.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/CPNConsoleApplication.java -text
@@ -32,5 +40,4 @@ PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/parser/CPNParser.java -te
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/parser/CovGraphParserInterface.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/parser/KTSParser.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/utils/MarkingParser.java -text
-PetriNet2NuSMV/src/main/main.iml -text
 PetriNet2NuSMV/src/main/resources/logo.png -text
