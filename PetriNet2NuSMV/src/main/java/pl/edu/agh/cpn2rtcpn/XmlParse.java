@@ -42,7 +42,7 @@ public class XmlParse {
         
     }
 
-    private String parse(String inputfile) {
+    public String parse(String inputfile) {
 
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();

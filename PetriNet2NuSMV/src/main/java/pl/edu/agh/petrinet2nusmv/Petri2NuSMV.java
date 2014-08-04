@@ -1,5 +1,6 @@
 package pl.edu.agh.petrinet2nusmv;
 
+import pl.edu.agh.cpn2rtcpn.XmlParse;
 import pl.edu.agh.petrinet2nusmv.exceptions.ExtensionFilter;
 import pl.edu.agh.petrinet2nusmv.exceptions.SyntaxException;
 import pl.edu.agh.petrinet2nusmv.generator.NuSMVCPNGenerator;
@@ -29,15 +30,24 @@ public class Petri2NuSMV {
     private JTextArea nuSMVTextArea;
     private JButton parseButton;
     private JTabbedPane tabbedPane1;
+    private JTextField rtcpPathField;
+    private JButton rtcpOpenButton;
+    private JButton rtcpParseButton;
+    private JTextArea rtcpTextArea;
+    private JComboBox comboBoxRTCP;
+    private JButton saveButton;
+    private JButton rtcpSaveButton;
     private JFrame frame;
     Parser parser = Parser.CPNPARSER;
     String generatedNuSMVFileContent = "";
     JMenuBar menuBar;
     JMenu menuFile, menuParser, menuHelp;
-    JMenuItem menuClose, menuOpen, menuSave, menuOmega, menuAbout;
+    JMenuItem menuClose, menuOpen, menuOmega, menuAbout;
     JRadioButtonMenuItem cpnMenuItem, simpleNetMenuItem;
-    String parsedFileName = "";
+    String parsedFileName = "", parsedRTCPFileName = "";
     int omega = 1000;
+
+    private String[] rtcpParsers = {"CPN Tools >> RTCP"};
 
 
     public static void main(String[] args) {
@@ -70,9 +80,6 @@ public class Petri2NuSMV {
         menuFile.add(menuOpen);
         menuOmega = new JMenuItem("Omega...", KeyEvent.VK_T);
         menuOmega.addActionListener(setOmega);
-        menuSave = new JMenuItem("Save...", KeyEvent.VK_T);
-        menuSave.addActionListener(saveFile);
-        menuFile.add(menuSave);
         menuClose = new JMenuItem("Exit", KeyEvent.VK_T);
         menuClose.addActionListener(closeListener);
         menuFile.add(menuClose);
@@ -91,10 +98,20 @@ public class Petri2NuSMV {
         frame.setJMenuBar(menuBar);
         openButton.addActionListener(openFile);
         parseButton.addActionListener(parse);
-        menuSave.setEnabled(false);
         nuSMVTextArea.setEditable(false);
         menuOmega.setEnabled(false);
         menuAbout.addActionListener(showHelp);
+        saveButton.setEnabled(false);
+        saveButton.addActionListener(saveFile);
+
+        //rtcp"
+        for (String item: rtcpParsers) {
+            comboBoxRTCP.addItem(item);
+        }
+        rtcpOpenButton.addActionListener(openFileRTCP);
+        rtcpParseButton.addActionListener(parseRTCP);
+        rtcpSaveButton.setEnabled(false);
+        rtcpSaveButton.addActionListener(saveRTCPFile);
     }
 
     ActionListener showHelp = new ActionListener() {
@@ -143,6 +160,34 @@ public class Petri2NuSMV {
         }
     };
 
+    ActionListener openFileRTCP = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            final JFileChooser fc = new JFileChooser();
+            fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            FileFilter filter;
+            int i = comboBoxRTCP.getSelectedIndex();
+
+            switch (i) {
+                case 0://cpntools to rtcp
+                    filter = new ExtensionFilter("CPN Tools file  (*.cpn)", ".cpn");
+                    break;
+                default:
+                    throw new IllegalStateException("No items to select");
+            }
+            fc.addChoosableFileFilter(filter);
+            fc.setCurrentDirectory(new File(System.getProperty("user.dir")));
+            int returnVal = fc.showOpenDialog(frame);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = fc.getSelectedFile();
+                System.out.print("Opening: " + file.getAbsolutePath());
+                rtcpPathField.setText(file.getAbsolutePath());
+            } else {
+                System.out.print("Open command cancelled by user.");
+            }
+        }
+    };
+
     ActionListener saveFile = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -159,6 +204,32 @@ public class Petri2NuSMV {
                 try {
                     out = new PrintWriter(file.getAbsolutePath());
                     out.println(generatedNuSMVFileContent);
+                    out.close();
+                } catch (FileNotFoundException e1) {
+                    e1.printStackTrace();
+                }
+            } else {
+                System.out.print("Open command cancelled by user.");
+            }
+        }
+    };
+
+    ActionListener saveRTCPFile = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            final JFileChooser fc = new JFileChooser();
+            fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            FileFilter filter = new ExtensionFilter("XML file (*.xml)", ".xml");
+            fc.addChoosableFileFilter(filter);
+            fc.setCurrentDirectory(new File(System.getProperty("user.dir")));
+            fc.setSelectedFile(new File(parsedRTCPFileName + ".xml"));
+            int returnVal = fc.showSaveDialog(frame);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = fc.getSelectedFile();
+                PrintWriter out = null;
+                try {
+                    out = new PrintWriter(file.getAbsolutePath());
+                    out.println(rtcpTextArea.getText());
                     out.close();
                 } catch (FileNotFoundException e1) {
                     e1.printStackTrace();
@@ -201,7 +272,7 @@ public class Petri2NuSMV {
                     NuSMVCPNGenerator generator = new NuSMVCPNGenerator(cpnParser.parseFile(pathField.getText()));
                     generatedNuSMVFileContent = generator.generateNuSMVModule();
                     nuSMVTextArea.setText(generatedNuSMVFileContent);
-                    menuSave.setEnabled(true);
+                    saveButton.setEnabled(true);
                     parsedFileName = pathField.getText();
                     parsedFileName = parsedFileName.substring(0, parsedFileName.indexOf(".cpn"));
                 } catch (FileNotFoundException e1) {
@@ -227,7 +298,7 @@ public class Petri2NuSMV {
                     NuSMVGenerator generator = new NuSMVGenerator(ktsParser.parseFile(pathField.getText()));
                     generatedNuSMVFileContent = generator.generateNuSMVModule();
                     nuSMVTextArea.setText(generatedNuSMVFileContent);
-                    menuSave.setEnabled(true);
+                    saveButton.setEnabled(true);
                     parsedFileName = pathField.getText();
                     parsedFileName = parsedFileName.substring(0, parsedFileName.indexOf(".kts"));
                 } catch (FileNotFoundException e1) {
@@ -241,6 +312,25 @@ public class Petri2NuSMV {
                             "Error",
                             JOptionPane.ERROR_MESSAGE);
                 }
+            }
+        }
+    };
+    ActionListener parseRTCP = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int i = comboBoxRTCP.getSelectedIndex();
+
+            switch (i) {
+                case 0://cpntools to rtcp
+                    String path = rtcpPathField.getText();
+                    String parsedFile = new XmlParse().parse(path);
+                    rtcpTextArea.setText(parsedFile);
+                    rtcpSaveButton.setEnabled(true);
+                    parsedRTCPFileName = rtcpPathField.getText();
+                    parsedRTCPFileName = parsedRTCPFileName.substring(0, parsedRTCPFileName.indexOf(".cpn"));
+                    break;
+                default:
+                    throw new IllegalStateException("No action for this item");
             }
         }
     };
