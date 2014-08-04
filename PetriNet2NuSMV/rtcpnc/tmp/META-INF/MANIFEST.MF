@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Class-Path: lib\pkowalski-rtcp-runtime-1.0.jar lib\pkowalski-rtcp-runtime-coverability-1.0.jar lib\pkowalski-rtcp-runtime-ui-console-1.0.jar lib\pkowalski-utils-1.0.jar
+Main-Class: tmp.RtcpNetSimulator

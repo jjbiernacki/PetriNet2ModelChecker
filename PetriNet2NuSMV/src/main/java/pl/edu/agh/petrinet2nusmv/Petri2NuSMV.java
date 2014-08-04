@@ -1,5 +1,6 @@
 package pl.edu.agh.petrinet2nusmv;
 
+import org.apache.commons.io.FileUtils;
 import pl.edu.agh.cpn2rtcpn.XmlParse;
 import pl.edu.agh.petrinet2nusmv.exceptions.ExtensionFilter;
 import pl.edu.agh.petrinet2nusmv.exceptions.SyntaxException;
@@ -14,9 +15,8 @@ import javax.swing.filechooser.FileFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.util.Scanner;
 
 /**
  * Created by agnieszka on 19.02.14.
@@ -47,7 +47,7 @@ public class Petri2NuSMV {
     String parsedFileName = "", parsedRTCPFileName = "";
     int omega = 1000;
 
-    private String[] rtcpParsers = {"CPN Tools >> RTCP"};
+    private String[] rtcpParsers = {"CPN Tools >> RTCP", "RTCP Net >> RTCP Simulator"};
 
 
     public static void main(String[] args) {
@@ -171,6 +171,9 @@ public class Petri2NuSMV {
             switch (i) {
                 case 0://cpntools to rtcp
                     filter = new ExtensionFilter("CPN Tools file  (*.cpn)", ".cpn");
+                    break;
+                case 1://rtcp net to rtcp simulator
+                    filter = new ExtensionFilter("RTCP XML file  (*.xml)", ".xml");
                     break;
                 default:
                     throw new IllegalStateException("No items to select");
@@ -319,15 +322,44 @@ public class Petri2NuSMV {
         @Override
         public void actionPerformed(ActionEvent e) {
             int i = comboBoxRTCP.getSelectedIndex();
+            String path = rtcpPathField.getText();
 
             switch (i) {
                 case 0://cpntools to rtcp
-                    String path = rtcpPathField.getText();
                     String parsedFile = new XmlParse().parse(path);
                     rtcpTextArea.setText(parsedFile);
                     rtcpSaveButton.setEnabled(true);
                     parsedRTCPFileName = rtcpPathField.getText();
                     parsedRTCPFileName = parsedRTCPFileName.substring(0, parsedRTCPFileName.indexOf(".cpn"));
+                    break;
+                case 1://rtcp net to rtcp simulator
+                    try {
+                        Process process = Runtime.getRuntime().exec("java -jar rtcpnc.jar \"" + path + "\" simulator", null, new File("rtcpnc"));
+                        process.waitFor();
+                        Scanner s1 = new Scanner(process.getInputStream()).useDelimiter("\\A");
+                        System.out.println(s1.hasNext() ? s1.next() : "");
+                        Scanner s2 = new Scanner(process.getErrorStream()).useDelimiter("\\A");
+                        System.out.println(s2.hasNext() ? s2.next() : "");
+
+                        final JFileChooser fc = new JFileChooser();
+                        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                        fc.setCurrentDirectory(new File(System.getProperty("user.dir")));
+
+                        int returnVal = fc.showSaveDialog(frame);
+                        if (returnVal == JFileChooser.APPROVE_OPTION) {
+                            File file = fc.getSelectedFile();
+                            FileUtils.copyDirectory(new File("rtcpnc/simulator"), new File(file.getAbsolutePath() + "/simulator"));
+                            FileUtils.deleteDirectory(new File("rtcpnc/simulator"));
+                        } else {
+                            System.out.print("Open command cancelled by user.");
+                        }
+
+
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    } catch (InterruptedException e1) {
+                        e1.printStackTrace();
+                    }
                     break;
                 default:
                     throw new IllegalStateException("No action for this item");
