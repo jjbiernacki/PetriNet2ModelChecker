@@ -16,6 +16,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 /**
@@ -47,7 +49,7 @@ public class Petri2NuSMV {
     String parsedFileName = "", parsedRTCPFileName = "";
     int omega = 1000;
 
-    private String[] rtcpParsers = {"CPN Tools >> RTCP", "RTCP Net >> RTCP Simulator"};
+    private String[] rtcpParsers = {"CPN Tools >> RTCP", "RTCP Net >> RTCP Simulator", "RTCP Net >> Coverability Graph"};
 
 
     public static void main(String[] args) {
@@ -173,6 +175,7 @@ public class Petri2NuSMV {
                     filter = new ExtensionFilter("CPN Tools file  (*.cpn)", ".cpn");
                     break;
                 case 1://rtcp net to rtcp simulator
+                case 2://rtcp net to coverability graph
                     filter = new ExtensionFilter("RTCP XML file  (*.xml)", ".xml");
                     break;
                 default:
@@ -335,7 +338,7 @@ public class Petri2NuSMV {
                 case 1://rtcp net to rtcp simulator
                     try {
                         Process process = Runtime.getRuntime().exec("java -jar rtcpnc.jar \"" + path + "\" simulator", null, new File("rtcpnc"));
-                        process.waitFor();
+                        Thread.sleep(1000);
                         Scanner s1 = new Scanner(process.getInputStream()).useDelimiter("\\A");
                         System.out.println(s1.hasNext() ? s1.next() : "");
                         Scanner s2 = new Scanner(process.getErrorStream()).useDelimiter("\\A");
@@ -344,6 +347,9 @@ public class Petri2NuSMV {
                         final JFileChooser fc = new JFileChooser();
                         fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
                         fc.setCurrentDirectory(new File(System.getProperty("user.dir")));
+
+                        process.destroy();
+                        process.waitFor();
 
                         int returnVal = fc.showSaveDialog(frame);
                         if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -355,6 +361,43 @@ public class Petri2NuSMV {
                         }
 
 
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    } catch (InterruptedException e1) {
+                        e1.printStackTrace();
+                    }
+                    break;
+                case 2://rtcp net to coverability graph
+                    try {
+                        Process process = Runtime.getRuntime().exec("java -jar rtcpnc.jar \"" + path + "\" simulator", null, new File("rtcpnc"));
+                        for(int j=0; j<20; j++){
+                            try{
+                                process.exitValue();
+                            } catch (Exception e1) {
+//                                e1.printStackTrace();
+                            }
+                            Thread.sleep(200);
+                        }
+                        process.destroy();
+                        Scanner s1 = new Scanner(process.getInputStream()).useDelimiter("\\A");
+                        System.out.println(s1.hasNext() ? s1.next() : "");
+                        Scanner s2 = new Scanner(process.getErrorStream()).useDelimiter("\\A");
+                        System.out.println(s2.hasNext() ? s2.next() : "");
+                        Process process2= Runtime.getRuntime().exec("java -jar simulator/simulator.jar 10 -cg", null, new File("rtcpnc"));
+                        String text = "";
+                        for(int j=0; j<20; j++){
+                            try{
+                                text = new String(Files.readAllBytes(Paths.get("rtcpnc", "coverability-graph.dot")));
+                                break;
+                            } catch (Exception e1) {
+                            }
+                            Thread.sleep(200);
+                        }
+                        rtcpTextArea.setText(text);
+                        rtcpSaveButton.setEnabled(true);
+                        FileUtils.deleteDirectory(new File("rtcpnc/simulator"));
+                        process2.destroy();
+                        FileUtils.forceDelete(new File("rtcpnc/coverability-graph.dot"));
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     } catch (InterruptedException e1) {
