@@ -16,6 +16,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.*;
+import java.net.JarURLConnection;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
@@ -327,68 +331,93 @@ public class Petri2NuSMV {
             int i = comboBoxRTCP.getSelectedIndex();
             String path = rtcpPathField.getText();
 
-            switch (i) {
-                case 0://cpntools to rtcp
-                    String parsedFile = new XmlParse().parse(path);
-                    rtcpTextArea.setText(parsedFile);
-                    rtcpSaveButton.setEnabled(true);
-                    parsedRTCPFileName = rtcpPathField.getText();
-                    parsedRTCPFileName = parsedRTCPFileName.substring(0, parsedRTCPFileName.indexOf(".cpn"));
-                    break;
-                case 1://rtcp net to rtcp simulator
-                    try {
+            URL url = null;
+            try {
+                url = getClass().getResource("").toURI().toURL();
+                String currentDir = url.getPath() + "/";//Paths.get("").toAbsolutePath().toString() + "/";
+                if (url.getProtocol().equalsIgnoreCase("jar")) {
+                    currentDir = new File(((JarURLConnection)url.openConnection()).getJarFileURL().getFile()).getParent() + "/";
+                }
+                currentDir = currentDir.replaceAll("%20"," ");
 
-                        ProcessBuilder createSimulatorPB = new ProcessBuilder("java", "-jar", "rtcpnc.jar", "\"" + path + "\"", "simulator");
-                        createSimulatorPB.directory(new File("rtcpnc"));
-                        createSimulatorPB.redirectOutput(ProcessBuilder.Redirect.INHERIT);
-                        createSimulatorPB.redirectError(ProcessBuilder.Redirect.INHERIT);
-                        createSimulatorPB.start().waitFor();
+                switch (i) {
+                    case 0://cpntools to rtcp
+                        try {
+                            String parsedFile = new XmlParse().parse(path);
+                            rtcpTextArea.setText(parsedFile);
+                            rtcpSaveButton.setEnabled(true);
+                            parsedRTCPFileName = rtcpPathField.getText();
+                            parsedRTCPFileName = parsedRTCPFileName.substring(0, parsedRTCPFileName.indexOf(".cpn"));
+                        } catch (Exception e1) {
+                            JOptionPane.showMessageDialog(frame,
+                                    "Error occurred.",
+                                    "Error",
+                                    JOptionPane.ERROR_MESSAGE);
 
-                        final JFileChooser dirChooser = new JFileChooser();
-                        dirChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                        dirChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
-
-                        int returnVal = dirChooser.showSaveDialog(frame);
-                        if (returnVal == JFileChooser.APPROVE_OPTION) {
-                            File selectedDir = dirChooser.getSelectedFile();
-                            FileUtils.copyDirectory(new File("rtcpnc/simulator"), new File(selectedDir.getAbsolutePath() + "/simulator"));
-                            FileUtils.deleteDirectory(new File("rtcpnc/simulator"));
-                        } else {
-                            System.out.print("Open command cancelled by user.");
                         }
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    } catch (InterruptedException e1) {
-                        e1.printStackTrace();
-                    }
-                    break;
-                case 2://rtcp net to coverability graph
-                    try {
-                        ProcessBuilder createSimulatorPB = new ProcessBuilder("java", "-jar", "rtcpnc.jar", "\"" + path + "\"", "simulator");
-                        createSimulatorPB.directory(new File("rtcpnc"));
-                        createSimulatorPB.redirectOutput(ProcessBuilder.Redirect.INHERIT);
-                        createSimulatorPB.redirectError(ProcessBuilder.Redirect.INHERIT);
-                        createSimulatorPB.start().waitFor();
+                        break;
+                    case 1://rtcp net to rtcp simulator
+                        try {
 
-                        ProcessBuilder getCoverabilityGraphPB = new ProcessBuilder("java", "-jar", "rtcpnc/simulator/simulator.jar" , "10",  "-cg");
-                        getCoverabilityGraphPB.redirectOutput(ProcessBuilder.Redirect.INHERIT);
-                        getCoverabilityGraphPB.redirectError(ProcessBuilder.Redirect.INHERIT);
-                        getCoverabilityGraphPB.start().waitFor();
+                            ProcessBuilder createSimulatorPB = new ProcessBuilder("java", "-jar", "rtcpnc.jar", "\"" + path + "\"", "simulator");
+                            createSimulatorPB.directory(new File(currentDir + "rtcpnc"));
+                            createSimulatorPB.redirectOutput(ProcessBuilder.Redirect.INHERIT);
+                            createSimulatorPB.redirectError(ProcessBuilder.Redirect.INHERIT);
+                            createSimulatorPB.start().waitFor();
 
-                        String coverabilityGraphText = new String(Files.readAllBytes(Paths.get("coverability-graph.dot")));
-                        rtcpTextArea.setText(coverabilityGraphText);
-                        rtcpSaveButton.setEnabled(true);
+                            final JFileChooser dirChooser = new JFileChooser();
+                            dirChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                            dirChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
 
-                        FileUtils.deleteDirectory(new File("rtcpnc/simulator"));
-                        FileUtils.forceDelete(new File("coverability-graph.dot"));
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    } catch (InterruptedException e1) {
-                        e1.printStackTrace();
-                    }
-                    break;
-                default:
-                    throw new IllegalStateException("No action for this item");
+                            int returnVal = dirChooser.showSaveDialog(frame);
+                            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                                File selectedDir = dirChooser.getSelectedFile();
+                                FileUtils.copyDirectory(new File(currentDir + "rtcpnc/simulator"), new File(selectedDir.getAbsolutePath() + "/simulator"));
+                                FileUtils.deleteDirectory(new File(currentDir + "rtcpnc/simulator"));
+                            } else {
+                                System.out.print("Open command cancelled by user.");
+                            }
+                        } catch (Exception e1) {
+                            JOptionPane.showMessageDialog(frame,
+                                    "Error occurred.",
+                                    "Error",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
+                        break;
+                    case 2://rtcp net to coverability graph
+                        try {
+                            ProcessBuilder createSimulatorPB = new ProcessBuilder("java", "-jar", "rtcpnc.jar", "\"" + path + "\"", "simulator");
+                            createSimulatorPB.directory(new File(currentDir + "rtcpnc"));
+                            createSimulatorPB.redirectOutput(ProcessBuilder.Redirect.to(new File("output")));
+                            createSimulatorPB.redirectErrorStream(true);
+                            createSimulatorPB.start().waitFor();
+
+                            ProcessBuilder getCoverabilityGraphPB = new ProcessBuilder("java", "-jar", "simulator.jar" , "10",  "-cg");
+                            getCoverabilityGraphPB.directory(new File(currentDir + "rtcpnc/simulator"));
+                            getCoverabilityGraphPB.redirectOutput(ProcessBuilder.Redirect.to(new File("output2")));
+                            getCoverabilityGraphPB.redirectErrorStream(true);
+                            getCoverabilityGraphPB.start().waitFor();
+
+                            String coverabilityGraphText = new String(Files.readAllBytes(Paths.get(currentDir + "rtcpnc/simulator", "coverability-graph.dot")));
+                            rtcpTextArea.setText(coverabilityGraphText);
+                            rtcpSaveButton.setEnabled(true);
+
+                            FileUtils.deleteDirectory(new File(currentDir + "rtcpnc/simulator"));
+                        } catch (Exception e1) {
+                            JOptionPane.showMessageDialog(frame,
+                                    "Error occurred.",
+                                    "Error",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
+                        break;
+                    default:
+                        throw new IllegalStateException("No action for this item");
+                }
+            } catch (Exception e1) {
+                JOptionPane.showMessageDialog(frame,
+                        "Application directory not found.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
     };
