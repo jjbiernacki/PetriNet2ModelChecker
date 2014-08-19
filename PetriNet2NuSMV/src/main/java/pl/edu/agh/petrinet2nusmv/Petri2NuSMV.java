@@ -53,12 +53,18 @@ public class Petri2NuSMV {
     String parsedFileName = "", parsedRTCPFileName = "";
     int omega = 1000;
 
+
+
+    private boolean isEnvironmentalRun = false;
+
     private String[] rtcpParsers = {"CPN Tools >> RTCP", "RTCP Net >> RTCP Simulator", "RTCP Net >> Coverability Graph"};
 
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Petri2NuSMV");
         Petri2NuSMV petri2NuSMV = new Petri2NuSMV();
+        if(args.length > 0 && args[0].equals("-envRun"))
+            petri2NuSMV.setEnvironmentalRun(true);
         petri2NuSMV.frame = frame;
         petri2NuSMV.initView();
     }
@@ -118,6 +124,14 @@ public class Petri2NuSMV {
         rtcpParseButton.addActionListener(parseRTCP);
         rtcpSaveButton.setEnabled(false);
         rtcpSaveButton.addActionListener(saveRTCPFile);
+    }
+
+    public boolean isEnvironmentalRun() {
+        return isEnvironmentalRun;
+    }
+
+    public void setEnvironmentalRun(boolean isEnvironmentalRun) {
+        this.isEnvironmentalRun = isEnvironmentalRun;
     }
 
     ActionListener showHelp = new ActionListener() {
@@ -330,15 +344,23 @@ public class Petri2NuSMV {
         public void actionPerformed(ActionEvent e) {
             int i = comboBoxRTCP.getSelectedIndex();
             String path = rtcpPathField.getText();
+            String currentDir;
 
-            URL url = null;
             try {
-                url = getClass().getResource("").toURI().toURL();
-                String currentDir = url.getPath() + "/";//Paths.get("").toAbsolutePath().toString() + "/";
-                if (url.getProtocol().equalsIgnoreCase("jar")) {
-                    currentDir = new File(((JarURLConnection)url.openConnection()).getJarFileURL().getFile()).getParent() + "/";
+                if(isEnvironmentalRun){
+                    currentDir = Paths.get("").toAbsolutePath().toString() + "/";                    //Dla środowiska
                 }
-                currentDir = currentDir.replaceAll("%20"," ");
+                else{
+                    URL url = null;
+                    url = getClass().getResource("").toURI().toURL();
+
+                    currentDir = url.getPath() + "/";                                                // Dla konsoli
+
+                    if (url.getProtocol().equalsIgnoreCase("jar")) {
+                        currentDir = new File(((JarURLConnection)url.openConnection()).getJarFileURL().getFile()).getParent() + "/";
+                    }
+                    currentDir = currentDir.replaceAll("%20"," ");
+                }
 
                 switch (i) {
                     case 0://cpntools to rtcp
@@ -350,7 +372,7 @@ public class Petri2NuSMV {
                             parsedRTCPFileName = parsedRTCPFileName.substring(0, parsedRTCPFileName.indexOf(".cpn"));
                         } catch (Exception e1) {
                             JOptionPane.showMessageDialog(frame,
-                                    "Error occurred.",
+                                    "Error occurred. You probably chose the wrong file to convert.",
                                     "Error",
                                     JOptionPane.ERROR_MESSAGE);
 
@@ -362,7 +384,7 @@ public class Petri2NuSMV {
                             ProcessBuilder createSimulatorPB = new ProcessBuilder("java", "-jar", "rtcpnc.jar", "\"" + path + "\"", "simulator");
                             createSimulatorPB.directory(new File(currentDir + "rtcpnc"));
                             createSimulatorPB.redirectOutput(ProcessBuilder.Redirect.INHERIT);
-                            createSimulatorPB.redirectError(ProcessBuilder.Redirect.INHERIT);
+                            createSimulatorPB.redirectErrorStream(true);
                             createSimulatorPB.start().waitFor();
 
                             final JFileChooser dirChooser = new JFileChooser();
@@ -379,7 +401,7 @@ public class Petri2NuSMV {
                             }
                         } catch (Exception e1) {
                             JOptionPane.showMessageDialog(frame,
-                                    "Error occurred.",
+                                    "Error occurred. Either you chose the wrong file to convert or you do not have tools.jar library in '<JRE path>/lib' folder.",
                                     "Error",
                                     JOptionPane.ERROR_MESSAGE);
                         }
@@ -388,14 +410,14 @@ public class Petri2NuSMV {
                         try {
                             ProcessBuilder createSimulatorPB = new ProcessBuilder("java", "-jar", "rtcpnc.jar", "\"" + path + "\"", "simulator");
                             createSimulatorPB.directory(new File(currentDir + "rtcpnc"));
-                            createSimulatorPB.redirectOutput(ProcessBuilder.Redirect.to(new File("output")));
-                            createSimulatorPB.redirectErrorStream(true);
+                            createSimulatorPB.redirectOutput(ProcessBuilder.Redirect.INHERIT);
+                            createSimulatorPB.redirectError(ProcessBuilder.Redirect.INHERIT);
                             createSimulatorPB.start().waitFor();
 
                             ProcessBuilder getCoverabilityGraphPB = new ProcessBuilder("java", "-jar", "simulator.jar" , "10",  "-cg");
                             getCoverabilityGraphPB.directory(new File(currentDir + "rtcpnc/simulator"));
-                            getCoverabilityGraphPB.redirectOutput(ProcessBuilder.Redirect.to(new File("output2")));
-                            getCoverabilityGraphPB.redirectErrorStream(true);
+                            getCoverabilityGraphPB.redirectOutput(ProcessBuilder.Redirect.INHERIT);
+                            getCoverabilityGraphPB.redirectError(ProcessBuilder.Redirect.INHERIT);
                             getCoverabilityGraphPB.start().waitFor();
 
                             String coverabilityGraphText = new String(Files.readAllBytes(Paths.get(currentDir + "rtcpnc/simulator", "coverability-graph.dot")));
@@ -405,7 +427,7 @@ public class Petri2NuSMV {
                             FileUtils.deleteDirectory(new File(currentDir + "rtcpnc/simulator"));
                         } catch (Exception e1) {
                             JOptionPane.showMessageDialog(frame,
-                                    "Error occurred.",
+                                    "Error occurred. Either you chose the wrong file to convert or you do not have tools.jar library in '<JRE path>/lib' folder.",
                                     "Error",
                                     JOptionPane.ERROR_MESSAGE);
                         }
