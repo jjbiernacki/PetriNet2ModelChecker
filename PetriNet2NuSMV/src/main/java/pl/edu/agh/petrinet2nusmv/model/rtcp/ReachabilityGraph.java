@@ -10,6 +10,7 @@ import java.util.List;
 public class ReachabilityGraph {
 	private List<Place> places;
 	private List<State> states;
+    private long omega;
 
 	/**
 	 * Pobiera listę miejsc
@@ -48,5 +49,12 @@ public class ReachabilityGraph {
 		return states.get(0).getName();
 		
 	}
-	
+
+    public long getOmega() {
+        return omega;
+    }
+
+    public void setOmega(long omega) {
+        this.omega = omega;
+    }
 }

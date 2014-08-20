@@ -20,6 +20,7 @@ public class RTCPParser {
 
     private List<Place> places = new ArrayList<Place>();
     private List<State> states = new ArrayList<State>();
+    private long omega = 0;
 
     public ReachabilityGraph parseFile(final String filepath) throws FileNotFoundException, SyntaxException {
         Scanner in = new Scanner(new FileReader(filepath));
@@ -31,12 +32,13 @@ public class RTCPParser {
         findSuccessors(in);
 
         for (State state : states) {
-            System.out.println(state.toString());
+      //      System.out.println(state.toString());
         }
 
         ReachabilityGraph reachabilityGraph = new ReachabilityGraph();
         reachabilityGraph.setPlaces(places);
         reachabilityGraph.setStates(states);
+        reachabilityGraph.setOmega(omega);
 
         return reachabilityGraph;
 
@@ -109,17 +111,26 @@ public class RTCPParser {
             String placeMarkingText = markingTexts.get(i);
             Place place = places.get(i);
             Marking placeMarking = new Marking();
-            placeMarking.setTimeMarking(Integer.valueOf(timeMarkingTexts.get(i)));
+            long timeMarking = Long.valueOf(timeMarkingTexts.get(i));
+            placeMarking.setTimeMarking(timeMarking);
+
+            if (timeMarking > omega) {
+                omega = timeMarking;
+            }
            // System.out.println("Place " + place.getName() + " time=" + timeMarkingTexts.get(i));
 
             for(String text: placeMarkingText.split("\\+")) {
                 if (text.charAt(0) == '-') {
                     continue;
                 }
-                int markingValue = 1;
+                long markingValue = 1;
                 if (text.charAt(0) != '(') {
-                    markingValue = Integer.valueOf(text.substring(0, text.indexOf("(")));
+                    markingValue = Long.valueOf(text.substring(0, text.indexOf("(")));
                     text = text.substring(text.indexOf("("));
+                }
+
+                if (markingValue > omega) {
+                    omega = markingValue;
                 }
 
                 String mark = text.replace("(", "").replace(")", "").replace(",", "_");
@@ -185,7 +196,7 @@ public class RTCPParser {
             }
         }
         for (Place place: places) {
-            System.out.println(place);
+       //     System.out.println(place);
         }
     }
 

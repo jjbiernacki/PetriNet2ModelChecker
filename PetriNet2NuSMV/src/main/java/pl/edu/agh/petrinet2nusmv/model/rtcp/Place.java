@@ -20,6 +20,10 @@ public class Place extends pl.edu.agh.petrinet2nusmv.model.base.Place {
         }
     }
 
+    public List<String> getMarkingList() {
+        return markingList;
+    }
+
     @Override
     public String toString() {
         return "Place " + getName();

@@ -92,4 +92,28 @@ public class State implements Comparable<State> {
 		return sb.toString();
 	}
 
+    public long getMarkingForPlace(String placeName, String markingText) {
+        for (Place place: marking.keySet()) {
+            if (place.getName() == placeName) {
+                Marking markingForPlace = marking.get(place);
+
+                Long markingValue = markingForPlace.getPlaceMarking().get(markingText);
+                if (markingValue != null) {
+                    return markingValue;
+                }
+            }
+
+        }
+        return 0;
+    }
+
+    public long getTimeMarkingForPlace(String placeName) {
+        for (Place place: marking.keySet()) {
+            if (place.getName() == placeName) {
+                Marking markingForPlace = marking.get(place);
+                return markingForPlace.getTimeMarking();
+            }
+        }
+        return 0;
+    }
 }

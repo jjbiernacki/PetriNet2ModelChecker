@@ -5,9 +5,7 @@ import pl.edu.agh.petrinet2nusmv.model.color.Place;
 import pl.edu.agh.petrinet2nusmv.model.color.ReachabilityGraph;
 import pl.edu.agh.petrinet2nusmv.model.color.SSNode;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,7 +16,7 @@ import java.util.Map;
 public class NuSMVCPNGenerator {
 
 	private ReachabilityGraph reachabilityGraph;
-	private StringBuilder sb;
+    private StringBuilder sb;
     private int indent = 0;
     private Map<String, Variable> variables = new HashMap<String, Variable>();
 
