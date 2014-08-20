@@ -4,6 +4,12 @@ PetriNet2NuSMV/lib/commons-io-2.4.jar -text
 PetriNet2NuSMV/lib/jgoodies-common-1.7.0.jar -text
 PetriNet2NuSMV/lib/jgoodies-forms-1.7.2.jar -text
 PetriNet2NuSMV/model1.xml -text
+PetriNet2NuSMV/przyklady[!!-~]dot/model1.dot -text
+PetriNet2NuSMV/przyklady[!!-~]dot/test1.dot -text
+PetriNet2NuSMV/przyklady[!!-~]dot/test10.dot -text
+PetriNet2NuSMV/przyklady[!!-~]dot/test2.dot -text
+PetriNet2NuSMV/przyklady[!!-~]dot/test3.dot -text
+PetriNet2NuSMV/przyklady[!!-~]dot/test40.dot -text
 PetriNet2NuSMV/res/logo.png -text
 PetriNet2NuSMV/res/logo_przyciete.png -text
 PetriNet2NuSMV/rtcpnc/lib/antlr-2.7.7.jar -text
@@ -59,6 +65,7 @@ PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/exceptions/ExtensionFilte
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/exceptions/SyntaxException.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/generator/NuSMVCPNGenerator.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/generator/NuSMVGenerator.java -text
+PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/generator/NuSMVRTCPGenerator.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/generator/StrRes.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/logger/Logger.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/model/Parser.java -text
@@ -72,8 +79,13 @@ PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/model/color/Marking.java 
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/model/color/Place.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/model/color/ReachabilityGraph.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/model/color/SSNode.java -text
+PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/model/rtcp/Marking.java -text
+PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/model/rtcp/Place.java -text
+PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/model/rtcp/ReachabilityGraph.java -text
+PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/model/rtcp/State.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/parser/CPNParser.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/parser/CovGraphParserInterface.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/parser/KTSParser.java -text
+PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/parser/RTCPParser.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/utils/MarkingParser.java -text
 PetriNet2NuSMV/src/main/resources/logo.png -text

@@ -1,0 +1,8 @@
+digraph G {
+	rankdir=TB;
+	0 [label = "(B, A)\n(-, 2(a))\n(0, 0)" shape=box];
+	1 [label = "((b), (a))\n(0, 0)" shape=box];
+	2 [label = "(2(b), -)\n(0, 0)" shape=box];
+	0 -> 1 [label = "(T, (a/x))/0"];
+	1 -> 2 [label = "(T, (a/x))/0"];
+}
