@@ -65,8 +65,8 @@ public class NuSMVRTCPGenerator {
         for(Place place: reachabilityGraph.getPlaces()) {
             for (String marking: place.getMarkingList()) {
                 variables.add(new Variable(place.getName(), marking));
-                timeVariables.add(new TimeVariable(place.getName()));
             }
+            timeVariables.add(new TimeVariable(place.getName()));
         }
 
         for (Variable variable: variables) {
@@ -75,7 +75,7 @@ public class NuSMVRTCPGenerator {
         }
 
         for (TimeVariable variable: timeVariables) {
-            String typeName = StrRes.INTEGER + reachabilityGraph.getOmega();
+            String typeName = reachabilityGraph.getMinTimeOmega() + ".." + reachabilityGraph.getOmega();
             appendLine(variable.name + " : " + typeName + ";");
         }
 

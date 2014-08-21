@@ -12,6 +12,15 @@ public class ReachabilityGraph {
 	private List<State> states;
     private long omega;
 
+    public long getMinTimeOmega() {
+        return minTimeOmega;
+    }
+
+    public void setMinTimeOmega(long minTimeOmega) {
+        this.minTimeOmega = minTimeOmega;
+    }
+
+    private long minTimeOmega;
 	/**
 	 * Pobiera listę miejsc
 	 * @return Lista miejsc

@@ -6,9 +6,11 @@ import pl.edu.agh.petrinet2nusmv.exceptions.ExtensionFilter;
 import pl.edu.agh.petrinet2nusmv.exceptions.SyntaxException;
 import pl.edu.agh.petrinet2nusmv.generator.NuSMVCPNGenerator;
 import pl.edu.agh.petrinet2nusmv.generator.NuSMVGenerator;
+import pl.edu.agh.petrinet2nusmv.generator.NuSMVRTCPGenerator;
 import pl.edu.agh.petrinet2nusmv.model.Parser;
 import pl.edu.agh.petrinet2nusmv.parser.CPNParser;
 import pl.edu.agh.petrinet2nusmv.parser.KTSParser;
+import pl.edu.agh.petrinet2nusmv.parser.RTCPParser;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
@@ -45,7 +47,6 @@ public class Petri2NuSMV {
     private JButton rtcpSaveButton;
     private JFrame frame;
     Parser parser = Parser.CPNPARSER;
-    String generatedNuSMVFileContent = "";
     JMenuBar menuBar;
     JMenu menuFile, menuParser, menuHelp;
     JMenuItem menuClose, menuOpen, menuOmega, menuAbout;
@@ -57,7 +58,7 @@ public class Petri2NuSMV {
 
     private boolean isEnvironmentalRun = false;
 
-    private String[] rtcpParsers = {"CPN Tools >> RTCP", "RTCP Net >> RTCP Simulator", "RTCP Net >> Coverability Graph"};
+    private String[] rtcpParsers = {"CPN Tools >> RTCP", "RTCP Net >> RTCP Simulator", "RTCP Net >> Coverability Graph", "RTCP Coverability Graph >> NuSMV"};
 
 
     public static void main(String[] args) {
@@ -196,6 +197,9 @@ public class Petri2NuSMV {
                 case 2://rtcp net to coverability graph
                     filter = new ExtensionFilter("RTCP XML file  (*.xml)", ".xml");
                     break;
+                case 3://coverability graph to nusmv
+                    filter = new ExtensionFilter("DOT file  (*.dot)", ".dot");
+                    break;
                 default:
                     throw new IllegalStateException("No items to select");
             }
@@ -227,7 +231,7 @@ public class Petri2NuSMV {
                 PrintWriter out = null;
                 try {
                     out = new PrintWriter(file.getAbsolutePath());
-                    out.println(generatedNuSMVFileContent);
+                    out.println(nuSMVTextArea.getText());
                     out.close();
                 } catch (FileNotFoundException e1) {
                     e1.printStackTrace();
@@ -241,12 +245,32 @@ public class Petri2NuSMV {
     ActionListener saveRTCPFile = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
+
+            int selectedItem = comboBoxRTCP.getSelectedIndex();
+
             final JFileChooser fc = new JFileChooser();
             fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-            FileFilter filter = new ExtensionFilter("XML file (*.xml)", ".xml");
+
+            String extensionFileHint;
+            String extension;
+            switch (selectedItem) {
+                case 2://rtcp net to coverability graph
+                    extensionFileHint = "DOT file (*.dot)";
+                    extension = ".dot";
+                    break;
+                case 3://coverability graph to nusmv
+                    extensionFileHint = "NuSMV file (*.smv)";
+                    extension = ".smv";
+                    break;
+                default:
+                    extensionFileHint = "XML file (*.xml)";
+                    extension = ".xml";
+                    break;
+            }
+            FileFilter filter = new ExtensionFilter(extensionFileHint, extension);
             fc.addChoosableFileFilter(filter);
             fc.setCurrentDirectory(new File(System.getProperty("user.dir")));
-            fc.setSelectedFile(new File(parsedRTCPFileName + ".xml"));
+            fc.setSelectedFile(new File(parsedRTCPFileName + extension));
             int returnVal = fc.showSaveDialog(frame);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
@@ -294,8 +318,7 @@ public class Petri2NuSMV {
                 try {
                     CPNParser cpnParser = new CPNParser();
                     NuSMVCPNGenerator generator = new NuSMVCPNGenerator(cpnParser.parseFile(pathField.getText()));
-                    generatedNuSMVFileContent = generator.generateNuSMVModule();
-                    nuSMVTextArea.setText(generatedNuSMVFileContent);
+                    nuSMVTextArea.setText(generator.generateNuSMVModule());
                     saveButton.setEnabled(true);
                     parsedFileName = pathField.getText();
                     parsedFileName = parsedFileName.substring(0, parsedFileName.indexOf(".cpn"));
@@ -320,8 +343,7 @@ public class Petri2NuSMV {
                     KTSParser ktsParser = new KTSParser();
                     ktsParser.setOmega(omega);
                     NuSMVGenerator generator = new NuSMVGenerator(ktsParser.parseFile(pathField.getText()));
-                    generatedNuSMVFileContent = generator.generateNuSMVModule();
-                    nuSMVTextArea.setText(generatedNuSMVFileContent);
+                    nuSMVTextArea.setText(generator.generateNuSMVModule());
                     saveButton.setEnabled(true);
                     parsedFileName = pathField.getText();
                     parsedFileName = parsedFileName.substring(0, parsedFileName.indexOf(".kts"));
@@ -369,7 +391,7 @@ public class Petri2NuSMV {
                             rtcpTextArea.setText(parsedFile);
                             rtcpSaveButton.setEnabled(true);
                             parsedRTCPFileName = rtcpPathField.getText();
-                            parsedRTCPFileName = parsedRTCPFileName.substring(0, parsedRTCPFileName.indexOf(".cpn"));
+                            parsedRTCPFileName = parsedRTCPFileName.substring(0, parsedRTCPFileName.indexOf("."));
                         } catch (Exception e1) {
                             JOptionPane.showMessageDialog(frame,
                                     "Error occurred. You probably chose the wrong file to convert.",
@@ -407,6 +429,8 @@ public class Petri2NuSMV {
                         }
                         break;
                     case 2://rtcp net to coverability graph
+                        parsedRTCPFileName = rtcpPathField.getText();
+                        parsedRTCPFileName = parsedRTCPFileName.substring(0, parsedRTCPFileName.indexOf("."));
                         try {
                             ProcessBuilder createSimulatorPB = new ProcessBuilder("java", "-jar", "rtcpnc.jar", "\"" + path + "\"", "simulator");
                             createSimulatorPB.directory(new File(currentDir + "rtcpnc"));
@@ -432,10 +456,36 @@ public class Petri2NuSMV {
                                     JOptionPane.ERROR_MESSAGE);
                         }
                         break;
+                    case 3:
+                        parsedRTCPFileName = rtcpPathField.getText();
+                        parsedRTCPFileName = parsedRTCPFileName.substring(0, parsedRTCPFileName.indexOf("."));
+                        try {
+                            RTCPParser rtcpParser = new RTCPParser();
+                            NuSMVRTCPGenerator generator = new NuSMVRTCPGenerator(rtcpParser.parseFile(rtcpPathField.getText()));
+                            rtcpTextArea.setText(generator.generateNuSMVModule());
+                            rtcpSaveButton.setEnabled(true);
+                        } catch (FileNotFoundException e1) {
+                            JOptionPane.showMessageDialog(frame,
+                                    "File not found.",
+                                    "Error",
+                                    JOptionPane.ERROR_MESSAGE);
+                        } catch (SyntaxException e2) {
+                            JOptionPane.showMessageDialog(frame,
+                                    e2.getMessage(),
+                                    "Error",
+                                    JOptionPane.ERROR_MESSAGE);
+                        } catch (Exception e1) {
+                            JOptionPane.showMessageDialog(frame,
+                                    e1.getMessage(),
+                                    "Error",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
+                        break;
                     default:
                         throw new IllegalStateException("No action for this item");
                 }
             } catch (Exception e1) {
+                e1.printStackTrace();
                 JOptionPane.showMessageDialog(frame,
                         "Application directory not found.",
                         "Error",

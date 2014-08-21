@@ -20,7 +20,8 @@ public class RTCPParser {
 
     private List<Place> places = new ArrayList<Place>();
     private List<State> states = new ArrayList<State>();
-    private long omega = 0;
+    private long omega = Long.MIN_VALUE;
+    private long minTimeOmega = Long.MAX_VALUE;
 
     public ReachabilityGraph parseFile(final String filepath) throws FileNotFoundException, SyntaxException {
         Scanner in = new Scanner(new FileReader(filepath));
@@ -39,7 +40,7 @@ public class RTCPParser {
         reachabilityGraph.setPlaces(places);
         reachabilityGraph.setStates(states);
         reachabilityGraph.setOmega(omega);
-
+        reachabilityGraph.setMinTimeOmega(minTimeOmega);
         return reachabilityGraph;
 
     }
@@ -116,6 +117,9 @@ public class RTCPParser {
 
             if (timeMarking > omega) {
                 omega = timeMarking;
+            }
+            if (timeMarking < minTimeOmega) {
+                minTimeOmega = timeMarking;
             }
            // System.out.println("Place " + place.getName() + " time=" + timeMarkingTexts.get(i));
 
