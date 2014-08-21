@@ -13,10 +13,14 @@ import pl.edu.agh.petrinet2nusmv.parser.KTSParser;
 import pl.edu.agh.petrinet2nusmv.parser.RTCPParser;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.*;
 import java.net.JarURLConnection;
 import java.net.MalformedURLException;
@@ -37,14 +41,16 @@ public class Petri2NuSMV {
     private JButton openButton;
     private JTextArea nuSMVTextArea;
     private JButton parseButton;
-    private JTabbedPane tabbedPane1;
     private JTextField rtcpPathField;
     private JButton rtcpOpenButton;
     private JButton rtcpParseButton;
     private JTextArea rtcpTextArea;
     private JComboBox comboBoxRTCP;
+    private JComboBox comboBoxNuSMV;
     private JButton saveButton;
     private JButton rtcpSaveButton;
+    private JTabbedPane tabbedPane;
+
     private JFrame frame;
     Parser parser = Parser.CPNPARSER;
     JMenuBar menuBar;
@@ -58,11 +64,12 @@ public class Petri2NuSMV {
 
     private boolean isEnvironmentalRun = false;
 
-    private String[] rtcpParsers = {"CPN Tools >> RTCP", "RTCP Net >> RTCP Simulator", "RTCP Net >> Coverability Graph", "RTCP Coverability Graph >> NuSMV"};
+    private String[] rtcpParsers = {"CPN Tools >> RTCP", "RTCP Net >> RTCP Simulator", "RTCP Net >> Coverability Graph"};
+    private String[] cg2nsParsers = {"RTCP Nets","Coloured Petri Nets", "Place/transition Petri Nets"};
 
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Petri2NuSMV");
+        JFrame frame = new JFrame("PetriNet2NuSMV");
         Petri2NuSMV petri2NuSMV = new Petri2NuSMV();
         if(args.length > 0 && args[0].equals("-envRun"))
             petri2NuSMV.setEnvironmentalRun(true);
@@ -86,27 +93,16 @@ public class Petri2NuSMV {
         menuBar.add(menuParser);
         menuHelp = new JMenu("Help");
         menuBar.add(menuHelp);
-        menuAbout = new JMenuItem("About Petri2NuSMV...", KeyEvent.VK_T);
+        menuAbout = new JMenuItem("About Petri2NuSMV...", KeyEvent.VK_H);
         menuHelp.add(menuAbout);
-        menuOpen = new JMenuItem("Open...", KeyEvent.VK_T);
+        menuOpen = new JMenuItem("Open...", KeyEvent.VK_O);
         menuOpen.addActionListener(openFile);
         menuFile.add(menuOpen);
-        menuOmega = new JMenuItem("Omega...", KeyEvent.VK_T);
+        menuOmega = new JMenuItem("Omega...", KeyEvent.VK_M);
         menuOmega.addActionListener(setOmega);
-        menuClose = new JMenuItem("Exit", KeyEvent.VK_T);
+        menuClose = new JMenuItem("Exit", KeyEvent.VK_Q);
         menuClose.addActionListener(closeListener);
         menuFile.add(menuClose);
-        ButtonGroup group = new ButtonGroup();
-        cpnMenuItem = new JRadioButtonMenuItem("Coloured Petri Nets");
-        cpnMenuItem.setSelected(true);
-        group.add(cpnMenuItem);
-        cpnMenuItem.addActionListener(cpnParserChoosed);
-        menuParser.add(cpnMenuItem);
-        simpleNetMenuItem = new JRadioButtonMenuItem("Place/transition Petri Nets");
-        group.add(simpleNetMenuItem);
-        simpleNetMenuItem.addActionListener(simpleParserChoosed);
-        menuParser.add(simpleNetMenuItem);
-        menuParser.addSeparator();
         menuParser.add(menuOmega);
         frame.setJMenuBar(menuBar);
         openButton.addActionListener(openFile);
@@ -116,8 +112,17 @@ public class Petri2NuSMV {
         menuAbout.addActionListener(showHelp);
         saveButton.setEnabled(false);
         saveButton.addActionListener(saveFile);
+        tabbedPane.addChangeListener(tabChanged);
 
-        //rtcp"
+        //parse2NuSMV
+        for (String item: cg2nsParsers) {
+            comboBoxNuSMV.addItem(item);
+        }
+        parser = Parser.RTCPPARSER;
+        menuOmega.setEnabled(false);
+        comboBoxNuSMV.addActionListener(parserChosen);
+
+        //rtcp
         for (String item: rtcpParsers) {
             comboBoxRTCP.addItem(item);
         }
@@ -139,9 +144,26 @@ public class Petri2NuSMV {
         @Override
         public void actionPerformed(ActionEvent e) {
             AboutDialog aboutDialog = new AboutDialog();
-
             aboutDialog.pack();
             aboutDialog.setVisible(true);
+        }
+    };
+
+    ChangeListener tabChanged = new ChangeListener() {
+        @Override
+        public void stateChanged(ChangeEvent e) {
+            int selItem = tabbedPane.getSelectedIndex();
+            for(ActionListener al: menuOpen.getActionListeners()){
+                menuOpen.removeActionListener(al);
+            }
+            if (selItem  == 0){
+
+                menuOpen.addActionListener(openFile);
+            }
+            else
+            {
+                menuOpen.addActionListener(openFileRTCP);
+            }
         }
     };
 
@@ -157,18 +179,46 @@ public class Petri2NuSMV {
         }
     };
 
+    ActionListener parserChosen = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            int selItem = comboBoxNuSMV.getSelectedIndex();
+            switch (selItem) {
+                case 0://RTCP nets
+                    parser = Parser.RTCPPARSER;
+                    menuOmega.setEnabled(false);
+                    break;
+                case 1://CP Nets
+                    parser = Parser.CPNPARSER;
+                    menuOmega.setEnabled(false);
+                    break;
+                case 2://PT Nets
+                    parser = Parser.SIMPLEPARSER;
+                    menuOmega.setEnabled(true);
+                    break;
+                default:
+                    throw new IllegalStateException("No items to select");
+            }
+        }
+    };
+
+
     ActionListener openFile = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             final JFileChooser fc = new JFileChooser();
             fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
             FileFilter filter;
-            if(parser == Parser.CPNPARSER) {
+            if(parser == Parser.RTCPPARSER){
+                filter = new ExtensionFilter("DOT file (*.dot)", ".dot");
+            }else if(parser == Parser.CPNPARSER) {
                 filter = new ExtensionFilter("CPN Tools file  (*.cpn)", ".cpn");
-            } else {
+            } else{
                 filter = new ExtensionFilter("TINA kts file (*.kts)", ".kts");
             }
             fc.addChoosableFileFilter(filter);
+            fc.setFileFilter(filter);
             fc.setCurrentDirectory(new File(System.getProperty("user.dir")));
             int returnVal = fc.showOpenDialog(frame);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -197,13 +247,11 @@ public class Petri2NuSMV {
                 case 2://rtcp net to coverability graph
                     filter = new ExtensionFilter("RTCP XML file  (*.xml)", ".xml");
                     break;
-                case 3://coverability graph to nusmv
-                    filter = new ExtensionFilter("DOT file  (*.dot)", ".dot");
-                    break;
                 default:
                     throw new IllegalStateException("No items to select");
             }
             fc.addChoosableFileFilter(filter);
+            fc.setFileFilter(filter);
             fc.setCurrentDirectory(new File(System.getProperty("user.dir")));
             int returnVal = fc.showOpenDialog(frame);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -223,6 +271,7 @@ public class Petri2NuSMV {
             fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
             FileFilter filter = new ExtensionFilter("NuSMV file (*.smv)", ".smv");
             fc.addChoosableFileFilter(filter);
+            fc.setFileFilter(filter);
             fc.setCurrentDirectory(new File(System.getProperty("user.dir")));
             fc.setSelectedFile(new File(parsedFileName + ".smv"));
             int returnVal = fc.showSaveDialog(frame);
@@ -237,7 +286,7 @@ public class Petri2NuSMV {
                     e1.printStackTrace();
                 }
             } else {
-                System.out.print("Open command cancelled by user.");
+                System.out.print("Save command cancelled by user.");
             }
         }
     };
@@ -258,10 +307,6 @@ public class Petri2NuSMV {
                     extensionFileHint = "DOT file (*.dot)";
                     extension = ".dot";
                     break;
-                case 3://coverability graph to nusmv
-                    extensionFileHint = "NuSMV file (*.smv)";
-                    extension = ".smv";
-                    break;
                 default:
                     extensionFileHint = "XML file (*.xml)";
                     extension = ".xml";
@@ -269,6 +314,7 @@ public class Petri2NuSMV {
             }
             FileFilter filter = new ExtensionFilter(extensionFileHint, extension);
             fc.addChoosableFileFilter(filter);
+            fc.setFileFilter(filter);
             fc.setCurrentDirectory(new File(System.getProperty("user.dir")));
             fc.setSelectedFile(new File(parsedRTCPFileName + extension));
             int returnVal = fc.showSaveDialog(frame);
@@ -283,26 +329,12 @@ public class Petri2NuSMV {
                     e1.printStackTrace();
                 }
             } else {
-                System.out.print("Open command cancelled by user.");
+                System.out.print("Save command cancelled by user.");
             }
         }
     };
 
-    ActionListener cpnParserChoosed = new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            parser = Parser.CPNPARSER;
-            menuOmega.setEnabled(false);
-        }
-    };
 
-    ActionListener simpleParserChoosed = new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            parser = Parser.SIMPLEPARSER;
-            menuOmega.setEnabled(true);
-        }
-    };
 
     ActionListener closeListener = new ActionListener() {
         @Override
@@ -314,14 +346,38 @@ public class Petri2NuSMV {
     ActionListener parse = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(parser == Parser.CPNPARSER) {
+            if(parser == Parser.RTCPPARSER) {
+                parsedFileName = pathField.getText();
+                parsedFileName = parsedFileName.substring(0, parsedFileName.indexOf("."));
+                try {
+                    RTCPParser rtcpParser = new RTCPParser();
+                    NuSMVRTCPGenerator generator = new NuSMVRTCPGenerator(rtcpParser.parseFile(pathField.getText()));
+                    nuSMVTextArea.setText(generator.generateNuSMVModule());
+                    saveButton.setEnabled(true);
+                } catch (FileNotFoundException e1) {
+                    JOptionPane.showMessageDialog(frame,
+                            "File not found.",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                } catch (SyntaxException e2) {
+                    JOptionPane.showMessageDialog(frame,
+                            e2.getMessage(),
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(frame,
+                            e1.getMessage(),
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }else if(parser == Parser.CPNPARSER) {
                 try {
                     CPNParser cpnParser = new CPNParser();
                     NuSMVCPNGenerator generator = new NuSMVCPNGenerator(cpnParser.parseFile(pathField.getText()));
                     nuSMVTextArea.setText(generator.generateNuSMVModule());
                     saveButton.setEnabled(true);
                     parsedFileName = pathField.getText();
-                    parsedFileName = parsedFileName.substring(0, parsedFileName.indexOf(".cpn"));
+                    parsedFileName = parsedFileName.substring(0, parsedFileName.indexOf("."));
                 } catch (FileNotFoundException e1) {
                     JOptionPane.showMessageDialog(frame,
                             "File not found.",
@@ -346,7 +402,7 @@ public class Petri2NuSMV {
                     nuSMVTextArea.setText(generator.generateNuSMVModule());
                     saveButton.setEnabled(true);
                     parsedFileName = pathField.getText();
-                    parsedFileName = parsedFileName.substring(0, parsedFileName.indexOf(".kts"));
+                    parsedFileName = parsedFileName.substring(0, parsedFileName.indexOf("."));
                 } catch (FileNotFoundException e1) {
                     JOptionPane.showMessageDialog(frame,
                             "File not found.",
@@ -456,31 +512,6 @@ public class Petri2NuSMV {
                                     JOptionPane.ERROR_MESSAGE);
                         }
                         break;
-                    case 3:
-                        parsedRTCPFileName = rtcpPathField.getText();
-                        parsedRTCPFileName = parsedRTCPFileName.substring(0, parsedRTCPFileName.indexOf("."));
-                        try {
-                            RTCPParser rtcpParser = new RTCPParser();
-                            NuSMVRTCPGenerator generator = new NuSMVRTCPGenerator(rtcpParser.parseFile(rtcpPathField.getText()));
-                            rtcpTextArea.setText(generator.generateNuSMVModule());
-                            rtcpSaveButton.setEnabled(true);
-                        } catch (FileNotFoundException e1) {
-                            JOptionPane.showMessageDialog(frame,
-                                    "File not found.",
-                                    "Error",
-                                    JOptionPane.ERROR_MESSAGE);
-                        } catch (SyntaxException e2) {
-                            JOptionPane.showMessageDialog(frame,
-                                    e2.getMessage(),
-                                    "Error",
-                                    JOptionPane.ERROR_MESSAGE);
-                        } catch (Exception e1) {
-                            JOptionPane.showMessageDialog(frame,
-                                    e1.getMessage(),
-                                    "Error",
-                                    JOptionPane.ERROR_MESSAGE);
-                        }
-                        break;
                     default:
                         throw new IllegalStateException("No action for this item");
                 }
@@ -493,4 +524,8 @@ public class Petri2NuSMV {
             }
         }
     };
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+    }
 }
