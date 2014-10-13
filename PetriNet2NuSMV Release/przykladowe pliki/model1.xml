@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="ISO-8859-2" ?>
+<rtcpnet name="">
+<declarations>
+color Data = with d;
+color Number = int with 0..3;
+color State = product Data * Number;
+var n : Number;
+</declarations>
+<pages>
+<page name="New Page" width="1512" height="1512">
+<places>
+<place name="Sensor" type="Data" marking="1(d)" time="0" fusion="">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<typeLabel x="0" y="0"/>
+<markingLabel x="0" y="0"/>
+</icon>
+</place>
+<place name="Clock" type="Number" marking="1(0)" time="0" fusion="">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<typeLabel x="0" y="0"/>
+<markingLabel x="0" y="0"/>
+</icon>
+</place>
+<place name="Proc1" type="State" marking="1(d,0)" time="0" fusion="">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<typeLabel x="0" y="0"/>
+<markingLabel x="0" y="0"/>
+</icon>
+</place>
+<place name="Buffer" type="Data" marking="1(d)" time="0" fusion="">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<typeLabel x="0" y="0"/>
+<markingLabel x="0" y="0"/>
+</icon>
+</place>
+<place name="Proc2" type="State" marking="1(d,0)" time="0" fusion="">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<typeLabel x="0" y="0"/>
+<markingLabel x="0" y="0"/>
+</icon>
+</place>
+</places>
+<transitions>
+<transition name="Put" priority="2" guard="" substituted="no">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<guardLabel x="0" y="0"/>
+</icon>
+</transition>
+<transition name="Get1" priority="1" guard="" substituted="no">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<guardLabel x="0" y="0"/>
+</icon>
+</transition>
+<transition name="Get2" priority="0" guard="" substituted="no">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<guardLabel x="0" y="0"/>
+</icon>
+</transition>
+<transition name="Comp1" priority="0" guard="[n > 0]" substituted="no">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<guardLabel x="0" y="0"/>
+</icon>
+</transition>
+<transition name="Comp2" priority="0" guard="[n > 0]" substituted="no">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<guardLabel x="0" y="0"/>
+</icon>
+</transition>
+</transitions>
+<arcs>
+<arc place="Sensor" transition="Put" direction="In/Out" inExpression="d"  outExpression=" d" inTime="1 " outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="Buffer" transition="Put" direction="In/Out" inExpression="d "  outExpression=" d" inTime="" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="Buffer" transition="Get1" direction="In/Out" inExpression="d "  outExpression=" d" inTime="" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="Buffer" transition="Get2" direction="In/Out" inExpression="d "  outExpression=" d" inTime="" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="Proc2" transition="Comp2" direction="In/Out" inExpression="(d,0)"  outExpression=" (d,1)" inTime="n " outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="Proc1" transition="Comp1" direction="In/Out" inExpression="(d,0)"  outExpression=" (d,1)" inTime="n " outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="Proc1" transition="Get1" direction="In/Out" inExpression="(d,1) "  outExpression=" (d,0)" inTime="" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="Proc2" transition="Get2" direction="In/Out" inExpression="(d,1) "  outExpression=" (d,0)" inTime="" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="Clock" transition="Get1" direction="In/Out" inExpression="0"  outExpression=" 0" inTime="1 " outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="Clock" transition="Get2" direction="In/Out" inExpression="0"  outExpression=" 0" inTime="1 " outTime="1">
+<icon x="0" y="0">
+</icon>
+</arc>
+</arcs>
+</page>
+</pages>
+<hierarchy>
+<nodes>
+<node name="New Page" id="0" parameters="">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<parametersLabel x="0" y="0"/>
+</icon>
+</node>
+</nodes>
+<connections>
+</connections>
+</hierarchy>
+</rtcpnet>

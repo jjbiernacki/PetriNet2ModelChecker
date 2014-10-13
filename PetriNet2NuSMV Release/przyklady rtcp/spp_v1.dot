@@ -1,0 +1,26 @@
+digraph G {
+	rankdir=TB;
+	0 [label = "(Sensor, SPP, CheckingFireHazard, Clock1, FireDepartment, Employee, Clock2)\n((normal), (sv), (off), (off), (none), (idle), (off))\n(0, 0, 0, 0, 0, 0, 0)" shape=box];
+	1 [label = "((warning), (sv), (off), (off), (none), (idle), (off))\n(0, 0, 0, 0, 0, 0, 0)" shape=box];
+	2 [label = "((warning), (a1), (off), (on), (none), (idle), (off))\n(0, 0, 0, 0, 0, 0, 0)" shape=box];
+	3 [label = "((warning), (a1), (off), (on), (none), (act), (off))\n(0, 0, 0, 0, 0, 5, 0)" shape=box];
+	4 [label = "((warning), (a1), (off), (on), (none), (act), (off))\n(0, 0, 0, 0, 0, 7, 0)" shape=box];
+	5 [label = "((warning), (a1), (on), (on), (none), (act), (on))\n(-5, 0, 12, -5, -5, 0, 18)" shape=box];
+	6 [label = "((warning), (a1), (on), (on), (none), (act), (on))\n(-5, 0, 30, -5, -5, 0, 18)" shape=box];
+	7 [label = "((warning), (a2), (off), (off), (none), (act), (off))\n(-6, 0, 0, 0, -6, 1, -6)" shape=box];
+	8 [label = "((warning), (term), (on), (on), (none), (act), (on))\n(-17, 0, 0, -17, -17, -12, 6)" shape=box];
+	9 [label = "((warning), (a2), (on), (on), (none), (act), (on))\n(-17, 0, 0, -17, -17, -12, 6)" shape=box];
+	10 [label = "((warning), (a2), (on), (on), (none), (act), (off))\n(-23, 0, 12, -23, -23, -18, 0)" shape=box];
+	11 [label = "((warning), (term), (off), (off), (calledFor), (act), (off))\n(-6, 0, 0, 0, 0, 1, -6)" shape=box];
+	0 -> 1 [label = "(GetSensorValue, ())/0"];
+	1 -> 2 [label = "(TurnOnAlarm1, ())/0"];
+	2 -> 3 [label = "(EmpNoticesAlarm, (5/t))/0"];
+	2 -> 4 [label = "(EmpNoticesAlarm, (7/t))/0"];
+	3 -> 5 [label = "(ConfirmAlarm, (12/t))/5"];
+	3 -> 6 [label = "(ConfirmAlarm, (30/t))/5"];
+	4 -> 7 [label = "(TurnOnAlarm2, ())/6"];
+	5 -> 8 [label = "(TurnOffAlarm1_2, ())/12"];
+	5 -> 9 [label = "(EmpTurnOnAlarm2, ())/12"];
+	6 -> 10 [label = "(TurnOnAlarm2_2, ())/18"];
+	7 -> 11 [label = "(EmergencyCall, ())/0"];
+}

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="ISO-8859-2" ?>
+<rtcpnet name="">
+<declarations>
+color SwitchZoneState = with occupied | free;
+color Direction = with l | s | r;
+color SwitchState = with locked | unlocked;
+color ChoosedDirectionState = with yes | no;
+color Tram = with tr;
+color Interval = int with 5..50;
+var sDir: Direction;
+var eDir: Direction;
+var t: Interval;
+</declarations>
+<pages>
+<page name="New Page" width="1512" height="1512">
+<places>
+<place name="SwitchZone" type="SwitchZoneState" marking="1(free)" time="0" fusion="">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<typeLabel x="0" y="0"/>
+<markingLabel x="0" y="0"/>
+</icon>
+</place>
+<place name="ExpectedDirection" type="Direction" marking="" time="0" fusion="">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<typeLabel x="0" y="0"/>
+<markingLabel x="0" y="0"/>
+</icon>
+</place>
+<place name="SelectedDirection" type="Direction" marking="1(s)" time="0" fusion="">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<typeLabel x="0" y="0"/>
+<markingLabel x="0" y="0"/>
+</icon>
+</place>
+<place name="Switch" type="SwitchState" marking="1(unlocked)" time="0" fusion="">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<typeLabel x="0" y="0"/>
+<markingLabel x="0" y="0"/>
+</icon>
+</place>
+<place name="DirectionChoosed" type="ChoosedDirectionState" marking="1(no)" time="0" fusion="">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<typeLabel x="0" y="0"/>
+<markingLabel x="0" y="0"/>
+</icon>
+</place>
+<place name="TramsWaiting" type="Tram" marking="" time="0" fusion="">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<typeLabel x="0" y="0"/>
+<markingLabel x="0" y="0"/>
+</icon>
+</place>
+</places>
+<transitions>
+<transition name="TramEnteredSwitchZone" priority="0" guard="" substituted="no">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<guardLabel x="0" y="0"/>
+</icon>
+</transition>
+<transition name="CheckDirectionSign" priority="0" guard="" substituted="no">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<guardLabel x="0" y="0"/>
+</icon>
+</transition>
+<transition name="LockSwitch" priority="0" guard="" substituted="no">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<guardLabel x="0" y="0"/>
+</icon>
+</transition>
+<transition name="ChangeDirection" priority="0" guard="eDir &lt;> sDir" substituted="no">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<guardLabel x="0" y="0"/>
+</icon>
+</transition>
+<transition name="TramLeft" priority="0" guard="t=5 or t=7 or t=10" substituted="no">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<guardLabel x="0" y="0"/>
+</icon>
+</transition>
+<transition name="NewTramArrived" priority="0" guard="t=10 or t=20 or t=50" substituted="no">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<guardLabel x="0" y="0"/>
+</icon>
+</transition>
+</transitions>
+<arcs>
+<arc place="SwitchZone" transition="TramEnteredSwitchZone" direction="In/Out" inExpression="occupied"  outExpression="free" inTime="" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="SwitchZone" transition="CheckDirectionSign" direction="In/Out" inExpression="occupied"  outExpression="occupied" inTime="" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="ExpectedDirection" transition="CheckDirectionSign" direction="In" inExpression="eDir"  outExpression="" inTime="2" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="ExpectedDirection" transition="ChangeDirection" direction="In/Out" inExpression="eDir"  outExpression="eDir" inTime="" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="SelectedDirection" transition="ChangeDirection" direction="In/Out" inExpression="eDir"  outExpression="sDir" inTime="" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="SelectedDirection" transition="LockSwitch" direction="In/Out" inExpression="sDir"  outExpression="sDir" inTime="" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="ExpectedDirection" transition="LockSwitch" direction="Out" inExpression=""  outExpression="sDir" inTime="" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="Switch" transition="LockSwitch" direction="In/Out" inExpression="locked"  outExpression="unlocked" inTime="1" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="Switch" transition="TramLeft" direction="In/Out" inExpression="unlocked"  outExpression="locked" inTime="" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="DirectionChoosed" transition="CheckDirectionSign" direction="In/Out" inExpression="yes"  outExpression="no" inTime="" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="DirectionChoosed" transition="TramLeft" direction="In/Out" inExpression="no"  outExpression="yes" inTime="" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="SwitchZone" transition="TramLeft" direction="In/Out" inExpression="free"  outExpression="occupied" inTime="t" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="TramsWaiting" transition="NewTramArrived" direction="In" inExpression="tr"  outExpression="" inTime="t" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="TramsWaiting" transition="TramEnteredSwitchZone" direction="Out" inExpression=""  outExpression="tr" inTime="" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+</arcs>
+</page>
+</pages>
+<hierarchy>
+<nodes>
+<node name="New Page" id="0" parameters="">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<parametersLabel x="0" y="0"/>
+</icon>
+</node>
+</nodes>
+<connections>
+</connections>
+</hierarchy>
+</rtcpnet>
