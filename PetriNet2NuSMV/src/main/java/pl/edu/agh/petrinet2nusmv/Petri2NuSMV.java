@@ -54,11 +54,12 @@ public class Petri2NuSMV {
     private JFrame frame;
     Parser parser = Parser.CPNPARSER;
     JMenuBar menuBar;
-    JMenu menuFile, menuParser, menuHelp;
-    JMenuItem menuClose, menuOpen, menuOmega, menuAbout;
+    JMenu menuFile, menuParser, menuHelp, menuRtcpSimulator;
+    JMenuItem menuClose, menuOpen, menuOmega, menuAbout, menuEndtime;
     JRadioButtonMenuItem cpnMenuItem, simpleNetMenuItem;
     String parsedFileName = "", parsedRTCPFileName = "";
     int omega = 1000;
+    int rtcpSimulatorEndTime = 1000;
 
 
 
@@ -91,6 +92,8 @@ public class Petri2NuSMV {
         menuBar.add(menuFile);
         menuParser = new JMenu("Parser");
         menuBar.add(menuParser);
+        menuRtcpSimulator = new JMenu("RTCP Simulator");
+        menuBar.add(menuRtcpSimulator);
         menuHelp = new JMenu("Help");
         menuBar.add(menuHelp);
         menuAbout = new JMenuItem("About Petri2NuSMV...", KeyEvent.VK_H);
@@ -104,6 +107,9 @@ public class Petri2NuSMV {
         menuClose.addActionListener(closeListener);
         menuFile.add(menuClose);
         menuParser.add(menuOmega);
+        menuEndtime = new JMenuItem("Endtime...", KeyEvent.VK_M);
+        menuEndtime.addActionListener(setEndtime);
+        menuRtcpSimulator.add(menuEndtime);
         frame.setJMenuBar(menuBar);
         openButton.addActionListener(openFile);
         parseButton.addActionListener(parse);
@@ -173,6 +179,18 @@ public class Petri2NuSMV {
             String omegaStr = (String) JOptionPane.showInputDialog(null, "Set Omega parameter: ", "Options", JOptionPane.QUESTION_MESSAGE, null, null, "" + omega);
             try {
                 omega = Integer.valueOf(omegaStr);
+            } catch (NumberFormatException exc) {
+                exc.printStackTrace();
+            }
+        }
+    };
+
+    ActionListener setEndtime = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String endtimeStr = (String) JOptionPane.showInputDialog(null, "Set endtime parameter: ", "Options", JOptionPane.QUESTION_MESSAGE, null, null, "" + rtcpSimulatorEndTime);
+            try {
+                rtcpSimulatorEndTime = Integer.valueOf(endtimeStr);
             } catch (NumberFormatException exc) {
                 exc.printStackTrace();
             }
@@ -494,7 +512,7 @@ public class Petri2NuSMV {
                             createSimulatorPB.redirectError(ProcessBuilder.Redirect.INHERIT);
                             createSimulatorPB.start().waitFor();
 
-                            ProcessBuilder getCoverabilityGraphPB = new ProcessBuilder("java", "-jar", "simulator.jar" , "10",  "-cg");
+                            ProcessBuilder getCoverabilityGraphPB = new ProcessBuilder("java", "-jar", "simulator.jar" , String.valueOf(rtcpSimulatorEndTime),  "-cg");
                             getCoverabilityGraphPB.directory(new File(currentDir + "rtcpnc/simulator"));
                             getCoverabilityGraphPB.redirectOutput(ProcessBuilder.Redirect.INHERIT);
                             getCoverabilityGraphPB.redirectError(ProcessBuilder.Redirect.INHERIT);
