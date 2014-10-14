@@ -50,7 +50,7 @@ var any: AutoLockState;
 <markingLabel x="0" y="0"/>
 </icon>
 </place>
-<place name="AutoLockSwitchTimer" type="AutoLockState" marking="" time="0" fusion="">
+<place name="AutoLockSwitchTimer" type="AutoLockState" marking="1(off)" time="0" fusion="">
 <icon x="0" y="0" width="0" height="0">
 <nameLabel x="0" y="0"/>
 <typeLabel x="0" y="0"/>
@@ -145,11 +145,11 @@ var any: AutoLockState;
 <icon x="0" y="0">
 </icon>
 </arc>
-<arc place="AutoLockSwitchTimer" transition="TramArrived" direction="In" inExpression="on"  outExpression="" inTime="4" outTime="">
+<arc place="AutoLockSwitchTimer" transition="TramArrived" direction="In/Out" inExpression="on"  outExpression="off" inTime="4" outTime="">
 <icon x="0" y="0">
 </icon>
 </arc>
-<arc place="AutoLockSwitchTimer" transition="AutoLock" direction="Out" inExpression=""  outExpression="on" inTime="" outTime="">
+<arc place="AutoLockSwitchTimer" transition="AutoLock" direction="In/Out" inExpression="on"  outExpression="on" inTime="" outTime="">
 <icon x="0" y="0">
 </icon>
 </arc>
@@ -162,6 +162,10 @@ var any: AutoLockState;
 </icon>
 </arc>
 <arc place="AutoLockSwitchTimer" transition="TramLeft" direction="In/Out" inExpression="off"  outExpression="any" inTime="" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="ExpectedDirection" transition="AutoLock" direction="Out" inExpression=""  outExpression="eDir" inTime="" outTime="">
 <icon x="0" y="0">
 </icon>
 </arc>
