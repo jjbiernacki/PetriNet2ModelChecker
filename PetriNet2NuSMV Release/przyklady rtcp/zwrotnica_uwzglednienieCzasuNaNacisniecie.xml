@@ -65,7 +65,7 @@ var any: AutoLockState;
 <guardLabel x="0" y="0"/>
 </icon>
 </transition>
-<transition name="CheckDirectionSign" priority="0" guard="" substituted="no">
+<transition name="CheckDirectionSign" priority="0" guard="dt = 3 or dt=5" substituted="no">
 <icon x="0" y="0" width="0" height="0">
 <nameLabel x="0" y="0"/>
 <guardLabel x="0" y="0"/>
