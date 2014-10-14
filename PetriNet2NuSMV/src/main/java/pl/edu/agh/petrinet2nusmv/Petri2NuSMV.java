@@ -19,6 +19,7 @@ import javax.swing.filechooser.FileFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.Desktop;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.*;
@@ -50,6 +51,7 @@ public class Petri2NuSMV {
     private JButton saveButton;
     private JButton rtcpSaveButton;
     private JTabbedPane tabbedPane;
+    private JButton exportToPdfButton;
 
     private JFrame frame;
     Parser parser = Parser.CPNPARSER;
@@ -135,6 +137,8 @@ public class Petri2NuSMV {
         rtcpOpenButton.addActionListener(openFileRTCP);
         rtcpParseButton.addActionListener(parseRTCP);
         rtcpSaveButton.setEnabled(false);
+        exportToPdfButton.setEnabled(false);
+        exportToPdfButton.addActionListener(pdfListener);
         rtcpSaveButton.addActionListener(saveRTCPFile);
     }
 
@@ -354,6 +358,59 @@ public class Petri2NuSMV {
         }
     };
 
+    ActionListener pdfListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                String destFileName = null;
+                final JFileChooser fc = new JFileChooser();
+                fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                String extensionFileHint = "PDF file (*.pdf)";
+                String extension = ".pdf";
+                FileFilter filter = new ExtensionFilter(extensionFileHint, extension);
+                fc.addChoosableFileFilter(filter);
+                fc.setFileFilter(filter);
+                fc.setCurrentDirectory(new File(System.getProperty("user.dir")));
+                fc.setSelectedFile(new File(parsedRTCPFileName + extension));
+                int returnVal = fc.showSaveDialog(frame);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    File file = fc.getSelectedFile();
+                    if (!file.exists()) {
+                        file.createNewFile();
+                    }
+                    destFileName = file.getAbsolutePath();
+                } else {
+                    System.out.print("Save command cancelled by user.");
+                    return;
+                }
+                File tmpDir = new File("tmp");
+                if (!tmpDir.exists()) {
+                    tmpDir.mkdir();
+                }
+                File rtcpFile = new File(tmpDir.getAbsolutePath(), "rtcp.dot");
+                if (!rtcpFile.exists()) {
+                    rtcpFile.createNewFile();
+                }
+                PrintWriter out = new PrintWriter(rtcpFile.getAbsolutePath());
+                out.println(rtcpTextArea.getText());
+                out.close();
+                ProcessBuilder createSimulatorPB = new ProcessBuilder("dot", "-Tpdf",  "\""+rtcpFile.getAbsolutePath()+"\"","-o","\""+destFileName+"\"");
+                createSimulatorPB.redirectOutput(ProcessBuilder.Redirect.INHERIT);
+                createSimulatorPB.redirectErrorStream(true);
+                createSimulatorPB.start().waitFor();
+                FileUtils.deleteDirectory(tmpDir);
+            //otworzenie pliku:
+                //new ProcessBuilder("\""+destFileName+"\"").start();
+                Desktop.getDesktop().open(new File(destFileName));
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+
+        }
+    };
+
 
 
     ActionListener closeListener = new ActionListener() {
@@ -442,24 +499,9 @@ public class Petri2NuSMV {
         public void actionPerformed(ActionEvent e) {
             int i = comboBoxRTCP.getSelectedIndex();
             String path = rtcpPathField.getText();
-            String currentDir;
-
             try {
-                if(isEnvironmentalRun){
-                    currentDir = Paths.get("").toAbsolutePath().toString() + "/";                    //Dla środowiska
-                }
-                else{
-                    URL url = null;
-                    url = getClass().getResource("").toURI().toURL();
 
-                    currentDir = url.getPath() + "/";                                                // Dla konsoli
-
-                    if (url.getProtocol().equalsIgnoreCase("jar")) {
-                        currentDir = new File(((JarURLConnection)url.openConnection()).getJarFileURL().getFile()).getParent() + "/";
-                    }
-                    currentDir = currentDir.replaceAll("%20"," ");
-                }
-
+                String currentDir = getCurrentDirectory();
                 switch (i) {
                     case 0:
                         try {
@@ -492,6 +534,7 @@ public class Petri2NuSMV {
                             String parsedFile = new XmlParse().parse(path);
                             rtcpTextArea.setText(parsedFile);
                             rtcpSaveButton.setEnabled(true);
+                            exportToPdfButton.setEnabled(false);
                             parsedRTCPFileName = rtcpPathField.getText();
                             parsedRTCPFileName = parsedRTCPFileName.substring(0, parsedRTCPFileName.indexOf("."));
                         } catch (Exception e1) {
@@ -503,6 +546,7 @@ public class Petri2NuSMV {
                         }
                         break;
                     case 2://rtcp net to rtcp simulator
+                        exportToPdfButton.setEnabled(false);
                         try {
 
                             ProcessBuilder createSimulatorPB = new ProcessBuilder("java", "-jar", "rtcpnc.jar", "\"" + path + "\"", "simulator");
@@ -525,7 +569,7 @@ public class Petri2NuSMV {
                             }
                         } catch (Exception e1) {
                             JOptionPane.showMessageDialog(frame,
-                                    "Error occurred. Either you chose the wrong file to convert or you do not have tools.jar library in '<JRE path>/lib' folder.",
+                                    "Error occurred. Either the chosen file is corrupted or you do not have tools.jar library in '<JRE path>/lib' folder.",
                                     "Error",
                                     JOptionPane.ERROR_MESSAGE);
                         }
@@ -548,6 +592,25 @@ public class Petri2NuSMV {
         }
     };
 
+    String getCurrentDirectory() throws URISyntaxException, IOException {
+        String currentDir;
+        if(isEnvironmentalRun){
+            currentDir = Paths.get("").toAbsolutePath().toString() + "/";                    //Dla środowiska
+        }
+        else{
+            URL url = null;
+            url = getClass().getResource("").toURI().toURL();
+
+            currentDir = url.getPath() + "/";                                                // Dla konsoli
+
+            if (url.getProtocol().equalsIgnoreCase("jar")) {
+                currentDir = new File(((JarURLConnection)url.openConnection()).getJarFileURL().getFile()).getParent() + "/";
+            }
+            currentDir = currentDir.replaceAll("%20"," ");
+        }
+        return currentDir;
+    }
+
     private void generateCGFromRTCPFile(String path, String currentDir) {
         try {
             ProcessBuilder createSimulatorPB = new ProcessBuilder("java", "-jar", "rtcpnc.jar", "\"" + path + "\"", "simulator");
@@ -565,11 +628,12 @@ public class Petri2NuSMV {
             String coverabilityGraphText = new String(Files.readAllBytes(Paths.get(currentDir + "rtcpnc/simulator", "coverability-graph.dot")));
             rtcpTextArea.setText(coverabilityGraphText);
             rtcpSaveButton.setEnabled(true);
+            exportToPdfButton.setEnabled(true);
 
             FileUtils.deleteDirectory(new File(currentDir + "rtcpnc/simulator"));
         } catch (Exception e1) {
             JOptionPane.showMessageDialog(frame,
-                    "Error occurred. Either you chose the wrong file to convert or you do not have tools.jar library in '<JRE path>/lib' folder.",
+                    "Error occurred. Either the chosen file is corrupted or you do not have tools.jar library in '<JRE path>/lib' folder.",
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
