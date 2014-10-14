@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="ISO-8859-2"?>
+<rtcpnet name="">
+  <declarations>
+    color Value    = int with 0..9;
+color State    = with free | data | result;
+color Level    = int with 0..2;
+color Processor = product State * Level * Value * Value * Value;
+color TempIn   = product Value * Value * Value;
+color BoolColor = bool with (off,on);
+color SwichState = BoolColor;
+var y1 : Level;
+var y2 : Level;
+var t  : Level;
+var x1 : Value;
+var x2 : Value;
+var x3 : Value;
+  </declarations>
+  <pages>
+    <page name="Processor" width="1512" height="1512">
+      <places>
+        <place name="Proc%1" type="Processor" marking="(free,0,0,0,0)" time="0" fusion="">
+          <icon x="224" y="127" width="80" height="35">
+            <nameLabel x="231" y="133"/>
+            <typeLabel x="192" y="102"/>
+            <markingLabel x="192" y="77"/>
+          </icon>
+        </place>
+      </places>
+      <transitions>
+        <transition name="Compute" priority="2" guard="" substituted="yes">
+          <icon x="406" y="131" width="70" height="25">
+            <nameLabel x="404" y="132"/>
+            <guardLabel x="394" y="129"/>
+          </icon>
+        </transition>
+        <transition name="Display" priority="2" guard="" substituted="yes">
+          <icon x="229" y="237" width="70" height="25">
+            <nameLabel x="233" y="237"/>
+            <guardLabel x="217" y="235"/>
+          </icon>
+        </transition>
+        <transition name="Read" priority="2" guard="" substituted="yes">
+          <icon x="57" y="132" width="70" height="25">
+            <nameLabel x="67" y="134"/>
+            <guardLabel x="45" y="130"/>
+          </icon>
+        </transition>
+      </transitions>
+      <arcs>
+        <arc place="Proc%1" transition="Read" direction="In/Out" inExpression="" outExpression="" inTime="" outTime="">
+          <icon x="67" y="134">
+          </icon>
+        </arc>
+        <arc place="Proc%1" transition="Compute" direction="In/Out" inExpression="" outExpression="" inTime="" outTime="">
+          <icon x="404" y="132">
+          </icon>
+        </arc>
+        <arc place="Proc%1" transition="Display" direction="In/Out" inExpression="" outExpression="" inTime="" outTime="">
+          <icon x="233" y="237">
+          </icon>
+        </arc>
+      </arcs>
+    </page>
+    <page name="Sensor" width="1512" height="1512">
+      <places>
+        <place name="Sensor%1" type="Value" marking="(0)" time="0" fusion="Sensor%1">
+          <icon x="102" y="139" width="100" height="35">
+            <nameLabel x="108" y="145"/>
+            <typeLabel x="86" y="118"/>
+            <markingLabel x="180" y="114"/>
+          </icon>
+        </place>
+      </places>
+      <transitions>
+        <transition name="Check" priority="1" guard="" substituted="no">
+          <icon x="332" y="144" width="70" height="25">
+            <nameLabel x="339" y="146"/>
+            <guardLabel x="320" y="142"/>
+          </icon>
+        </transition>
+      </transitions>
+      <arcs>
+        <arc place="Sensor%1" transition="Check" direction="In/Out" inExpression="x2" outExpression="x1" inTime="3" outTime="0">
+          <icon x="230" y="160">
+          </icon>
+        </arc>
+      </arcs>
+    </page>
+    <page name="Read" width="1512" height="1512">
+      <places>
+        <place name="Sensor3" type="Value" marking="(0)" time="0" fusion="Sensor3">
+          <icon x="526" y="268" width="80" height="35">
+            <nameLabel x="531" y="275"/>
+            <typeLabel x="553" y="247"/>
+            <markingLabel x="607" y="244"/>
+          </icon>
+        </place>
+        <place name="Sensor1" type="Value" marking="(0)" time="0" fusion="Sensor1">
+          <icon x="526" y="53" width="80" height="35">
+            <nameLabel x="531" y="59"/>
+            <typeLabel x="522" y="30"/>
+            <markingLabel x="575" y="28"/>
+          </icon>
+        </place>
+        <place name="Sensor2" type="Value" marking="(0)" time="0" fusion="Sensor2">
+          <icon x="568" y="154" width="80" height="35">
+            <nameLabel x="573" y="160"/>
+            <typeLabel x="583" y="131"/>
+            <markingLabel x="638" y="129"/>
+          </icon>
+        </place>
+        <place name="Proc%1" type="Processor" marking="(free,0,0,0,0)" time="0" fusion="">
+          <icon x="67" y="153" width="80" height="35">
+            <nameLabel x="73" y="160"/>
+            <typeLabel x="51" y="131"/>
+            <markingLabel x="50" y="108"/>
+          </icon>
+        </place>
+      </places>
+      <transitions>
+        <transition name="Read" priority="2" guard="" substituted="no">
+          <icon x="371" y="158" width="70" height="25">
+            <nameLabel x="383" y="159"/>
+            <guardLabel x="359" y="156"/>
+          </icon>
+        </transition>
+      </transitions>
+      <arcs>
+        <arc place="Sensor2" transition="Read" direction="In/Out" inExpression="x2" outExpression="x2" inTime="0" outTime="%2">
+          <icon x="524" y="148">
+          </icon>
+        </arc>
+        <arc place="Proc%1" transition="Read" direction="In/Out" inExpression="(data,0,x1,x2,x3)" outExpression="(free,0,0,0,0)" inTime="0" outTime="0">
+          <icon x="158" y="172">
+          </icon>
+        </arc>
+        <arc place="Sensor3" transition="Read" direction="In/Out" inExpression="x3" outExpression="x3" inTime="0" outTime="%2">
+          <icon x="485" y="284">
+            <breakpoint x="444" y="285"/>
+          </icon>
+        </arc>
+        <arc place="Sensor1" transition="Read" direction="In/Out" inExpression="x1" outExpression="x1" inTime="0" outTime="%2">
+          <icon x="484" y="49">
+            <breakpoint x="442" y="70"/>
+          </icon>
+        </arc>
+      </arcs>
+    </page>
+    <page name="Display" width="1512" height="1512">
+      <places>
+        <place name="LCD" type="Level" marking="(0)" time="0" fusion="">
+          <icon x="644" y="149" width="80" height="35">
+            <nameLabel x="664" y="156"/>
+            <typeLabel x="638" y="127"/>
+            <markingLabel x="693" y="125"/>
+          </icon>
+        </place>
+        <place name="Proc%1" type="Processor" marking="(free,0,0,0,0)" time="0" fusion="">
+          <icon x="131" y="149" width="80" height="35">
+            <nameLabel x="138" y="156"/>
+            <typeLabel x="106" y="127"/>
+            <markingLabel x="104" y="104"/>
+          </icon>
+        </place>
+      </places>
+      <transitions>
+        <transition name="Display" priority="2" guard="" substituted="no">
+          <icon x="431" y="154" width="70" height="25">
+            <nameLabel x="435" y="154"/>
+            <guardLabel x="419" y="152"/>
+          </icon>
+        </transition>
+      </transitions>
+      <arcs>
+        <arc place="Proc%1" transition="Display" direction="In/Out" inExpression="(free,0,0,0,0)" outExpression="(result,y2,0,0,0)" inTime="0" outTime="0">
+          <icon x="224" y="166">
+          </icon>
+        </arc>
+        <arc place="LCD" transition="Display" direction="In/Out" inExpression="y2" outExpression="y1" inTime="0" outTime="0">
+          <icon x="602" y="143">
+          </icon>
+        </arc>
+      </arcs>
+    </page>
+    <page name="Compute" width="1512" height="1512">
+      <places>
+        <place name="Proc%1" type="Processor" marking="(free,0,0,0,0)" time="0" fusion="">
+          <icon x="146" y="135" width="80" height="35">
+            <nameLabel x="153" y="141"/>
+            <typeLabel x="127" y="111"/>
+            <markingLabel x="127" y="91"/>
+          </icon>
+        </place>
+      </places>
+      <transitions>
+        <transition name="Compute" priority="2" guard="" substituted="yes">
+          <icon x="460" y="140" width="80" height="25">
+            <nameLabel x="462" y="140"/>
+            <guardLabel x="448" y="138"/>
+          </icon>
+        </transition>
+      </transitions>
+      <arcs>
+        <arc place="Proc%1" transition="Compute" direction="In/Out" inExpression="(result,y1,0,0,0)" outExpression="(data,0,x1,x2,x3)" inTime="t+4" outTime="0">
+          <icon x="238" y="153">
+          </icon>
+        </arc>
+      </arcs>
+    </page>
+    <page name="ComputeLink" width="1512" height="1512">
+      <places>
+        <place name="Out" type="Level" marking="" time="0" fusion="">
+          <icon x="59" y="236" width="80" height="35">
+            <nameLabel x="81" y="242"/>
+            <typeLabel x="52" y="271"/>
+            <markingLabel x="44" y="263"/>
+          </icon>
+        </place>
+        <place name="In" type="TempIn" marking="" time="0" fusion="">
+          <icon x="624" y="236" width="80" height="35">
+            <nameLabel x="654" y="243"/>
+            <typeLabel x="616" y="268"/>
+            <markingLabel x="609" y="263"/>
+          </icon>
+        </place>
+        <place name="Proc%1" type="Processor" marking="(free,0,0,0,0)" time="0" fusion="">
+          <icon x="336" y="95" width="80" height="35">
+            <nameLabel x="342" y="101"/>
+            <typeLabel x="311" y="71"/>
+            <markingLabel x="311" y="49"/>
+          </icon>
+        </place>
+      </places>
+      <transitions>
+        <transition name="OutComp" priority="0" guard="" substituted="no">
+          <icon x="58" y="100" width="80" height="25">
+            <nameLabel x="57" y="101"/>
+            <guardLabel x="46" y="98"/>
+          </icon>
+        </transition>
+        <transition name="Compute" priority="0" guard="" substituted="yes">
+          <icon x="333" y="240" width="80" height="25">
+            <nameLabel x="334" y="241"/>
+            <guardLabel x="321" y="238"/>
+          </icon>
+        </transition>
+        <transition name="InComp" priority="2" guard="" substituted="no">
+          <icon x="628" y="100" width="70" height="25">
+            <nameLabel x="630" y="101"/>
+            <guardLabel x="616" y="98"/>
+          </icon>
+        </transition>
+      </transitions>
+      <arcs>
+        <arc place="Proc%1" transition="OutComp" direction="In" inExpression="(result,y1,0,0,0)" outExpression="" inTime="t+4" outTime="">
+          <icon x="152" y="89">
+          </icon>
+        </arc>
+        <arc place="Proc%1" transition="InComp" direction="Out" inExpression="" outExpression="(data,0,x1,x2,x3)" inTime="" outTime="0">
+          <icon x="528" y="127">
+          </icon>
+        </arc>
+        <arc place="Out" transition="OutComp" direction="Out" inExpression="" outExpression="y1" inTime="" outTime="0">
+          <icon x="86" y="188">
+          </icon>
+        </arc>
+        <arc place="In" transition="InComp" direction="In" inExpression="(x1,x2,x3)" outExpression="" inTime="0" outTime="">
+          <icon x="579" y="169">
+          </icon>
+        </arc>
+        <arc place="In" transition="Compute" direction="Out" inExpression="" outExpression="(x1,x2,x3)" inTime="" outTime="0">
+          <icon x="502" y="258">
+          </icon>
+        </arc>
+        <arc place="Out" transition="Compute" direction="In" inExpression="y1" outExpression="" inTime="0" outTime="">
+          <icon x="226" y="229">
+          </icon>
+        </arc>
+      </arcs>
+    </page>
+    <page name="ComputeDnet" width="1512" height="1512">
+      <places>
+        <place name="Out" type="Level" marking="" time="0" fusion="">
+          <icon x="614" y="180" width="70" height="35">
+            <nameLabel x="633" y="186"/>
+            <typeLabel x="669" y="160"/>
+            <markingLabel x="599" y="207"/>
+          </icon>
+        </place>
+        <place name="In" type="TempIn" marking="" time="0" fusion="">
+          <icon x="151" y="180" width="70" height="35">
+            <nameLabel x="176" y="186"/>
+            <typeLabel x="100" y="164"/>
+            <markingLabel x="136" y="207"/>
+          </icon>
+        </place>
+      </places>
+      <transitions>
+        <transition name="R4" priority="0" guard="x2 &lt; 5" substituted="no">
+          <icon x="389" y="216" width="70" height="25">
+            <nameLabel x="413" y="218"/>
+            <guardLabel x="392" y="240"/>
+          </icon>
+        </transition>
+        <transition name="R1" priority="0" guard="x1 &lt;= 5" substituted="no">
+          <icon x="390" y="34" width="70" height="25">
+            <nameLabel x="413" y="35"/>
+            <guardLabel x="388" y="57"/>
+          </icon>
+        </transition>
+        <transition name="R5" priority="0" guard="x2 &gt;= 5" substituted="no">
+          <icon x="390" y="277" width="70" height="25">
+            <nameLabel x="415" y="279"/>
+            <guardLabel x="388" y="299"/>
+          </icon>
+        </transition>
+        <transition name="R6" priority="0" guard="x1 &gt;= 8" substituted="no">
+          <icon x="390" y="341" width="70" height="25">
+            <nameLabel x="414" y="343"/>
+            <guardLabel x="386" y="365"/>
+          </icon>
+        </transition>
+        <transition name="R3" priority="0" guard="x3 &lt;= x2" substituted="no">
+          <icon x="390" y="152" width="70" height="25">
+            <nameLabel x="414" y="154"/>
+            <guardLabel x="385" y="176"/>
+          </icon>
+        </transition>
+        <transition name="R2" priority="0" guard="x3 &gt; x2" substituted="no">
+          <icon x="390" y="94" width="70" height="25">
+            <nameLabel x="413" y="95"/>
+            <guardLabel x="388" y="118"/>
+          </icon>
+        </transition>
+      </transitions>
+      <arcs>
+        <arc place="Out" transition="R6" direction="In" inExpression="2" outExpression="" inTime="" outTime="">
+          <icon x="516" y="333">
+            <breakpoint x="609" y="353"/>
+          </icon>
+        </arc>
+        <arc place="In" transition="R4" direction="Out" inExpression="" outExpression="(7,x2,x3)" inTime="" outTime="">
+          <icon x="290" y="218">
+            <breakpoint x="272" y="227"/>
+          </icon>
+        </arc>
+        <arc place="Out" transition="R2" direction="In" inExpression="0" outExpression="" inTime="" outTime="">
+          <icon x="511" y="85">
+            <breakpoint x="594" y="105"/>
+          </icon>
+        </arc>
+        <arc place="In" transition="R2" direction="Out" inExpression="" outExpression="(6,x2,x3)" inTime="" outTime="">
+          <icon x="290" y="157">
+            <breakpoint x="278" y="105"/>
+          </icon>
+        </arc>
+        <arc place="In" transition="R3" direction="Out" inExpression="" outExpression="(6,x2,x3)" inTime="" outTime="">
+          <icon x="290" y="186">
+            <breakpoint x="280" y="164"/>
+          </icon>
+        </arc>
+        <arc place="In" transition="R6" direction="Out" inExpression="" outExpression="(x1,x2,x3)" inTime="" outTime="">
+          <icon x="290" y="280">
+            <breakpoint x="260" y="353"/>
+          </icon>
+        </arc>
+        <arc place="Out" transition="R3" direction="In" inExpression="1" outExpression="" inTime="" outTime="">
+          <icon x="512" y="142">
+            <breakpoint x="578" y="163"/>
+          </icon>
+        </arc>
+        <arc place="In" transition="R1" direction="Out" inExpression="" outExpression="(x1,x2,x3)" inTime="" outTime="">
+          <icon x="290" y="127">
+            <breakpoint x="256" y="45"/>
+          </icon>
+        </arc>
+        <arc place="Out" transition="R4" direction="In" inExpression="1" outExpression="" inTime="" outTime="">
+          <icon x="513" y="206">
+            <breakpoint x="578" y="227"/>
+          </icon>
+        </arc>
+        <arc place="Out" transition="R5" direction="In" inExpression="2" outExpression="" inTime="" outTime="">
+          <icon x="514" y="268">
+            <breakpoint x="578" y="289"/>
+          </icon>
+        </arc>
+        <arc place="Out" transition="R1" direction="In" inExpression="0" outExpression="" inTime="" outTime="">
+          <icon x="510" y="26">
+            <breakpoint x="605" y="45"/>
+          </icon>
+        </arc>
+        <arc place="In" transition="R5" direction="Out" inExpression="" outExpression="(7,x2,x3)" inTime="" outTime="">
+          <icon x="290" y="248">
+            <breakpoint x="276" y="289"/>
+          </icon>
+        </arc>
+      </arcs>
+    </page>
+  </pages>
+  <hierarchy>
+    <nodes>
+      <node name="Sensor" id="15" parameters="%1 = 3">
+        <icon x="103" y="682" width="100" height="25">
+          <nameLabel x="106" y="684"/>
+          <parametersLabel x="42" y="684"/>
+        </icon>
+      </node>
+      <node name="Read" id="2" parameters="%1 = 1, %2 = 0">
+        <icon x="352" y="47" width="90" height="25">
+          <nameLabel x="355" y="48"/>
+          <parametersLabel x="352" y="22"/>
+        </icon>
+      </node>
+      <node name="Display" id="10" parameters="%1 = 2">
+        <icon x="352" y="451" width="90" height="25">
+          <nameLabel x="351" y="451"/>
+          <parametersLabel x="352" y="429"/>
+        </icon>
+      </node>
+      <node name="ComputeDnet" id="12" parameters="%1 = 2">
+        <icon x="723" y="451" width="140" height="25">
+          <nameLabel x="724" y="452"/>
+          <parametersLabel x="724" y="478"/>
+        </icon>
+      </node>
+      <node name="Processor" id="1" parameters="%1 = 1">
+        <icon x="84" y="112" width="100" height="25">
+          <nameLabel x="83" y="113"/>
+          <parametersLabel x="21" y="113"/>
+        </icon>
+      </node>
+      <node name="ComputeLink" id="5" parameters="%1 = 1">
+        <icon x="606" y="112" width="120" height="25">
+          <nameLabel x="605" y="112"/>
+          <parametersLabel x="606" y="90"/>
+        </icon>
+      </node>
+      <node name="Processor" id="7" parameters="%1 = 2">
+        <icon x="84" y="374" width="100" height="25">
+          <nameLabel x="82" y="376"/>
+          <parametersLabel x="23" y="376"/>
+        </icon>
+      </node>
+      <node name="Display" id="4" parameters="%1 = 1">
+        <icon x="352" y="181" width="90" height="25">
+          <nameLabel x="352" y="180"/>
+          <parametersLabel x="353" y="159"/>
+        </icon>
+      </node>
+      <node name="Sensor" id="13" parameters="%1 = 1">
+        <icon x="103" y="566" width="100" height="25">
+          <nameLabel x="106" y="569"/>
+          <parametersLabel x="41" y="568"/>
+        </icon>
+      </node>
+      <node name="Compute" id="3" parameters="%1 = 1">
+        <icon x="352" y="111" width="90" height="25">
+          <nameLabel x="352" y="112"/>
+          <parametersLabel x="352" y="89"/>
+        </icon>
+      </node>
+      <node name="ComputeLink" id="11" parameters="%1 = 2">
+        <icon x="606" y="374" width="130" height="25">
+          <nameLabel x="605" y="374"/>
+          <parametersLabel x="606" y="352"/>
+        </icon>
+      </node>
+      <node name="Sensor" id="14" parameters="%1 = 2">
+        <icon x="103" y="624" width="100" height="25">
+          <nameLabel x="106" y="626"/>
+          <parametersLabel x="42" y="626"/>
+        </icon>
+      </node>
+      <node name="Read" id="8" parameters="%1 = 2, %2 = 3">
+        <icon x="352" y="308" width="90" height="25">
+          <nameLabel x="352" y="308"/>
+          <parametersLabel x="352" y="283"/>
+        </icon>
+      </node>
+      <node name="Compute" id="9" parameters="%1 = 2">
+        <icon x="352" y="374" width="90" height="25">
+          <nameLabel x="350" y="375"/>
+          <parametersLabel x="352" y="352"/>
+        </icon>
+      </node>
+      <node name="ComputeDnet" id="6" parameters="%1 = 1">
+        <icon x="723" y="181" width="130" height="25">
+          <nameLabel x="722" y="182"/>
+          <parametersLabel x="723" y="208"/>
+        </icon>
+      </node>
+    </nodes>
+    <connections>
+      <connection superpageId="9" subpageId="11" transition="Compute" assignments="Proc%1 = Proc%1">
+        <icon transitionX="495" transitionY="385" assignmentsX="458" assignmentsY="364">
+        </icon>
+      </connection>
+      <connection superpageId="1" subpageId="2" transition="Read" assignments="Proc%1 = Proc%1">
+        <icon transitionX="261" transitionY="57" assignmentsX="203" assignmentsY="37">
+          <breakpoint x="259" y="59"/>
+        </icon>
+      </connection>
+      <connection superpageId="7" subpageId="10" transition="Display" assignments="Proc%1 = Proc%1">
+        <icon transitionX="258" transitionY="440" assignmentsX="204" assignmentsY="465">
+          <breakpoint x="249" y="462"/>
+        </icon>
+      </connection>
+      <connection superpageId="3" subpageId="5" transition="Compute" assignments="Proc%1 = Proc%1">
+        <icon transitionX="496" transitionY="123" assignmentsX="459" assignmentsY="101">
+        </icon>
+      </connection>
+      <connection superpageId="7" subpageId="8" transition="Read" assignments="Proc%1 = Proc%1">
+        <icon transitionX="260" transitionY="320" assignmentsX="202" assignmentsY="297">
+          <breakpoint x="254" y="319"/>
+        </icon>
+      </connection>
+      <connection superpageId="1" subpageId="4" transition="Display" assignments="Proc%1 = Proc%1">
+        <icon transitionX="260" transitionY="170" assignmentsX="203" assignmentsY="195">
+          <breakpoint x="256" y="192"/>
+        </icon>
+      </connection>
+      <connection superpageId="1" subpageId="3" transition="Compute" assignments="Proc%1 = Proc%1">
+        <icon transitionX="258" transitionY="121" assignmentsX="202" assignmentsY="101">
+        </icon>
+      </connection>
+      <connection superpageId="7" subpageId="9" transition="Compute" assignments="Proc%1 = Proc%1">
+        <icon transitionX="257" transitionY="383" assignmentsX="202" assignmentsY="364">
+        </icon>
+      </connection>
+      <connection superpageId="11" subpageId="12" transition="Compute" assignments="In = In, Out = Out">
+        <icon transitionX="657" transitionY="420" assignmentsX="746" assignmentsY="409">
+        </icon>
+      </connection>
+      <connection superpageId="5" subpageId="6" transition="Compute" assignments="In = In, Out = Out">
+        <icon transitionX="653" transitionY="154" assignmentsX="742" assignmentsY="143">
+        </icon>
+      </connection>
+    </connections>
+  </hierarchy>
+</rtcpnet>

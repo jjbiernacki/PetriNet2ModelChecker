@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <option name="DEFAULT_COMPILER" value="Javac" />
+    <resourceExtensions />
+    <wildcardResourcePatterns>
+      <entry name="!?*.java" />
+      <entry name="!?*.form" />
+      <entry name="!?*.class" />
+      <entry name="!?*.groovy" />
+      <entry name="!?*.scala" />
+      <entry name="!?*.flex" />
+      <entry name="!?*.kt" />
+      <entry name="!?*.clj" />
+    </wildcardResourcePatterns>
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="false">
+        <processorPath useClasspath="true" />
+      </profile>
+      <profile default="false" name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="pkowalski-junit" />
+        <module name="pkowalski-rtcp" />
+        <module name="pkowalski-rtcp-codefactory" />
+        <module name="pkowalski-rtcp-codefactory-java" />
+        <module name="pkowalski-rtcp-model" />
+        <module name="pkowalski-rtcp-model-impl" />
+        <module name="pkowalski-rtcp-model-syntax" />
+        <module name="pkowalski-rtcp-runtime" />
+        <module name="pkowalski-rtcp-runtime-coverability" />
+        <module name="pkowalski-rtcp-runtime-ui-console" />
+        <module name="pkowalski-rtcp-xml" />
+        <module name="pkowalski-utils" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="pkowalski-junit" target="1.6" />
+      <module name="pkowalski-rtcp" target="1.6" />
+      <module name="pkowalski-rtcp-codefactory" target="1.6" />
+      <module name="pkowalski-rtcp-codefactory-java" target="1.6" />
+      <module name="pkowalski-rtcp-model" target="1.6" />
+      <module name="pkowalski-rtcp-model-impl" target="1.6" />
+      <module name="pkowalski-rtcp-model-syntax" target="1.6" />
+      <module name="pkowalski-rtcp-runtime" target="1.6" />
+      <module name="pkowalski-rtcp-runtime-coverability" target="1.6" />
+      <module name="pkowalski-rtcp-runtime-ui-console" target="1.6" />
+      <module name="pkowalski-rtcp-xml" target="1.6" />
+      <module name="pkowalski-utils" target="1.6" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
+

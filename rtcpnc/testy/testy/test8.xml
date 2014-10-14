@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ISO-8859-2"?>
+<rtcpnet name="">
+  <declarations>
+    color L = with a | b;
+color K = with a | b | c;
+var x : L;
+var y : K;
+  </declarations>
+  <pages>
+    <page name="Main" width="1512" height="1512">
+      <places>
+        <place name="A" type="L" marking="2(a)+(b)" time="0" fusion="">
+          <icon x="105" y="125" width="80" height="50">
+            <nameLabel x="135" y="140"/>
+            <typeLabel x="105" y="105"/>
+            <markingLabel x="130" y="105"/>
+          </icon>
+        </place>
+        <place name="B" type="K" marking="" time="0" fusion="">
+          <icon x="435" y="135" width="80" height="50">
+            <nameLabel x="470" y="155"/>
+            <typeLabel x="440" y="115"/>
+            <markingLabel x="487" y="171"/>
+          </icon>
+        </place>
+      </places>
+      <transitions>
+        <transition name="T" priority="0" guard="" substituted="no">
+          <icon x="255" y="220" width="100" height="30">
+            <nameLabel x="300" y="225"/>
+            <guardLabel x="315" y="247"/>
+          </icon>
+        </transition>
+      </transitions>
+      <arcs>
+        <arc place="B" transition="T" direction="In" inExpression="y" outExpression="" inTime="1" outTime="">
+          <icon x="370" y="175">
+          </icon>
+        </arc>
+        <arc place="A" transition="T" direction="Out" inExpression="" outExpression="x" inTime="" outTime="2">
+          <icon x="200" y="192">
+          </icon>
+        </arc>
+      </arcs>
+    </page>
+  </pages>
+  <hierarchy>
+    <nodes>
+      <node name="Main" id="0" parameters="">
+        <icon x="180" y="75" width="200" height="30">
+          <nameLabel x="255" y="80"/>
+          <parametersLabel x="91" y="99"/>
+        </icon>
+      </node>
+    </nodes>
+    <connections>
+    </connections>
+  </hierarchy>
+</rtcpnet>

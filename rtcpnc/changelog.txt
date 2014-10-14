@@ -1,0 +1,31 @@
+V3:
+usuniêcie buga: dla rozpatrywanego stanu przesuwany by³ horyzont czasowy o zdefiniowan¹ liczbê. 
+Po przekroczeniu tego czasu algorytm wg ustawionego warunku koñczy³ obliczanie grafu - powodowa³o to, 
+¿e jeœli rozpatrywaliœmy stan martwy to program koñczy³ dzia³anie nawet jeœli w kolejce mia³ kolejne stany do przegl¹dniêcia.
+
+
+
+#####################################################################################################################################
+V2:
+wg wskazañ z maila:
+
+"1. Zauwa¿y³em, ¿e wielozbiory s¹ wypisywane jako np. a + a zamiast 2(a) (zobaczcie test3.xml i coverability-graph.dot). Dobrze by by³o to poprawiæ.
+
+2. Gry wywo³amy polecenie generowania grafu pokrycia, to dostaniemy np. dla pliku model1:
+
+Generating coverability graph...
+Place order: (Sensor, Clock, Proc1, Buffer, Proc2).
+
+ale tej drugiej linii nie ma w pliku coverability-graph.dot. To jest problem. gdy chcemy u¿yæ ten plik i przekonwertowaæ go na model w NuSMV.
+
+Moim zdaniem dobrym rozwi¹zaniem by³oby wpakowanie tej informacji do wêz³a pocz¹tkowego, czyli w pliku dot wêze³ 0 mia³by postaæ:
+
+0 [label = "(Sensor, Clock, Proc1, Buffer, Proc2)\n(d, 0, (d, 0), d, (d, 0))\n(0, 0, 0, 0, 0)" shape=box];
+
+Reszta by³aby bez zmian.
+Te korektê te¿ warto wprowadziæ do rtcpnc (chyba, ¿e macie Pañstwo inny pomys³ jak te informacjê przemyciæ).
+
+3. Chcia³em zmieniæ wygl¹d etykiet dla ³uków:
+(tranzycja,(wi¹zanie))/czas
+teraz jest (tranzycja, (wi¹zanie), czas)
+Tu chodzi o ujednolicenie notacji z Alvisem."

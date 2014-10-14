@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/pkowalski.junit.matchers/pkowalski-junit.iml" filepath="$PROJECT_DIR$/pkowalski.junit.matchers/pkowalski-junit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pkowalski.rtcp/pkowalski-rtcp.iml" filepath="$PROJECT_DIR$/pkowalski.rtcp/pkowalski-rtcp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pkowalski.rtcp.codefactory/pkowalski-rtcp-codefactory.iml" filepath="$PROJECT_DIR$/pkowalski.rtcp.codefactory/pkowalski-rtcp-codefactory.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pkowalski.rtcp.codefactory.java/pkowalski-rtcp-codefactory-java.iml" filepath="$PROJECT_DIR$/pkowalski.rtcp.codefactory.java/pkowalski-rtcp-codefactory-java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pkowalski.rtcp.model/pkowalski-rtcp-model.iml" filepath="$PROJECT_DIR$/pkowalski.rtcp.model/pkowalski-rtcp-model.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pkowalski.rtcp.model.impl/pkowalski-rtcp-model-impl.iml" filepath="$PROJECT_DIR$/pkowalski.rtcp.model.impl/pkowalski-rtcp-model-impl.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pkowalski.rtcp.model.syntax/pkowalski-rtcp-model-syntax.iml" filepath="$PROJECT_DIR$/pkowalski.rtcp.model.syntax/pkowalski-rtcp-model-syntax.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pkowalski.rtcp.runtime/pkowalski-rtcp-runtime.iml" filepath="$PROJECT_DIR$/pkowalski.rtcp.runtime/pkowalski-rtcp-runtime.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pkowalski.rtcp.runtime.coverability/pkowalski-rtcp-runtime-coverability.iml" filepath="$PROJECT_DIR$/pkowalski.rtcp.runtime.coverability/pkowalski-rtcp-runtime-coverability.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pkowalski.rtcp.runtime.ui.console/pkowalski-rtcp-runtime-ui-console.iml" filepath="$PROJECT_DIR$/pkowalski.rtcp.runtime.ui.console/pkowalski-rtcp-runtime-ui-console.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pkowalski.rtcp.xml/pkowalski-rtcp-xml.iml" filepath="$PROJECT_DIR$/pkowalski.rtcp.xml/pkowalski-rtcp-xml.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pkowalski.utils/pkowalski-utils.iml" filepath="$PROJECT_DIR$/pkowalski.utils/pkowalski-utils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rtcp.iml" filepath="$PROJECT_DIR$/rtcp.iml" />
+    </modules>
+  </component>
+</project>
+

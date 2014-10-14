@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>pkowalski-rtcp</groupId>
+    <artifactId>rtcp</artifactId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>pkowalski.rtcp</module>
+        <module>pkowalski.rtcp.codefactory</module>
+        <module>pkowalski.rtcp.codefactory.java</module>
+        <module>pkowalski.rtcp.model.impl</module>
+        <module>pkowalski.rtcp.model</module>
+        <module>pkowalski.rtcp.model.syntax</module>
+        <module>pkowalski.rtcp.xml</module>
+        <module>pkowalski.utils</module>
+        <module>pkowalski.junit.matchers</module>
+        <module>pkowalski.rtcp.runtime.ui.console</module>
+        <module>pkowalski.rtcp.runtime</module>
+        <module>pkowalski.rtcp.runtime.coverability</module>
+            
+    </modules>
+</project>

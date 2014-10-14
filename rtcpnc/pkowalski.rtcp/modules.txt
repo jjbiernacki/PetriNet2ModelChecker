@@ -1,0 +1,25 @@
+Generator:
+pkowalski-rtcp
+- pkowalski-rtcp-model
+- pkowalski-utils
+- pkowalski-rtcp-codefactory-java
+  - pkowalski-rtcp-codefactory
+    - pkowalski-rtcp-model
+    - stringtemplate-3.2.1
+  - pkowalski-utils
+  - stringtemplate-3.0*
+- pkowalski-rtcp-xml
+  - pkowalski-rtcp-model
+  - pkowalski-rtcp-model-impl
+    - pkowalski-rtcp-model
+  - pkowalski-rtcp-model-syntax
+    - pkowalski-rtcp-model
+    - pkowalski-rtcp-model-impl
+    - antlr-3.0*
+  - antlr-3.0*
+
+Symulator:
+- pkowalski-rtcp-runtime
+  - pkowalski-utils
+- rtcp-runtime-ui-console 
+  - pkowalski-rtcp-runtime

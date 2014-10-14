@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--Created with Liquid XML Studio - FREE Community Edition 7.0.2.746 (http://www.liquid-technologies.com)-->
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="rtcpnet">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" name="declarations" type="xs:string" />
+        <xs:element minOccurs="1" name="pages">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="1" maxOccurs="unbounded" name="page">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="1" name="places">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element minOccurs="0" maxOccurs="unbounded" name="place">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element minOccurs="0" name="icon">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element minOccurs="0" name="nameLabel">
+                                        <xs:complexType>
+                                          <xs:attribute name="x" type="xs:string" use="optional" />
+                                          <xs:attribute name="y" type="xs:string" use="optional" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                      <xs:element minOccurs="0" name="typeLabel">
+                                        <xs:complexType>
+                                          <xs:attribute name="x" type="xs:string" use="optional" />
+                                          <xs:attribute name="y" type="xs:string" use="optional" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                      <xs:element minOccurs="0" name="markingLabel">
+                                        <xs:complexType>
+                                          <xs:attribute name="x" type="xs:string" use="optional" />
+                                          <xs:attribute name="y" type="xs:string" use="optional" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                      <xs:element minOccurs="0" name="fusionLabel">
+                                        <xs:complexType>
+                                          <xs:attribute name="x" type="xs:string" use="optional" />
+                                          <xs:attribute name="y" type="xs:string" use="optional" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                      <xs:element minOccurs="0" name="portLabel">
+                                        <xs:complexType>
+                                          <xs:attribute name="x" type="xs:string" use="optional" />
+                                          <xs:attribute name="y" type="xs:string" use="optional" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="x" type="xs:string" use="optional" />
+                                    <xs:attribute name="y" type="xs:string" use="optional" />
+                                    <xs:attribute name="width" type="xs:string" use="optional" />
+                                    <xs:attribute name="height" type="xs:string" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                              <xs:attribute name="name" type="xs:string" use="required" />
+                              <xs:attribute name="type" type="xs:string" use="required" />
+                              <xs:attribute name="marking" type="xs:string" use="optional" />
+                              <xs:attribute name="time" type="xs:string" use="required" />
+                              <xs:attribute name="fusion" type="xs:string" use="optional" />
+                              <xs:attribute name="port" use="optional">
+                                <xs:simpleType>
+                                  <xs:restriction base="xs:string">
+                                    <xs:enumeration value="None" />
+                                    <xs:enumeration value="In" />
+                                    <xs:enumeration value="Out" />
+                                    <xs:enumeration value="In/Out" />
+                                  </xs:restriction>
+                                </xs:simpleType>
+                              </xs:attribute>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="1" name="transitions">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element minOccurs="0" maxOccurs="unbounded" name="transition">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element minOccurs="0" name="icon">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element minOccurs="0" name="nameLabel">
+                                        <xs:complexType>
+                                          <xs:attribute name="x" type="xs:string" use="optional" />
+                                          <xs:attribute name="y" type="xs:string" use="optional" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                      <xs:element minOccurs="0" name="priorityLabel">
+                                        <xs:complexType>
+                                          <xs:attribute name="x" type="xs:string" use="optional" />
+                                          <xs:attribute name="y" type="xs:string" use="optional" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                      <xs:element minOccurs="0" name="guardLabel">
+                                        <xs:complexType>
+                                          <xs:attribute name="x" type="xs:string" use="optional" />
+                                          <xs:attribute name="y" type="xs:string" use="optional" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                      <xs:element minOccurs="0" name="substitutionLabel">
+                                        <xs:complexType>
+                                          <xs:attribute name="x" type="xs:string" use="optional" />
+                                          <xs:attribute name="y" type="xs:string" use="optional" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="x" type="xs:string" use="optional" />
+                                    <xs:attribute name="y" type="xs:string" use="optional" />
+                                    <xs:attribute name="width" type="xs:string" use="optional" />
+                                    <xs:attribute name="height" type="xs:string" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                              <xs:attribute name="name" type="xs:string" use="required" />
+                              <xs:attribute name="priority" type="xs:string" use="required" />
+                              <xs:attribute name="guard" type="xs:string" use="optional" />
+                              <xs:attribute name="substituted" use="required">
+                                <xs:simpleType>
+                                  <xs:restriction base="xs:string">
+                                    <xs:enumeration value="yes" />
+                                    <xs:enumeration value="no" />
+                                  </xs:restriction>
+                                </xs:simpleType>
+                              </xs:attribute>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="1" name="arcs">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element minOccurs="0" maxOccurs="unbounded" name="arc">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element minOccurs="0" name="icon">
+                                  <xs:complexType mixed="true">
+                                    <xs:sequence minOccurs="0">
+                                      <xs:element minOccurs="0" name="breakpoint">
+                                        <xs:complexType>
+                                          <xs:attribute name="x" type="xs:string" use="optional" />
+                                          <xs:attribute name="y" type="xs:string" use="optional" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="x" type="xs:string" use="optional" />
+                                    <xs:attribute name="y" type="xs:string" use="optional" />
+                                    <xs:attribute name="inX" type="xs:string" use="optional" />
+                                    <xs:attribute name="inY" type="xs:string" use="optional" />
+                                    <xs:attribute name="outX" type="xs:string" use="optional" />
+                                    <xs:attribute name="outY" type="xs:string" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                              <xs:attribute name="place" type="xs:string" use="required" />
+                              <xs:attribute name="transition" type="xs:string" use="required" />
+                              <xs:attribute name="direction" use="required">
+                                <xs:simpleType>
+                                  <xs:restriction base="xs:string">
+                                    <xs:enumeration value="In" />
+                                    <xs:enumeration value="Out" />
+                                    <xs:enumeration value="In/Out" />
+                                  </xs:restriction>
+                                </xs:simpleType>
+                              </xs:attribute>
+                              <xs:attribute name="inExpression" type="xs:string" use="optional" />
+                              <xs:attribute name="outExpression" type="xs:string" use="required" />
+                              <xs:attribute name="inTime" type="xs:string" use="optional" />
+                              <xs:attribute name="outTime" type="xs:string" use="optional" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="name" type="xs:string" use="required" />
+                  <xs:attribute name="width" type="xs:string" use="optional" />
+                  <xs:attribute name="height" type="xs:string" use="optional" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="1" name="hierarchy">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="1" name="nodes">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="1" maxOccurs="unbounded" name="node">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element minOccurs="0" name="icon">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element minOccurs="0" name="nameLabel">
+                                  <xs:complexType>
+                                    <xs:attribute name="x" type="xs:string" use="optional" />
+                                    <xs:attribute name="y" type="xs:string" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="parametersLabel">
+                                  <xs:complexType>
+                                    <xs:attribute name="x" type="xs:string" use="optional" />
+                                    <xs:attribute name="y" type="xs:string" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                              <xs:attribute name="x" type="xs:string" use="optional" />
+                              <xs:attribute name="y" type="xs:string" use="optional" />
+                              <xs:attribute name="width" type="xs:string" use="optional" />
+                              <xs:attribute name="height" type="xs:string" use="optional" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="name" type="xs:string" use="required" />
+                        <xs:attribute name="id" use="required">
+                          <xs:simpleType>
+                            <xs:restriction base="xs:integer">
+                              <xs:minInclusive value="0" />
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="parameters" type="xs:string" use="optional" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="1" name="connections">
+                <xs:complexType>
+                  <xs:sequence minOccurs="0">
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="connection">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element minOccurs="0" name="icon">
+                            <xs:complexType mixed="true">
+                              <xs:sequence minOccurs="0">
+                                <xs:element minOccurs="0" name="breakpoint">
+                                  <xs:complexType>
+                                    <xs:attribute name="x" type="xs:string" use="optional" />
+                                    <xs:attribute name="y" type="xs:string" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                              <xs:attribute name="transitionX" type="xs:string" use="optional" />
+                              <xs:attribute name="transitionY" type="xs:string" use="optional" />
+                              <xs:attribute name="assignmentsX" type="xs:string" use="optional" />
+                              <xs:attribute name="assignmentsY" type="xs:string" use="optional" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="superpageId" type="xs:string" use="required" />
+                        <xs:attribute name="subpageId" type="xs:string" use="required" />
+                        <xs:attribute name="transition" type="xs:string" use="required" />
+                        <xs:attribute name="assignments" type="xs:string" use="optional" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

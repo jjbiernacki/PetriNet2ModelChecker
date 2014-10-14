@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ISO-8859-2"?>
+<rtcpnet name="">
+  <declarations>
+    color L = with ala | kot;
+color K = L;
+var x : L;
+  </declarations>
+  <pages>
+    <page name="Main" width="1512" height="1512">
+      <places>
+        <place name="A" type="L" marking="3(ala)+1(kot)" time="0" fusion="" port="None">
+          <icon x="105" y="125" width="80" height="50">
+            <nameLabel x="135" y="140"/>
+            <typeLabel x="105" y="105"/>
+            <markingLabel x="130" y="105"/>
+            <fusionLabel x="156" y="160"/>
+            <portLabel x="156" y="125"/>
+          </icon>
+        </place>
+        <place name="B" type="K" marking="" time="0" fusion="" port="None">
+          <icon x="435" y="135" width="80" height="50">
+            <nameLabel x="470" y="155"/>
+            <typeLabel x="440" y="115"/>
+            <markingLabel x="487" y="171"/>
+            <fusionLabel x="487" y="171"/>
+            <portLabel x="487" y="136"/>
+          </icon>
+        </place>
+      </places>
+      <transitions>
+        <transition name="T" priority="0" guard="" substituted="no">
+          <icon x="255" y="220" width="100" height="30">
+            <nameLabel x="300" y="225"/>
+            <priorityLabel x="315" y="247"/>
+            <guardLabel x="315" y="247"/>
+            <substitutionLabel x="315" y="247"/>
+          </icon>
+        </transition>
+      </transitions>
+      <arcs>
+        <arc place="B" transition="T" direction="In" inExpression="kot" outExpression="" inTime="3" outTime="">
+          <icon inX="380" inY="200" outX="325" outY="157">
+          </icon>
+        </arc>
+        <arc place="A" transition="T" direction="Out" inExpression="" outExpression="x" inTime="" outTime="">
+          <icon inX="200" inY="192" outX="220" outY="170">
+          </icon>
+        </arc>
+      </arcs>
+    </page>
+  </pages>
+  <hierarchy>
+    <nodes>
+      <node name="Main" id="0" parameters="">
+        <icon x="180" y="75" width="200" height="30">
+          <nameLabel x="255" y="80"/>
+          <parametersLabel x="91" y="99"/>
+        </icon>
+      </node>
+    </nodes>
+    <connections>
+    </connections>
+  </hierarchy>
+</rtcpnet>

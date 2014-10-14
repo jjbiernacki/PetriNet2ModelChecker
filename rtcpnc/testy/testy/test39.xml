@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="ISO-8859-2"?>
+<rtcpnet name="">
+  <declarations>
+    color L = int with -8 .. 5;
+var x, y : L;
+  </declarations>
+  <pages>
+    <page name="Main" width="1512" height="1512">
+      <places>
+        <place name="A" type="L" marking="(2)+2(5)" time="0" fusion="">
+          <icon x="105" y="125" width="80" height="50">
+            <nameLabel x="135" y="140"/>
+            <typeLabel x="105" y="105"/>
+            <markingLabel x="130" y="105"/>
+          </icon>
+        </place>
+        <place name="C" type="L" marking="2(1)+3(0)" time="0" fusion="">
+          <icon x="150" y="335" width="80" height="50">
+            <nameLabel x="178" y="349"/>
+            <typeLabel x="125" y="335"/>
+            <markingLabel x="120" y="310"/>
+          </icon>
+        </place>
+        <place name="B" type="L" marking="" time="0" fusion="">
+          <icon x="435" y="135" width="80" height="50">
+            <nameLabel x="470" y="155"/>
+            <typeLabel x="440" y="115"/>
+            <markingLabel x="487" y="171"/>
+          </icon>
+        </place>
+      </places>
+      <transitions>
+        <transition name="T1" priority="0" guard="x &lt;&gt; y" substituted="no">
+          <icon x="255" y="220" width="100" height="30">
+            <nameLabel x="300" y="225"/>
+            <guardLabel x="315" y="247"/>
+          </icon>
+        </transition>
+        <transition name="T2" priority="0" guard="" substituted="no">
+          <icon x="560" y="235" width="100" height="30">
+            <nameLabel x="589" y="242"/>
+            <guardLabel x="589" y="267"/>
+          </icon>
+        </transition>
+      </transitions>
+      <arcs>
+        <arc place="B" transition="T1" direction="In" inExpression="y mod x" outExpression="" inTime="3" outTime="">
+          <icon x="380" y="200">
+          </icon>
+        </arc>
+        <arc place="B" transition="T2" direction="Out" inExpression="" outExpression="x" inTime="" outTime="4">
+          <icon x="517" y="205">
+          </icon>
+        </arc>
+        <arc place="A" transition="T1" direction="Out" inExpression="" outExpression="x" inTime="" outTime="">
+          <icon x="200" y="192">
+          </icon>
+        </arc>
+        <arc place="A" transition="T2" direction="In" inExpression="x+2" outExpression="" inTime="1" outTime="">
+          <icon x="305" y="120">
+            <breakpoint x="523" y="63"/>
+          </icon>
+        </arc>
+        <arc place="C" transition="T1" direction="Out" inExpression="" outExpression="y" inTime="" outTime="">
+          <icon x="222" y="297">
+          </icon>
+        </arc>
+        <arc place="C" transition="T2" direction="In" inExpression="x-1" outExpression="" inTime="2" outTime="">
+          <icon x="375" y="315">
+          </icon>
+        </arc>
+      </arcs>
+    </page>
+  </pages>
+  <hierarchy>
+    <nodes>
+      <node name="Main" id="0" parameters="">
+        <icon x="180" y="75" width="200" height="30">
+          <nameLabel x="255" y="80"/>
+          <parametersLabel x="91" y="99"/>
+        </icon>
+      </node>
+    </nodes>
+    <connections>
+    </connections>
+  </hierarchy>
+</rtcpnet>

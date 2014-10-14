@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="ISO-8859-2"?>
+<rtcpnet name="">
+  <declarations>
+    color State = int with 1..4;
+color Counter = int with 0..20;
+color Lights = with r | g;
+var x, y : Counter;
+  </declarations>
+  <pages>
+    <page name="Driver" width="1512" height="1512">
+      <places>
+        <place name="Driver" type="State" marking="(1)" time="0" fusion="" port="None">
+          <icon x="465" y="235" width="80" height="50">
+            <nameLabel x="480" y="250"/>
+            <typeLabel x="485" y="285"/>
+            <markingLabel x="485" y="300"/>
+            <fusionLabel x="515" y="271"/>
+            <portLabel x="515" y="236"/>
+          </icon>
+        </place>
+      </places>
+      <transitions>
+        <transition name="TurnOff1" priority="1" guard="" substituted="yes">
+          <icon x="715" y="205" width="100" height="30">
+            <nameLabel x="730" y="210"/>
+            <priorityLabel x="815" y="195"/>
+            <guardLabel x="777" y="229"/>
+            <substitutionLabel x="815" y="220"/>
+          </icon>
+        </transition>
+        <transition name="TurnOff2" priority="1" guard="" substituted="yes">
+          <icon x="715" y="275" width="100" height="30">
+            <nameLabel x="730" y="280"/>
+            <priorityLabel x="815" y="265"/>
+            <guardLabel x="775" y="301"/>
+            <substitutionLabel x="815" y="290"/>
+          </icon>
+        </transition>
+        <transition name="TurnOn2" priority="0" guard="" substituted="yes">
+          <icon x="210" y="275" width="100" height="30">
+            <nameLabel x="225" y="280"/>
+            <priorityLabel x="269" y="300"/>
+            <guardLabel x="269" y="300"/>
+            <substitutionLabel x="180" y="290"/>
+          </icon>
+        </transition>
+        <transition name="TurnOn1" priority="0" guard="" substituted="yes">
+          <icon x="210" y="205" width="100" height="30">
+            <nameLabel x="225" y="210"/>
+            <priorityLabel x="271" y="229"/>
+            <guardLabel x="271" y="229"/>
+            <substitutionLabel x="180" y="220"/>
+          </icon>
+        </transition>
+      </transitions>
+      <arcs>
+        <arc place="Driver" transition="TurnOn1" direction="In/Out" inExpression="" outExpression="" inTime="" outTime="">
+          <icon inX="357" inY="240" outX="317" outY="200">
+          </icon>
+        </arc>
+        <arc place="Driver" transition="TurnOn2" direction="In/Out" inExpression="" outExpression="" inTime="" outTime="">
+          <icon inX="357" inY="275" outX="317" outY="235">
+          </icon>
+        </arc>
+        <arc place="Driver" transition="TurnOff1" direction="In/Out" inExpression="" outExpression="" inTime="" outTime="">
+          <icon inX="610" inY="240" outX="570" outY="200">
+          </icon>
+        </arc>
+        <arc place="Driver" transition="TurnOff2" direction="In/Out" inExpression="" outExpression="" inTime="" outTime="">
+          <icon inX="610" inY="275" outX="570" outY="235">
+          </icon>
+        </arc>
+      </arcs>
+    </page>
+    <page name="TurnOn" width="1512" height="1512">
+      <places>
+        <place name="Lights%1" type="Lights" marking="(r)" time="0" fusion="Lights%1" port="None">
+          <icon x="450" y="55" width="80" height="50">
+            <nameLabel x="450" y="70"/>
+            <typeLabel x="540" y="55"/>
+            <markingLabel x="540" y="75"/>
+            <fusionLabel x="385" y="40"/>
+            <portLabel x="498" y="54"/>
+          </icon>
+        </place>
+        <place name="Monitor" type="Counter" marking="(0)" time="0" fusion="Monitor" port="None">
+          <icon x="705" y="190" width="80" height="50">
+            <nameLabel x="715" y="205"/>
+            <typeLabel x="715" y="240"/>
+            <markingLabel x="715" y="255"/>
+            <fusionLabel x="770" y="175"/>
+            <portLabel x="755" y="189"/>
+          </icon>
+        </place>
+        <place name="Driver" type="State" marking="(1)" time="0" fusion="" port="In/Out">
+          <icon x="200" y="190" width="80" height="50">
+            <nameLabel x="215" y="205"/>
+            <typeLabel x="215" y="240"/>
+            <markingLabel x="215" y="255"/>
+            <fusionLabel x="250" y="226"/>
+            <portLabel x="165" y="175"/>
+          </icon>
+        </place>
+      </places>
+      <transitions>
+        <transition name="TurnOn" priority="0" guard="" substituted="no">
+          <icon x="440" y="200" width="100" height="30">
+            <nameLabel x="460" y="205"/>
+            <priorityLabel x="501" y="224"/>
+            <guardLabel x="501" y="224"/>
+            <substitutionLabel x="501" y="224"/>
+          </icon>
+        </transition>
+      </transitions>
+      <arcs>
+        <arc place="Driver" transition="TurnOn" direction="In/Out" inExpression="%2" outExpression="%3" inTime="3" outTime="">
+          <icon inX="295" inY="195" outX="395" outY="220">
+          </icon>
+        </arc>
+        <arc place="Monitor" transition="TurnOn" direction="In/Out" inExpression="0" outExpression="0" inTime="" outTime="">
+          <icon inX="670" inY="195" outX="560" outY="195">
+          </icon>
+        </arc>
+        <arc place="Lights%1" transition="TurnOn" direction="In/Out" inExpression="g" outExpression="r" inTime="" outTime="">
+          <icon inX="495" inY="115" outX="495" outY="165">
+          </icon>
+        </arc>
+      </arcs>
+    </page>
+    <page name="TurnOff" width="1512" height="1512">
+      <places>
+        <place name="Lights%1" type="Lights" marking="(r)" time="0" fusion="Lights%1" port="None">
+          <icon x="705" y="190" width="80" height="50">
+            <nameLabel x="705" y="205"/>
+            <typeLabel x="720" y="240"/>
+            <markingLabel x="725" y="260"/>
+            <fusionLabel x="765" y="170"/>
+            <portLabel x="753" y="189"/>
+          </icon>
+        </place>
+        <place name="Driver" type="State" marking="(1)" time="0" fusion="" port="In/Out">
+          <icon x="200" y="190" width="80" height="50">
+            <nameLabel x="215" y="205"/>
+            <typeLabel x="215" y="240"/>
+            <markingLabel x="215" y="255"/>
+            <fusionLabel x="250" y="226"/>
+            <portLabel x="165" y="175"/>
+          </icon>
+        </place>
+      </places>
+      <transitions>
+        <transition name="TurnOff" priority="0" guard="" substituted="no">
+          <icon x="440" y="200" width="100" height="30">
+            <nameLabel x="460" y="205"/>
+            <priorityLabel x="501" y="224"/>
+            <guardLabel x="501" y="224"/>
+            <substitutionLabel x="501" y="224"/>
+          </icon>
+        </transition>
+      </transitions>
+      <arcs>
+        <arc place="Driver" transition="TurnOff" direction="In/Out" inExpression="%2" outExpression="%3" inTime="" outTime="">
+          <icon inX="300" inY="195" outX="395" outY="215">
+          </icon>
+        </arc>
+        <arc place="Lights%1" transition="TurnOff" direction="In/Out" inExpression="g" outExpression="r" inTime="" outTime="">
+          <icon inX="555" inY="190" outX="670" outY="195">
+          </icon>
+        </arc>
+      </arcs>
+    </page>
+    <page name="Road" width="1512" height="1512">
+      <places>
+        <place name="Road" type="Counter" marking="(4)" time="0" fusion="Road%1" port="None">
+          <icon x="465" y="235" width="80" height="50">
+            <nameLabel x="480" y="250"/>
+            <typeLabel x="470" y="285"/>
+            <markingLabel x="470" y="300"/>
+            <fusionLabel x="400" y="225"/>
+            <portLabel x="515" y="236"/>
+          </icon>
+        </place>
+      </places>
+      <transitions>
+        <transition name="Entry" priority="0" guard="" substituted="yes">
+          <icon x="710" y="245" width="100" height="30">
+            <nameLabel x="735" y="250"/>
+            <priorityLabel x="810" y="235"/>
+            <guardLabel x="770" y="271"/>
+            <substitutionLabel x="810" y="260"/>
+          </icon>
+        </transition>
+      </transitions>
+      <arcs>
+        <arc place="Road" transition="Entry" direction="In/Out" inExpression="" outExpression="" inTime="" outTime="">
+          <icon inX="610" inY="275" outX="570" outY="235">
+          </icon>
+        </arc>
+      </arcs>
+    </page>
+    <page name="Entry" width="1512" height="1512">
+      <places>
+        <place name="Monitor" type="Counter" marking="(0)" time="0" fusion="Monitor" port="None">
+          <icon x="385" y="195" width="80" height="50">
+            <nameLabel x="395" y="210"/>
+            <typeLabel x="390" y="175"/>
+            <markingLabel x="390" y="155"/>
+            <fusionLabel x="325" y="230"/>
+            <portLabel x="435" y="194"/>
+          </icon>
+        </place>
+        <place name="Lights%1" type="Lights" marking="(r)" time="0" fusion="Lights%1" port="None">
+          <icon x="650" y="50" width="80" height="50">
+            <nameLabel x="650" y="65"/>
+            <typeLabel x="735" y="55"/>
+            <markingLabel x="735" y="75"/>
+            <fusionLabel x="580" y="35"/>
+            <portLabel x="698" y="49"/>
+          </icon>
+        </place>
+        <place name="Road" type="Counter" marking="(4)" time="0" fusion="" port="In/Out">
+          <icon x="895" y="195" width="80" height="50">
+            <nameLabel x="910" y="210"/>
+            <typeLabel x="900" y="245"/>
+            <markingLabel x="900" y="260"/>
+            <fusionLabel x="947" y="232"/>
+            <portLabel x="970" y="185"/>
+          </icon>
+        </place>
+      </places>
+      <transitions>
+        <transition name="Entry" priority="0" guard="x &gt; 0" substituted="no">
+          <icon x="640" y="205" width="100" height="30">
+            <nameLabel x="665" y="210"/>
+            <priorityLabel x="701" y="232"/>
+            <guardLabel x="665" y="235"/>
+            <substitutionLabel x="701" y="232"/>
+          </icon>
+        </transition>
+      </transitions>
+      <arcs>
+        <arc place="Monitor" transition="Entry" direction="In/Out" inExpression="y+1" outExpression="y" inTime="1" outTime="">
+          <icon inX="480" inY="195" outX="610" outY="195">
+          </icon>
+        </arc>
+        <arc place="Lights%1" transition="Entry" direction="In/Out" inExpression="g" outExpression="g" inTime="" outTime="">
+          <icon inX="695" inY="110" outX="695" outY="170">
+          </icon>
+        </arc>
+        <arc place="Road" transition="Entry" direction="In/Out" inExpression="x-1" outExpression="x" inTime="" outTime="">
+          <icon inX="850" inY="200" outX="755" outY="200">
+          </icon>
+        </arc>
+      </arcs>
+    </page>
+    <page name="Region" width="1512" height="1512">
+      <places>
+        <place name="Region" type="Counter" marking="(0)" time="0" fusion="" port="None">
+          <icon x="540" y="270" width="80" height="50">
+            <nameLabel x="550" y="285"/>
+            <typeLabel x="545" y="320"/>
+            <markingLabel x="545" y="335"/>
+            <fusionLabel x="589" y="307"/>
+            <portLabel x="589" y="272"/>
+          </icon>
+        </place>
+      </places>
+      <transitions>
+        <transition name="EntryR2" priority="0" guard="" substituted="yes">
+          <icon x="785" y="280" width="100" height="30">
+            <nameLabel x="800" y="285"/>
+            <priorityLabel x="843" y="306"/>
+            <guardLabel x="843" y="306"/>
+            <substitutionLabel x="885" y="300"/>
+          </icon>
+        </transition>
+        <transition name="EntryR1" priority="0" guard="" substituted="yes">
+          <icon x="260" y="280" width="100" height="30">
+            <nameLabel x="275" y="285"/>
+            <priorityLabel x="320" y="305"/>
+            <guardLabel x="320" y="305"/>
+            <substitutionLabel x="230" y="295"/>
+          </icon>
+        </transition>
+        <transition name="Exit" priority="0" guard="" substituted="yes">
+          <icon x="530" y="100" width="100" height="30">
+            <nameLabel x="560" y="105"/>
+            <priorityLabel x="588" y="123"/>
+            <guardLabel x="588" y="123"/>
+            <substitutionLabel x="630" y="120"/>
+          </icon>
+        </transition>
+      </transitions>
+      <arcs>
+        <arc place="Region" transition="EntryR1" direction="In/Out" inExpression="" outExpression="" inTime="" outTime="">
+          <icon inX="397" inY="302" outX="357" outY="262">
+          </icon>
+        </arc>
+        <arc place="Region" transition="EntryR2" direction="In/Out" inExpression="" outExpression="" inTime="" outTime="">
+          <icon inX="707" inY="297" outX="667" outY="257">
+          </icon>
+        </arc>
+        <arc place="Region" transition="Exit" direction="In/Out" inExpression="" outExpression="" inTime="" outTime="">
+          <icon inX="562" inY="202" outX="522" outY="162">
+          </icon>
+        </arc>
+      </arcs>
+    </page>
+    <page name="EntryR" width="1512" height="1512">
+      <places>
+        <place name="Clock" type="Counter" marking="(0)" time="0" fusion="Clock" port="None">
+          <icon x="820" y="260" width="80" height="50">
+            <nameLabel x="835" y="275"/>
+            <typeLabel x="825" y="310"/>
+            <markingLabel x="825" y="325"/>
+            <fusionLabel x="895" y="250"/>
+            <portLabel x="775" y="250"/>
+          </icon>
+        </place>
+        <place name="Road" type="Counter" marking="(4)" time="0" fusion="Road%1" port="None">
+          <icon x="555" y="100" width="80" height="50">
+            <nameLabel x="570" y="115"/>
+            <typeLabel x="635" y="95"/>
+            <markingLabel x="635" y="110"/>
+            <fusionLabel x="490" y="90"/>
+            <portLabel x="605" y="101"/>
+          </icon>
+        </place>
+        <place name="Region" type="Counter" marking="(0)" time="0" fusion="" port="In/Out">
+          <icon x="300" y="260" width="80" height="50">
+            <nameLabel x="310" y="275"/>
+            <typeLabel x="305" y="310"/>
+            <markingLabel x="305" y="325"/>
+            <fusionLabel x="349" y="297"/>
+            <portLabel x="255" y="250"/>
+          </icon>
+        </place>
+      </places>
+      <transitions>
+        <transition name="EntryR" priority="0" guard="x &gt; 0" substituted="no">
+          <icon x="545" y="270" width="100" height="30">
+            <nameLabel x="565" y="275"/>
+            <priorityLabel x="607" y="296"/>
+            <guardLabel x="570" y="300"/>
+            <substitutionLabel x="607" y="296"/>
+          </icon>
+        </transition>
+      </transitions>
+      <arcs>
+        <arc place="Clock" transition="EntryR" direction="In/Out" inExpression="%2" outExpression="%3" inTime="1" outTime="">
+          <icon inX="745" inY="265" outX="665" outY="265">
+          </icon>
+        </arc>
+        <arc place="Road" transition="EntryR" direction="In/Out" inExpression="y+1" outExpression="y" inTime="" outTime="">
+          <icon inX="600" inY="160" outX="600" outY="230">
+          </icon>
+        </arc>
+        <arc place="Region" transition="EntryR" direction="In/Out" inExpression="x-1" outExpression="x" inTime="" outTime="">
+          <icon inX="400" inY="265" outX="505" outY="265">
+          </icon>
+        </arc>
+      </arcs>
+    </page>
+    <page name="Exit" width="1512" height="1512">
+      <places>
+        <place name="Region" type="Counter" marking="(0)" time="0" fusion="" port="In/Out">
+          <icon x="325" y="265" width="80" height="50">
+            <nameLabel x="335" y="280"/>
+            <typeLabel x="330" y="315"/>
+            <markingLabel x="330" y="330"/>
+            <fusionLabel x="374" y="302"/>
+            <portLabel x="280" y="255"/>
+          </icon>
+        </place>
+        <place name="Monitor" type="Counter" marking="(0)" time="0" fusion="Monitor" port="None">
+          <icon x="850" y="265" width="80" height="50">
+            <nameLabel x="860" y="280"/>
+            <typeLabel x="860" y="315"/>
+            <markingLabel x="860" y="330"/>
+            <fusionLabel x="915" y="250"/>
+            <portLabel x="900" y="264"/>
+          </icon>
+        </place>
+      </places>
+      <transitions>
+        <transition name="Exit" priority="0" guard="y &gt; 0" substituted="no">
+          <icon x="575" y="275" width="100" height="30">
+            <nameLabel x="610" y="280"/>
+            <priorityLabel x="635" y="301"/>
+            <guardLabel x="600" y="305"/>
+            <substitutionLabel x="635" y="301"/>
+          </icon>
+        </transition>
+      </transitions>
+      <arcs>
+        <arc place="Monitor" transition="Exit" direction="In/Out" inExpression="y-1" outExpression="y" inTime="1" outTime="">
+          <icon inX="775" inY="270" outX="690" outY="265">
+          </icon>
+        </arc>
+        <arc place="Region" transition="Exit" direction="In/Out" inExpression="x+1" outExpression="x" inTime="" outTime="">
+          <icon inX="420" inY="270" outX="540" outY="270">
+          </icon>
+        </arc>
+      </arcs>
+    </page>
+  </pages>
+  <hierarchy>
+    <nodes>
+      <node name="EntryR" id="11" parameters="%1 = 1, %2 = 1, %3 = 0">
+        <icon x="485" y="430" width="200" height="30">
+          <nameLabel x="550" y="435"/>
+          <parametersLabel x="690" y="435"/>
+        </icon>
+      </node>
+      <node name="TurnOff" id="5" parameters="%1 = 2, %2 = 1, %3 = 4">
+        <icon x="485" y="190" width="200" height="30">
+          <nameLabel x="545" y="195"/>
+          <parametersLabel x="690" y="195"/>
+        </icon>
+      </node>
+      <node name="Entry" id="7" parameters="%1 = 1">
+        <icon x="485" y="285" width="200" height="30">
+          <nameLabel x="555" y="290"/>
+          <parametersLabel x="690" y="290"/>
+        </icon>
+      </node>
+      <node name="Road" id="6" parameters="%1 = 1">
+        <icon x="85" y="285" width="200" height="30">
+          <nameLabel x="150" y="290"/>
+          <parametersLabel x="20" y="290"/>
+        </icon>
+      </node>
+      <node name="Region" id="10" parameters="">
+        <icon x="85" y="490" width="200" height="30">
+          <nameLabel x="145" y="495"/>
+          <parametersLabel x="-6" y="515"/>
+        </icon>
+      </node>
+      <node name="Road" id="8" parameters="%1 = 2">
+        <icon x="85" y="345" width="200" height="30">
+          <nameLabel x="150" y="350"/>
+          <parametersLabel x="20" y="350"/>
+        </icon>
+      </node>
+      <node name="Exit" id="13" parameters="">
+        <icon x="485" y="550" width="200" height="30">
+          <nameLabel x="560" y="555"/>
+          <parametersLabel x="395" y="575"/>
+        </icon>
+      </node>
+      <node name="TurnOff" id="4" parameters="%1 = 1, %2 = 3, %3 = 2">
+        <icon x="485" y="150" width="200" height="30">
+          <nameLabel x="545" y="155"/>
+          <parametersLabel x="690" y="155"/>
+        </icon>
+      </node>
+      <node name="TurnOn" id="3" parameters="%1 = 2, %2 = 4, %3 = 3">
+        <icon x="485" y="110" width="200" height="30">
+          <nameLabel x="550" y="115"/>
+          <parametersLabel x="690" y="115"/>
+        </icon>
+      </node>
+      <node name="Driver" id="1" parameters="">
+        <icon x="90" y="130" width="200" height="30">
+          <nameLabel x="150" y="135"/>
+          <parametersLabel x="-2" y="155"/>
+        </icon>
+      </node>
+      <node name="TurnOn" id="2" parameters="%1 = 1, %2 = 2, %3 = 1">
+        <icon x="485" y="70" width="200" height="30">
+          <nameLabel x="550" y="75"/>
+          <parametersLabel x="690" y="75"/>
+        </icon>
+      </node>
+      <node name="Entry" id="9" parameters="%1 = 2">
+        <icon x="485" y="345" width="200" height="30">
+          <nameLabel x="555" y="350"/>
+          <parametersLabel x="690" y="350"/>
+        </icon>
+      </node>
+      <node name="EntryR" id="12" parameters="%1 = 2, %2 = 0, %3 = 1">
+        <icon x="485" y="490" width="200" height="30">
+          <nameLabel x="550" y="495"/>
+          <parametersLabel x="690" y="495"/>
+        </icon>
+      </node>
+    </nodes>
+    <connections>
+      <connection superpageId="6" subpageId="7" transition="Entry" assignments="">
+        <icon transitionX="350" transitionY="280" assignmentsX="325" assignmentsY="305">
+        </icon>
+      </connection>
+      <connection superpageId="1" subpageId="2" transition="TurnOn1" assignments="">
+        <icon transitionX="345" transitionY="65" assignmentsX="267" assignmentsY="90">
+          <breakpoint x="343" y="88"/>
+        </icon>
+      </connection>
+      <connection superpageId="8" subpageId="9" transition="Entry" assignments="">
+        <icon transitionX="350" transitionY="340" assignmentsX="325" assignmentsY="365">
+        </icon>
+      </connection>
+      <connection superpageId="10" subpageId="11" transition="EntryR1" assignments="">
+        <icon transitionX="345" transitionY="425" assignmentsX="265" assignmentsY="440">
+          <breakpoint x="343" y="448"/>
+        </icon>
+      </connection>
+      <connection superpageId="1" subpageId="5" transition="TurnOff2" assignments="">
+        <icon transitionX="345" transitionY="205" assignmentsX="267" assignmentsY="150">
+          <breakpoint x="328" y="203"/>
+        </icon>
+      </connection>
+      <connection superpageId="1" subpageId="4" transition="TurnOff1" assignments="">
+        <icon transitionX="345" transitionY="165" assignmentsX="267" assignmentsY="130">
+          <breakpoint x="333" y="158"/>
+        </icon>
+      </connection>
+      <connection superpageId="10" subpageId="12" transition="EntryR2" assignments="">
+        <icon transitionX="345" transitionY="485" assignmentsX="265" assignmentsY="470">
+        </icon>
+      </connection>
+      <connection superpageId="10" subpageId="13" transition="Exit" assignments="">
+        <icon transitionX="360" transitionY="535" assignmentsX="265" assignmentsY="500">
+          <breakpoint x="333" y="558"/>
+        </icon>
+      </connection>
+      <connection superpageId="1" subpageId="3" transition="TurnOn2" assignments="">
+        <icon transitionX="345" transitionY="110" assignmentsX="267" assignmentsY="110">
+          <breakpoint x="338" y="133"/>
+        </icon>
+      </connection>
+    </connections>
+  </hierarchy>
+</rtcpnet>
