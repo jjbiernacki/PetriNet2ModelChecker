@@ -9,8 +9,8 @@ color FireDepState = with calledFor | none;
 color EmployeeState = with act | idle;
 color Delay = int with 0..300;
 var t : Delay;
-var SenSt: SensorsState;
-var anySysSt: SystemState;
+var senSt: SensorsState;
+var sysSt: SystemState;
 </declarations>
 <pages>
 <page name="Main" width="1512" height="1512">
@@ -66,8 +66,7 @@ var anySysSt: SystemState;
 </place>
 </places>
 <transitions>
-<transition name="GetSensorsValue" priority="0" guard="SenSt = warning or
-SenSt = dblWarning" substituted="no">
+<transition name="GetSensorsValue" priority="0" guard="senSt &lt;> normal" substituted="no">
 <icon x="0" y="0" width="0" height="0">
 <nameLabel x="0" y="0"/>
 <guardLabel x="0" y="0"/>
@@ -121,7 +120,8 @@ SenSt = dblWarning" substituted="no">
 <guardLabel x="0" y="0"/>
 </icon>
 </transition>
-<transition name="InstantTurnOnAlarm2" priority="0" guard="" substituted="no">
+<transition name="InstantTurnOnAlarm2" priority="0" guard="sysSt &lt;> a2 and 
+sysSt &lt;> term" substituted="no">
 <icon x="0" y="0" width="0" height="0">
 <nameLabel x="0" y="0"/>
 <guardLabel x="0" y="0"/>
@@ -217,7 +217,7 @@ SenSt = dblWarning" substituted="no">
 <icon x="0" y="0">
 </icon>
 </arc>
-<arc place="SPP" transition="InstantTurnOnAlarm2" direction="In/Out" inExpression="a2"  outExpression="anySysSt" inTime="" outTime="">
+<arc place="SPP" transition="InstantTurnOnAlarm2" direction="In/Out" inExpression="a2"  outExpression="sysSt" inTime="" outTime="">
 <icon x="0" y="0">
 </icon>
 </arc>

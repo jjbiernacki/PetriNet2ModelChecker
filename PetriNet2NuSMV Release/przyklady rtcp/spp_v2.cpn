@@ -93,15 +93,15 @@
           <type>
             <id>SensorsState</id>
           </type>
-          <id>SenSt</id>
-          <layout>var SenSt: SensorsState;</layout>
+          <id>senSt</id>
+          <layout>var senSt: SensorsState;</layout>
         </var>
         <var id="ID1413664482">
           <type>
             <id>SystemState</id>
           </type>
-          <id>anySysSt</id>
-          <layout>var anySysSt: SystemState;</layout>
+          <id>sysSt</id>
+          <layout>var sysSt: SystemState;</layout>
         </var>
       </block>
     </globbox>
@@ -490,7 +490,7 @@
                  y="-3.000000"/>
         <cond id="ID1413515351">
           <posattr x="-630.000000"
-                   y="207.000000"/>
+                   y="200.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -500,8 +500,7 @@
           <textattr colour="Black"
                     bold="false"/>
           <text tool="CPN Tools"
-                version="4.0.0">[SenSt = warning or
-SenSt = dblWarning]</text>
+                version="4.0.0">[senSt &lt;&gt; normal]</text>
         </cond>
         <time id="ID1413515352">
           <posattr x="-553.500000"
@@ -1147,7 +1146,7 @@ SenSt = dblWarning]</text>
                   filled="false"/>
         <lineattr colour="Black"
                   thick="1"
-                  type="Solid"/>
+                  type="solid"/>
         <textattr colour="Black"
                   bold="false"/>
         <text>InstantTurnOnAlarm2</text>
@@ -1155,9 +1154,9 @@ SenSt = dblWarning]</text>
              h="40.000000"/>
         <binding x="7.200000"
                  y="-3.000000"/>
-        <cond id="ID1413659780">
-          <posattr x="-533.000000"
-                   y="231.000000"/>
+        <cond id="ID1413665549">
+          <posattr x="-452.000000"
+                   y="238.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -1167,7 +1166,8 @@ SenSt = dblWarning]</text>
           <textattr colour="Black"
                     bold="false"/>
           <text tool="CPN Tools"
-                version="4.0.0"/>
+                version="4.0.0">[sysSt &lt;&gt; a2 and 
+sysSt &lt;&gt; term]</text>
         </cond>
         <time id="ID1413659781">
           <posattr x="-365.500000"
@@ -2218,7 +2218,7 @@ SenSt = dblWarning]</text>
           <textattr colour="Black"
                     bold="false"/>
           <text tool="CPN Tools"
-                version="4.0.0">a2 | anySysSt</text>
+                version="4.0.0">a2 | sysSt</text>
         </annot>
       </arc>
       <constraints/>
@@ -2452,8 +2452,8 @@ SenSt = dblWarning]</text>
                  height="691">
         <sheets>
           <cpnsheet id="ID2215"
-                    panx="190.000000"
-                    pany="4.000000"
+                    panx="205.000000"
+                    pany="-26.000000"
                     zoom="1.000000"
                     instance="ID2149">
             <zorder>
@@ -2547,7 +2547,7 @@ SenSt = dblWarning]</text>
           <IndexNode expanded="true"/>
         </IndexNode>
       </IndexNode>
-      <IndexNode expanded="false"/>
+      <IndexNode expanded="true"/>
       <IndexNode expanded="true"/>
     </IndexNode>
   </cpnet>
