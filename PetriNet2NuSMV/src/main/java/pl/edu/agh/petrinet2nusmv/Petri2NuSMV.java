@@ -65,7 +65,7 @@ public class Petri2NuSMV {
 
     private boolean isEnvironmentalRun = false;
 
-    private String[] rtcpParsers = {"CPN Tools >> RTCP", "RTCP Net >> RTCP Simulator", "RTCP Net >> Coverability Graph"};
+    private String[] rtcpParsers = {"CPN Tools >> Coverability Graph", "CPN Tools >> RTCP", "RTCP Net >> RTCP Simulator", "RTCP Net >> Coverability Graph"};
     private String[] cg2nsParsers = {"RTCP Nets","Coloured Petri Nets", "Place/transition Petri Nets"};
 
 
@@ -258,11 +258,12 @@ public class Petri2NuSMV {
             int i = comboBoxRTCP.getSelectedIndex();
 
             switch (i) {
-                case 0://cpntools to rtcp
+                case 0://cpntools to coverability graph
+                case 1://cpntools to rtcp
                     filter = new ExtensionFilter("CPN Tools file  (*.cpn)", ".cpn");
                     break;
-                case 1://rtcp net to rtcp simulator
-                case 2://rtcp net to coverability graph
+                case 2://rtcp net to rtcp simulator
+                case 3://rtcp net to coverability graph
                     filter = new ExtensionFilter("RTCP XML file  (*.xml)", ".xml");
                     break;
                 default:
@@ -321,7 +322,8 @@ public class Petri2NuSMV {
             String extensionFileHint;
             String extension;
             switch (selectedItem) {
-                case 2://rtcp net to coverability graph
+                case 0:
+                case 3://rtcp net to coverability graph
                     extensionFileHint = "DOT file (*.dot)";
                     extension = ".dot";
                     break;
@@ -459,7 +461,33 @@ public class Petri2NuSMV {
                 }
 
                 switch (i) {
-                    case 0://cpntools to rtcp
+                    case 0:
+                        try {
+                            String parsedFile = new XmlParse().parse(path);
+                            parsedRTCPFileName = rtcpPathField.getText();
+                            parsedRTCPFileName = parsedRTCPFileName.substring(0, parsedRTCPFileName.indexOf("."));
+                            File tmpDir = new File("tmp");
+                            if (!tmpDir.exists()) {
+                                tmpDir.mkdir();
+                            }
+                            File rtcpFile = new File(tmpDir.getAbsolutePath(), "rtcp.xml");
+                            if (!rtcpFile.exists()) {
+                                rtcpFile.createNewFile();
+                            }
+                            PrintWriter out = new PrintWriter(rtcpFile.getAbsolutePath());
+                            out.println(parsedFile);
+                            out.close();
+                            generateCGFromRTCPFile(rtcpFile.getAbsolutePath(), currentDir);
+                            FileUtils.deleteDirectory(tmpDir);
+                        } catch (Exception e1) {
+                            JOptionPane.showMessageDialog(frame,
+                                    "Error occurred. You probably chose the wrong file to convert.",
+                                    "Error",
+                                    JOptionPane.ERROR_MESSAGE);
+
+                        }
+                        break;
+                    case 1://cpntools to rtcp
                         try {
                             String parsedFile = new XmlParse().parse(path);
                             rtcpTextArea.setText(parsedFile);
@@ -474,7 +502,7 @@ public class Petri2NuSMV {
 
                         }
                         break;
-                    case 1://rtcp net to rtcp simulator
+                    case 2://rtcp net to rtcp simulator
                         try {
 
                             ProcessBuilder createSimulatorPB = new ProcessBuilder("java", "-jar", "rtcpnc.jar", "\"" + path + "\"", "simulator");
@@ -502,33 +530,10 @@ public class Petri2NuSMV {
                                     JOptionPane.ERROR_MESSAGE);
                         }
                         break;
-                    case 2://rtcp net to coverability graph
+                    case 3://rtcp net to coverability graph
                         parsedRTCPFileName = rtcpPathField.getText();
                         parsedRTCPFileName = parsedRTCPFileName.substring(0, parsedRTCPFileName.indexOf("."));
-                        try {
-                            ProcessBuilder createSimulatorPB = new ProcessBuilder("java", "-jar", "rtcpnc.jar", "\"" + path + "\"", "simulator");
-                            createSimulatorPB.directory(new File(currentDir + "rtcpnc"));
-                            createSimulatorPB.redirectOutput(ProcessBuilder.Redirect.INHERIT);
-                            createSimulatorPB.redirectError(ProcessBuilder.Redirect.INHERIT);
-                            createSimulatorPB.start().waitFor();
-
-                            ProcessBuilder getCoverabilityGraphPB = new ProcessBuilder("java", "-jar", "simulator.jar" , String.valueOf(rtcpSimulatorEndTime),  "-cg");
-                            getCoverabilityGraphPB.directory(new File(currentDir + "rtcpnc/simulator"));
-                            getCoverabilityGraphPB.redirectOutput(ProcessBuilder.Redirect.INHERIT);
-                            getCoverabilityGraphPB.redirectError(ProcessBuilder.Redirect.INHERIT);
-                            getCoverabilityGraphPB.start().waitFor();
-
-                            String coverabilityGraphText = new String(Files.readAllBytes(Paths.get(currentDir + "rtcpnc/simulator", "coverability-graph.dot")));
-                            rtcpTextArea.setText(coverabilityGraphText);
-                            rtcpSaveButton.setEnabled(true);
-
-                            FileUtils.deleteDirectory(new File(currentDir + "rtcpnc/simulator"));
-                        } catch (Exception e1) {
-                            JOptionPane.showMessageDialog(frame,
-                                    "Error occurred. Either you chose the wrong file to convert or you do not have tools.jar library in '<JRE path>/lib' folder.",
-                                    "Error",
-                                    JOptionPane.ERROR_MESSAGE);
-                        }
+                        generateCGFromRTCPFile(path, currentDir);
                         break;
                     default:
                         throw new IllegalStateException("No action for this item");
@@ -542,6 +547,33 @@ public class Petri2NuSMV {
             }
         }
     };
+
+    private void generateCGFromRTCPFile(String path, String currentDir) {
+        try {
+            ProcessBuilder createSimulatorPB = new ProcessBuilder("java", "-jar", "rtcpnc.jar", "\"" + path + "\"", "simulator");
+            createSimulatorPB.directory(new File(currentDir + "rtcpnc"));
+            createSimulatorPB.redirectOutput(ProcessBuilder.Redirect.INHERIT);
+            createSimulatorPB.redirectError(ProcessBuilder.Redirect.INHERIT);
+            createSimulatorPB.start().waitFor();
+
+            ProcessBuilder getCoverabilityGraphPB = new ProcessBuilder("java", "-jar", "simulator.jar" , String.valueOf(rtcpSimulatorEndTime),  "-cg");
+            getCoverabilityGraphPB.directory(new File(currentDir + "rtcpnc/simulator"));
+            getCoverabilityGraphPB.redirectOutput(ProcessBuilder.Redirect.INHERIT);
+            getCoverabilityGraphPB.redirectError(ProcessBuilder.Redirect.INHERIT);
+            getCoverabilityGraphPB.start().waitFor();
+
+            String coverabilityGraphText = new String(Files.readAllBytes(Paths.get(currentDir + "rtcpnc/simulator", "coverability-graph.dot")));
+            rtcpTextArea.setText(coverabilityGraphText);
+            rtcpSaveButton.setEnabled(true);
+
+            FileUtils.deleteDirectory(new File(currentDir + "rtcpnc/simulator"));
+        } catch (Exception e1) {
+            JOptionPane.showMessageDialog(frame,
+                    "Error occurred. Either you chose the wrong file to convert or you do not have tools.jar library in '<JRE path>/lib' folder.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
