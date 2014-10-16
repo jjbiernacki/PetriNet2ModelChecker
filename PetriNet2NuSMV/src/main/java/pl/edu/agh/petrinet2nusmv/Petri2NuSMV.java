@@ -1,6 +1,7 @@
 package pl.edu.agh.petrinet2nusmv;
 
 import org.apache.commons.io.FileUtils;
+import org.oxbow.swingbits.dialog.task.TaskDialog;
 import pl.edu.agh.cpn2rtcpn.XmlParse;
 import pl.edu.agh.petrinet2nusmv.exceptions.ExtensionFilter;
 import pl.edu.agh.petrinet2nusmv.exceptions.SyntaxException;
@@ -16,15 +17,12 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileFilter;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.Desktop;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.*;
 import java.net.JarURLConnection;
-import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -568,10 +566,7 @@ public class Petri2NuSMV {
                                 System.out.print("Open command cancelled by user.");
                             }
                         } catch (Exception e1) {
-                            JOptionPane.showMessageDialog(frame,
-                                    "Error occurred. Either the chosen file is corrupted or you do not have tools.jar library in '<JRE path>/lib' folder.",
-                                    "Error",
-                                    JOptionPane.ERROR_MESSAGE);
+                            showErrorDialog(frame, "Error","Error occurred. Either the chosen file is corrupted or you do not have tools.jar library in '<JRE path>/lib' folder.", "Details");
                         }
                         break;
                     case 3://rtcp net to coverability graph
@@ -612,34 +607,95 @@ public class Petri2NuSMV {
     }
 
     private void generateCGFromRTCPFile(String path, String currentDir) {
+
+        StringBuilder logs = new StringBuilder();
         try {
             ProcessBuilder createSimulatorPB = new ProcessBuilder("java", "-jar", "rtcpnc.jar", "\"" + path + "\"", "simulator");
             createSimulatorPB.directory(new File(currentDir + "rtcpnc"));
-            createSimulatorPB.redirectOutput(ProcessBuilder.Redirect.INHERIT);
-            createSimulatorPB.redirectError(ProcessBuilder.Redirect.INHERIT);
-            createSimulatorPB.start().waitFor();
+            createSimulatorPB.redirectErrorStream(true);
+            Process processGenerateSimulator = createSimulatorPB.start();
+            BufferedReader outputGenerateSimulator = new BufferedReader(new InputStreamReader(processGenerateSimulator.getInputStream()));
+            String line = "";
+            while ((line = outputGenerateSimulator.readLine()) != null) {
+                logs.append(line);
+                logs.append("\n");
+            }
+            processGenerateSimulator.waitFor();
 
             ProcessBuilder getCoverabilityGraphPB = new ProcessBuilder("java", "-jar", "simulator.jar" , String.valueOf(rtcpSimulatorEndTime),  "-cg");
             getCoverabilityGraphPB.directory(new File(currentDir + "rtcpnc/simulator"));
-            getCoverabilityGraphPB.redirectOutput(ProcessBuilder.Redirect.INHERIT);
-            getCoverabilityGraphPB.redirectError(ProcessBuilder.Redirect.INHERIT);
-            getCoverabilityGraphPB.start().waitFor();
+            getCoverabilityGraphPB.redirectErrorStream(true);
+            Process processSimulate = getCoverabilityGraphPB.start();
+            BufferedReader outputCG = new BufferedReader(new InputStreamReader(processSimulate.getInputStream()));
+            logs = new StringBuilder();
+            while ((line = outputCG.readLine()) != null) {
+                logs.append(line);
+                logs.append("\n");
+            }
+            processSimulate.waitFor();
 
             String coverabilityGraphText = new String(Files.readAllBytes(Paths.get(currentDir + "rtcpnc/simulator", "coverability-graph.dot")));
             rtcpTextArea.setText(coverabilityGraphText);
             rtcpSaveButton.setEnabled(true);
             exportToPdfButton.setEnabled(true);
 
-            FileUtils.deleteDirectory(new File(currentDir + "rtcpnc/simulator"));
         } catch (Exception e1) {
-            JOptionPane.showMessageDialog(frame,
-                    "Error occurred. Either the chosen file is corrupted or you do not have tools.jar library in '<JRE path>/lib' folder.",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
+            showErrorDialog(frame, "Error", "Error occurred. Either the chosen file is corrupted or you do not have tools.jar library in '<JRE path>/lib' folder.", logs.toString());
+        } finally {
+            try {
+                FileUtils.deleteDirectory(new File(currentDir + "rtcpnc/simulator"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
     }
+
+    private void showErrorDialog(Window parent, String title, String instruction, String details) {
+        TaskDialog dlg = new TaskDialog(parent, title);
+        dlg.setResizable(true);
+        dlg.setInstruction(instruction);
+        dlg.setIcon(TaskDialog.StandardIcon.ERROR);
+
+//            JTextArea ta = new JTextArea();
+//            ta.setText("text\ntext\ntext");
+
+
+        JScrollPane scrollPane = new JScrollPane(new JTextArea(details));
+
+        scrollPane.setMaximumSize(new Dimension(300, 200));
+
+        dlg.getDetails().setExpandableComponent(scrollPane);
+        dlg.getDetails().setCollapsedLabel("Show details");
+
+        dlg.getDetails().setExpandedLabel("Hide details");
+        dlg.getDetails().setExpanded(false);
+        dlg.show();
+
+    }
+
+    private String file2String(File f){
+        try {
+            StringBuilder sb = new StringBuilder();
+            StringBuilder fileContents = new StringBuilder((int) f.length());
+            Scanner scanner = new Scanner(f);
+            String lineSeparator = System.getProperty("line.separator");
+
+            try {
+                while (scanner.hasNextLine()) {
+                    fileContents.append(scanner.nextLine() + lineSeparator);
+                }
+                return fileContents.toString();
+            } finally {
+                scanner.close();
+            }
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+            return "For details see simlog.log file.";
+        }
+    }
+
 }
