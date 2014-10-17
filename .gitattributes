@@ -137,10 +137,6 @@ PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/generator/nuxmv/NuXMVGene
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/generator/nuxmv/NuXMVRTCPGenerator.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/generator/nuxmv/StrRes.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/logger/Logger.java -text
-PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/model/base/Place.java -text
-PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/model/base/PlaceType.java -text
-PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/model/base/ReachabilityGraph.java -text
-PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/model/base/State.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/model/color/CPNPlace.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/model/color/CPNReachabilityGraph.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/model/color/CPNState.java -text
