@@ -1,6 +1,7 @@
 package pl.edu.agh.petrinet2nusmv.model.rtcp;
 
-import pl.edu.agh.petrinet2nusmv.model.base.Place;
+import pl.edu.agh.petrinet2nusmv.model.base.State;
+import pl.edu.agh.petrinet2nusmv.model.pt.PTPlace;
 
 import java.util.*;
 
@@ -9,18 +10,19 @@ import java.util.*;
  * @author abiernacka, jbiernacki
  *
  */
-public class State implements Comparable<State> {
+public class RTCPState extends State {
 	private final int id;
-    private Map<Place, Marking> marking = new TreeMap<Place, Marking>();
-    private Map<State, String> successors = new HashMap<State, String>();
+    private Map<PTPlace, Marking> marking = new TreeMap<PTPlace, Marking>();
+    private Map<RTCPState, String> successors = new HashMap<RTCPState, String>();
 
-	public State(final int id) {
+	public RTCPState(final int id) {
 		this.id = id;
 	}
 	/**
 	 * Pobranie id stanu
 	 * @return Id stanu
 	 */
+    @Override
 	public int getId() {
 		return id;
 	}
@@ -34,22 +36,22 @@ public class State implements Comparable<State> {
 
 	/**
 	 * Dodanie znakowania dla podanego miejsca
-	 * @param place Miejsce
+	 * @param PTPlace Miejsce
 	 * @param placeMarking Wartość znakowania w podanym miejscu
 	 */
-	public void addMarking(Place place, Marking placeMarking) {
-		marking.put(place, placeMarking);
+	public void addMarking(PTPlace PTPlace, Marking placeMarking) {
+		marking.put(PTPlace, placeMarking);
 	}
 
 	/**
 	 * Dodanie następnika stanu
-	 * @param state Następny stan
+	 * @param RTCPState Następny stan
 	 */
-	public void addSuccessor(final State state, final String transitionLabel) {
-		successors.put(state, transitionLabel);
+	public void addSuccessor(final RTCPState RTCPState, final String transitionLabel) {
+		successors.put(RTCPState, transitionLabel);
 	}
 
-    public String getTransitionLabel(final State successor) {
+    public String getTransitionLabel(final RTCPState successor) {
         return successors.get(successor);
     }
 
@@ -57,29 +59,27 @@ public class State implements Comparable<State> {
 	 * Pobranie następników stanu
 	 * @return Następniki stanu
 	 */
-	public List<State> getSuccessorsList() {
+	public List<RTCPState> getSuccessorsList() {
 		if (successors == null) {
             return null;
         } else {
-            List<State> successorsList = new ArrayList<State>();
+            List<RTCPState> successorsList = new ArrayList<RTCPState>();
             successorsList.addAll(successors.keySet());
             return successorsList;
         }
 	}
 
-	/**
+    @Override
+    protected Map getSuccessors() {
+        return successors;
+    }
+
+    /**
 	 * Pobranie znakowania w danym stanie
 	 * @return Znakowanie w danym stanie
 	 */
-	public Map<Place, Marking> getMarking() {
+	public Map<PTPlace, Marking> getMarking() {
 		return marking;
-	}
-	/**
-	 * Porównanie stanów do numerze id
-	 */
-	@Override
-	public int compareTo(State state) {
-		return new Integer(id).compareTo(new Integer(state.getId()));
 	}
 
 	@Override
@@ -87,24 +87,24 @@ public class State implements Comparable<State> {
 		StringBuilder sb = new StringBuilder();
 		sb.append("State: " + id + "\n");
 		sb.append("Marking:\n");
-		for(Place place: marking.keySet()) {
-			sb.append(place.toString() + " marking:"+marking.get(place));
+		for(PTPlace PTPlace : marking.keySet()) {
+			sb.append(PTPlace.toString() + " marking:"+marking.get(PTPlace));
 			sb.append("\n");
 		}
 		sb.append("Successors:\n");
-		for(State state: getSuccessorsList()) {
-			sb.append("State: " + state.getId());
+		for(RTCPState RTCPState : getSuccessorsList()) {
+			sb.append("State: " + RTCPState.getId());
 			sb.append("\n");
-            sb.append("By transition: " + successors.get(state));
+            sb.append("By transition: " + successors.get(RTCPState));
             sb.append("\n");
 		}
 		return sb.toString();
 	}
 
     public long getMarkingForPlace(String placeName, String markingText) {
-        for (Place place: marking.keySet()) {
-            if (place.getName() == placeName) {
-                Marking markingForPlace = marking.get(place);
+        for (PTPlace PTPlace : marking.keySet()) {
+            if (PTPlace.getName() == placeName) {
+                Marking markingForPlace = marking.get(PTPlace);
 
                 Long markingValue = markingForPlace.getPlaceMarking().get(markingText);
                 if (markingValue != null) {
@@ -117,9 +117,9 @@ public class State implements Comparable<State> {
     }
 
     public long getTimeMarkingForPlace(String placeName) {
-        for (Place place: marking.keySet()) {
-            if (place.getName() == placeName) {
-                Marking markingForPlace = marking.get(place);
+        for (PTPlace PTPlace : marking.keySet()) {
+            if (PTPlace.getName() == placeName) {
+                Marking markingForPlace = marking.get(PTPlace);
                 return markingForPlace.getTimeMarking();
             }
         }

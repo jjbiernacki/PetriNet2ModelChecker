@@ -7,7 +7,7 @@ package pl.edu.agh.petrinet2nusmv.model.color;
  * Time: 12:14
  * To change this template use File | Settings | File Templates.
  */
-public class Place implements Comparable<Place> {
+public class CPNPlace implements Comparable<CPNPlace> {
 
     private String name;
     private Color color;
@@ -36,7 +36,7 @@ public class Place implements Comparable<Place> {
     }
 
     @Override
-    public int compareTo(Place o) {
+    public int compareTo(CPNPlace o) {
         return name.compareTo(o.getName());
     }
 }

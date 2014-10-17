@@ -4,7 +4,7 @@ import org.apache.commons.cli.*;
 import pl.edu.agh.petrinet2nusmv.exceptions.SyntaxException;
 import pl.edu.agh.petrinet2nusmv.generator.nuxmv.NuXMVCPNGenerator;
 import pl.edu.agh.petrinet2nusmv.logger.Logger;
-import pl.edu.agh.petrinet2nusmv.parser.CPNParser;
+import pl.edu.agh.petrinet2nusmv.parser.formats.CPNToolsParser;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -29,12 +29,12 @@ public class CPNConsoleApplication {
                 	throw new Exception("Proszę podać plik do parsowania!");
                 }
 
-                CPNParser cpnParser = new CPNParser();
+                CPNToolsParser cpnToolsParser = new CPNToolsParser();
                 Logger.d("Parsowanie pliku " + file + "...");
                 try {
 
             		
-        			NuXMVCPNGenerator generator = new NuXMVCPNGenerator(cpnParser.parseFile(file));
+        			NuXMVCPNGenerator generator = new NuXMVCPNGenerator(cpnToolsParser.parseFile(file));
         			String nuSMV = generator.generateNuSMVModule(); 
         			Logger.d("==============================================================");
         			Logger.i(nuSMV);

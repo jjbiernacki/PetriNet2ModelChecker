@@ -1,15 +1,18 @@
 package pl.edu.agh.petrinet2nusmv.model.rtcp;
 
+import pl.edu.agh.petrinet2nusmv.model.base.ReachabilityGraph;
+
 import java.util.List;
+import java.util.TreeSet;
 
 /**
  * Klasa zapisuje graf osiągalności
  * @author abiernacka, jbiernacki
  *
  */
-public class ReachabilityGraph {
-	private List<Place> places;
-	private List<State> states;
+public class RTCPReachabilityGraph extends ReachabilityGraph {
+	private List<RTCPPlace> RTCPPlaces;
+	private TreeSet<RTCPState> RTCPStates;
     private long omega;
 
     public long getMinTimeOmega() {
@@ -25,29 +28,29 @@ public class ReachabilityGraph {
 	 * Pobiera listę miejsc
 	 * @return Lista miejsc
 	 */
-	public List<Place> getPlaces() {
-		return places;
+	public List<RTCPPlace> getRTCPPlaces() {
+		return RTCPPlaces;
 	}
 	/**
 	 * Ustawia listę miejsc
-	 * @param places Lista miejsc
+	 * @param RTCPPlaces Lista miejsc
 	 */
-	public void setPlaces(List<Place> places) {
-		this.places = places;
+	public void setRTCPPlaces(List<RTCPPlace> RTCPPlaces) {
+		this.RTCPPlaces = RTCPPlaces;
 	}
 	/**
 	 * Pobiera listę stanów
 	 * @return Lista stanów
 	 */
-	public List<State> getStates() {
-		return states;
+	public TreeSet<RTCPState> getStates() {
+		return RTCPStates;
 	}
 	/**
 	 * Ustawia listę stanów
-	 * @param states Lista stanów
+	 * @param RTCPStates Lista stanów
 	 */
-	public void setStates(List<State> states) {
-		this.states = states;
+	public void setRTCPStates(TreeSet<RTCPState> RTCPStates) {
+		this.RTCPStates = RTCPStates;
 	}
 	
 	/**
@@ -55,7 +58,7 @@ public class ReachabilityGraph {
 	 * @return Nazwa pierwszego stanu
 	 */
 	public String getInitState() {
-		return states.get(0).getName();
+		return RTCPStates.first().getName();
 		
 	}
 

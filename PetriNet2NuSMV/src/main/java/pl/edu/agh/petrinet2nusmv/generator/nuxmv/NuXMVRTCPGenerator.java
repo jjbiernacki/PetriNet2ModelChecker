@@ -1,10 +1,10 @@
 package pl.edu.agh.petrinet2nusmv.generator.nuxmv;
 
 import pl.edu.agh.petrinet2nusmv.exceptions.SyntaxException;
-import pl.edu.agh.petrinet2nusmv.model.rtcp.Place;
-import pl.edu.agh.petrinet2nusmv.model.rtcp.ReachabilityGraph;
-import pl.edu.agh.petrinet2nusmv.model.rtcp.State;
-import pl.edu.agh.petrinet2nusmv.parser.RTCPParser;
+import pl.edu.agh.petrinet2nusmv.model.rtcp.RTCPPlace;
+import pl.edu.agh.petrinet2nusmv.model.rtcp.RTCPReachabilityGraph;
+import pl.edu.agh.petrinet2nusmv.model.rtcp.RTCPState;
+import pl.edu.agh.petrinet2nusmv.parser.formats.RTCPParser;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -15,14 +15,14 @@ import java.util.List;
  */
 public class NuXMVRTCPGenerator {
 
-    private ReachabilityGraph reachabilityGraph;
+    private RTCPReachabilityGraph RTCPReachabilityGraph;
     private StringBuilder sb;
     private int indent = 0;
     private List<Variable> variables = new ArrayList<Variable>();
     private List<TimeVariable> timeVariables = new ArrayList<TimeVariable>();
 
-    public NuXMVRTCPGenerator(final ReachabilityGraph reachabilityGraph) {
-        this.reachabilityGraph = reachabilityGraph;
+    public NuXMVRTCPGenerator(final RTCPReachabilityGraph RTCPReachabilityGraph) {
+        this.RTCPReachabilityGraph = RTCPReachabilityGraph;
         sb = new StringBuilder();
     }
 
@@ -53,29 +53,30 @@ public class NuXMVRTCPGenerator {
         indent++;
         tab();
         sb.append(StrRes.DEFAULT_STATE_NAME + ": {");
-        for(int i = 0; i < reachabilityGraph.getStates().size(); i++) {
-            State state = reachabilityGraph.getStates().get(i);
-            sb.append(state.getName());
-            if(i < reachabilityGraph.getStates().size() -1) {
+        int i = 0;
+        for (RTCPState RTCPState: RTCPReachabilityGraph.getStates()) {
+            sb.append(RTCPState.getName());
+            if(i < RTCPReachabilityGraph.getStates().size() -1) {
                 sb.append(", ");
             }
+            i++;
         }
         sb.append("};\n");
 
-        for(Place place: reachabilityGraph.getPlaces()) {
-            for (String marking: place.getMarkingList()) {
-                variables.add(new Variable(place.getName(), marking));
+        for(RTCPPlace RTCPPlace : RTCPReachabilityGraph.getRTCPPlaces()) {
+            for (String marking: RTCPPlace.getMarkingList()) {
+                variables.add(new Variable(RTCPPlace.getName(), marking));
             }
-            timeVariables.add(new TimeVariable(place.getName()));
+            timeVariables.add(new TimeVariable(RTCPPlace.getName()));
         }
 
         for (Variable variable: variables) {
-            String typeName = StrRes.INTEGER + reachabilityGraph.getOmega();
+            String typeName = StrRes.INTEGER + RTCPReachabilityGraph.getOmega();
             appendLine(variable.name + " : " + typeName + ";");
         }
 
         for (TimeVariable variable: timeVariables) {
-            String typeName = reachabilityGraph.getMinTimeOmega() + ".." + reachabilityGraph.getOmega();
+            String typeName = RTCPReachabilityGraph.getMinTimeOmega() + ".." + RTCPReachabilityGraph.getOmega();
             appendLine(variable.name + " : " + typeName + ";");
         }
 
@@ -86,23 +87,23 @@ public class NuXMVRTCPGenerator {
     private void generateInit() {
         appendLine(StrRes.ASSIGN);
         indent++;
-        appendLine(StrRes.INIT + "(" + StrRes.DEFAULT_STATE_NAME + ") := s" + reachabilityGraph.getStates().get(0).getId() + ";");
+        appendLine(StrRes.INIT + "(" + StrRes.DEFAULT_STATE_NAME + ") := s" + RTCPReachabilityGraph.getStates().first().getId() + ";");
     }private void generateNextState() {
         appendLine(StrRes.NEXT + "(" + StrRes.DEFAULT_STATE_NAME + ") := " + StrRes.CASE);
         indent++;
-        for(State state: reachabilityGraph.getStates()) {
+        for(RTCPState RTCPState : RTCPReachabilityGraph.getStates()) {
             tab();
-            sb.append(StrRes.DEFAULT_STATE_NAME + " = " + state.getName()+ " : ");
-            if(state.getSuccessorsList() == null || state.getSuccessorsList().size() == 0) {
-                sb.append(state.getName() + ";\n");
-            } else if(state.getSuccessorsList().size() == 1) {
-                sb.append(state.getSuccessorsList().get(0).getName() + ";\n");
+            sb.append(StrRes.DEFAULT_STATE_NAME + " = " + RTCPState.getName()+ " : ");
+            if(RTCPState.getSuccessorsList() == null || RTCPState.getSuccessorsList().size() == 0) {
+                sb.append(RTCPState.getName() + ";\n");
+            } else if(RTCPState.getSuccessorsList().size() == 1) {
+                sb.append(RTCPState.getSuccessorsList().get(0).getName() + ";\n");
             } else {
                 sb.append("{");
-                for(int i = 0; i < state.getSuccessorsList().size(); i++) {
-                    State successor = state.getSuccessorsList().get(i);
+                for(int i = 0; i < RTCPState.getSuccessorsList().size(); i++) {
+                    RTCPState successor = RTCPState.getSuccessorsList().get(i);
                     sb.append(successor.getName());
-                    if(i < state.getSuccessorsList().size() -1) {
+                    if(i < RTCPState.getSuccessorsList().size() -1) {
                         sb.append(", ");
                     }
                 }
@@ -117,10 +118,10 @@ public class NuXMVRTCPGenerator {
             appendLine(variable.name + " := " + StrRes.CASE);
             indent++;
 
-            for(State state: reachabilityGraph.getStates()) {
-                Long value = state.getMarkingForPlace(variable.placeName, variable.marking);
+            for(RTCPState RTCPState : RTCPReachabilityGraph.getStates()) {
+                Long value = RTCPState.getMarkingForPlace(variable.placeName, variable.marking);
                 if (value != 0) {
-                    appendLine(StrRes.DEFAULT_STATE_NAME + " = " + state.getName() + " : " + value + ";");
+                    appendLine(StrRes.DEFAULT_STATE_NAME + " = " + RTCPState.getName() + " : " + value + ";");
                 }
             }
             String defaultValue = "0";
@@ -132,10 +133,10 @@ public class NuXMVRTCPGenerator {
             appendLine(variable.name + " := " + StrRes.CASE);
             indent++;
 
-            for(State state: reachabilityGraph.getStates()) {
-                Long value = state.getTimeMarkingForPlace(variable.placeName);
+            for(RTCPState RTCPState : RTCPReachabilityGraph.getStates()) {
+                Long value = RTCPState.getTimeMarkingForPlace(variable.placeName);
                 if (value != 0) {
-                    appendLine(StrRes.DEFAULT_STATE_NAME + " = " + state.getName() + " : " + value + ";");
+                    appendLine(StrRes.DEFAULT_STATE_NAME + " = " + RTCPState.getName() + " : " + value + ";");
                 }
             }
             String defaultValue = "0";

@@ -1,4 +1,4 @@
-package pl.edu.agh.petrinet2nusmv.parser;
+package pl.edu.agh.petrinet2nusmv.parser.formats;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -8,6 +8,7 @@ import org.xml.sax.SAXException;
 import pl.edu.agh.petrinet2nusmv.exceptions.SyntaxException;
 import pl.edu.agh.petrinet2nusmv.logger.Logger;
 import pl.edu.agh.petrinet2nusmv.model.color.*;
+import pl.edu.agh.petrinet2nusmv.parser.interfaces.CPNParsable;
 import pl.edu.agh.petrinet2nusmv.utils.MarkingParser;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -24,13 +25,14 @@ import java.util.TreeSet;
  * @author abiernacka, jbiernacki
  *
  */
-public class CPNParser {
+public class CPNToolsParser implements CPNParsable {
 
     private List<Color> colors = new ArrayList<Color>();
-    private List<Place> places = new ArrayList<Place>();
-    private List<SSNode> ssNodes = new ArrayList<SSNode>();
+    private List<CPNPlace> CPNPlaces = new ArrayList<CPNPlace>();
+    private List<CPNState> CPNStates = new ArrayList<CPNState>();
 
-	public ReachabilityGraph parseFile(final String filepath) throws IOException, SyntaxException, ParserConfigurationException, SAXException {
+    @Override
+	public CPNReachabilityGraph parseFile(final String filepath) throws IOException, SyntaxException, ParserConfigurationException, SAXException {
         File fXmlFile = new File(filepath);
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         dbFactory.setValidating(false);
@@ -49,7 +51,7 @@ public class CPNParser {
         }
         findPlaces(cpnetChildren);
 
-        for(Place p: places) {
+        for(CPNPlace p: CPNPlaces) {
             Logger.d(p.toString());
         }
 
@@ -57,25 +59,25 @@ public class CPNParser {
         connectSSNodes(cpnetChildren);
 
 
-        for(SSNode s: ssNodes) {
+        for(CPNState s: this.CPNStates) {
             parseSSNodeContent(s);
         }
-        for(SSNode s: ssNodes) {
+        for(CPNState s: this.CPNStates) {
             Logger.d(s.toString());
         }
 
 
-        ReachabilityGraph reachabilityGraph = new ReachabilityGraph();
-        reachabilityGraph.setPlaces(places);
-        TreeSet<SSNode> states = new TreeSet<SSNode>();
-        states.addAll(ssNodes);
-        reachabilityGraph.setStates(states);
-        return reachabilityGraph;
+        CPNReachabilityGraph CPNReachabilityGraph = new CPNReachabilityGraph();
+        CPNReachabilityGraph.setCPNPlaces(CPNPlaces);
+        TreeSet<CPNState> CPNStates = new TreeSet<CPNState>();
+        CPNStates.addAll(this.CPNStates);
+        CPNReachabilityGraph.setCPNStates(CPNStates);
+        return CPNReachabilityGraph;
 
 	}
 
-    private void parseSSNodeContent(SSNode ssNode) throws SyntaxException {
-        String[] tmpLines = ssNode.getText().split("\n");
+    private void parseSSNodeContent(CPNState CPNState) throws SyntaxException {
+        String[] tmpLines = CPNState.getText().split("\n");
         ArrayList<String> lines = new ArrayList<String>();
         String newLine = "";
         for(int i = 1; i < tmpLines.length; i++) {
@@ -98,10 +100,10 @@ public class CPNParser {
             //System.out.println(line);
             String textContainingPlaceName = line.substring(0, line.indexOf(':'));
             String placeName = textContainingPlaceName.substring(0, textContainingPlaceName.lastIndexOf(" "));
-            Place place = findPlaceByName(placeName);
+            CPNPlace CPNPlace = findPlaceByName(placeName);
            // System.out.println(place);
             Marking marking = new Marking();
-            if(place == null) throw new SyntaxException("SSNode has invalid place" + line);
+            if(CPNPlace == null) throw new SyntaxException("SSNode has invalid place" + line);
             String textContainingMarking = line.substring(line.indexOf(':') + 2);
 
             if(textContainingMarking.equals("empty")) {
@@ -113,15 +115,15 @@ public class CPNParser {
                 //System.out.println("MarkPart" + markPart);
                 String[] counterAndValue = markPart.split("`");
                 long value = Long.valueOf(counterAndValue[0]);
-                String key = MarkingParser.getMarkingKey(counterAndValue[1], place.getColor().getColorType());
+                String key = MarkingParser.getMarkingKey(counterAndValue[1], CPNPlace.getColor().getColorType());
                 marking.addMarking(key, value);
             }
-            ssNode.addMarking(place, marking);
+            CPNState.addMarking(CPNPlace, marking);
         }
     }
 
-    private Place findPlaceByName(String placeName) {
-        for(Place p: places) {
+    private CPNPlace findPlaceByName(String placeName) {
+        for(CPNPlace p: CPNPlaces) {
             if(placeName.equals(p.getName())) {
                 return p;
             }
@@ -136,8 +138,8 @@ public class CPNParser {
                 NodeList ssarcList = ((Element)nNode).getElementsByTagName("ssarc");
                 for (int j = 0; j < ssarcList.getLength(); j++) {
                     Element ssarc = (Element) ssarcList.item(j);
-                    SSNode src = findSSNodeById(((Element) ssarc.getElementsByTagName("source").item(0)).getAttribute("idref"));
-                    SSNode dst = findSSNodeById(((Element) ssarc.getElementsByTagName("destination").item(0)).getAttribute("idref"));
+                    CPNState src = findSSNodeById(((Element) ssarc.getElementsByTagName("source").item(0)).getAttribute("idref"));
+                    CPNState dst = findSSNodeById(((Element) ssarc.getElementsByTagName("destination").item(0)).getAttribute("idref"));
                     String transitionLabel = "";
                     Element nodeDescriptor = (Element) ssarc.getElementsByTagName("descriptor").item(0);
                     if (nodeDescriptor != null) {
@@ -157,9 +159,9 @@ public class CPNParser {
         }
     }
 
-    private SSNode findSSNodeById(String id) {
-        for(SSNode s: ssNodes) {
-            if(s.getId().equals(id)) {
+    private CPNState findSSNodeById(String id) {
+        for(CPNState s: CPNStates) {
+            if(s.getIdText().equals(id)) {
                 return s;
             }
         }
@@ -174,11 +176,11 @@ public class CPNParser {
                 NodeList ssnodesList = ((Element)nNode).getElementsByTagName("ssnode");
                 for (int j = 0; j < ssnodesList.getLength(); j++) {
                     Element ssnodeEl = (Element) ssnodesList.item(j);
-                    SSNode ssNode = new SSNode();
-                    ssNode.setId(ssnodeEl.getAttribute("id"));
-                    ssNode.setOrder(Integer.valueOf(ssnodeEl.getAttribute("number")));
-                    ssNode.setText(ssnodeEl.getElementsByTagName("text").item(0).getTextContent());
-                    ssNodes.add(ssNode);
+                    CPNState CPNState = new CPNState();
+                    CPNState.setIdText(ssnodeEl.getAttribute("id"));
+                    CPNState.setId(Integer.valueOf(ssnodeEl.getAttribute("number")));
+                    CPNState.setText(ssnodeEl.getElementsByTagName("text").item(0).getTextContent());
+                    CPNStates.add(CPNState);
                 }
             }
         }
@@ -192,12 +194,12 @@ public class CPNParser {
                 NodeList placesList = ((Element)nNode).getElementsByTagName("place");
                 for (int j = 0; j < placesList.getLength(); j++) {
                     Element placeNode = (Element) placesList.item(j);
-                    Place place = new Place();
-                    place.setName(placeNode.getElementsByTagName("text").item(0).getTextContent());
+                    CPNPlace CPNPlace = new CPNPlace();
+                    CPNPlace.setName(placeNode.getElementsByTagName("text").item(0).getTextContent());
                     Color c = findColor(((Element) placeNode.getElementsByTagName("type").item(0)).getElementsByTagName("text").item(0).getTextContent());
-                    if(c == null) throw new SyntaxException("Place " +place.getName() + " has no color set!");
-                    place.setColor(c);
-                    places.add(place);
+                    if(c == null) throw new SyntaxException("Place " + CPNPlace.getName() + " has no color set!");
+                    CPNPlace.setColor(c);
+                    CPNPlaces.add(CPNPlace);
                 }
             }
         }

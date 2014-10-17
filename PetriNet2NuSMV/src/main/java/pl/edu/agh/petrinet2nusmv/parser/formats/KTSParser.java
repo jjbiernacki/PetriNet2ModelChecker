@@ -1,10 +1,10 @@
-package pl.edu.agh.petrinet2nusmv.parser;
+package pl.edu.agh.petrinet2nusmv.parser.formats;
 
 import pl.edu.agh.petrinet2nusmv.exceptions.SyntaxException;
-import pl.edu.agh.petrinet2nusmv.logger.Logger;
-import pl.edu.agh.petrinet2nusmv.model.base.Place;
-import pl.edu.agh.petrinet2nusmv.model.base.ReachabilityGraph;
-import pl.edu.agh.petrinet2nusmv.model.base.State;
+import pl.edu.agh.petrinet2nusmv.model.pt.PTPlace;
+import pl.edu.agh.petrinet2nusmv.model.pt.PTReachabilityGraph;
+import pl.edu.agh.petrinet2nusmv.model.pt.PTState;
+import pl.edu.agh.petrinet2nusmv.parser.interfaces.PTNetParsable;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -14,20 +14,31 @@ import java.util.*;
  * @author abiernacka, jbiernacki
  *
  */
-public class KTSParser implements CovGraphParserInterface {
+public class KTSParser implements PTNetParsable {
 
-	private TreeSet<Place> places = new TreeSet<Place>();
-	private List<State> states = new ArrayList<State>();
-	private Map<State, String> transStrings = new TreeMap<State, String>();
+    /**
+     * Miejsca sieci
+     */
+	private TreeSet<PTPlace> PTPlaces = new TreeSet<PTPlace>();
+    /**
+     * Stany grafu pokrycia
+     */
+	private TreeSet<PTState> PTStates = new TreeSet<PTState>();
+    /**
+     * Kod, w którym zapisane sa tranzycje
+     */
+	private Map<PTState, String> transStrings = new TreeMap<PTState, String>();
+    /**
+     * Wartość parametru omega (maxymalna wartość znakowania)
+     */
 	private int omega = 1000;
 	
 	/**
 	 * Ustawienie listy inicjalizacyjnej miejsc
-	 * @param places Lista inicjalizacyjna miejsc
+	 * @param PTPlaces Lista inicjalizacyjna miejsc
 	 */
-	@Override
-	public void setInitPlacesList(List<Place> places) {
-		places.addAll(places);
+	public void setInitPlacesList(List<PTPlace> PTPlaces) {
+		PTPlaces.addAll(PTPlaces);
 	}
 	
 	/**
@@ -37,22 +48,18 @@ public class KTSParser implements CovGraphParserInterface {
 	 * @throws FileNotFoundException 
 	 * @throws SyntaxException
 	 */
-	@Override
-	public ReachabilityGraph parseFile(final String filepath) throws FileNotFoundException, SyntaxException {
-		Scanner in = new Scanner(new FileReader(filepath));
+	public PTReachabilityGraph parseFile(final String filepath) throws FileNotFoundException, SyntaxException {
+
+        Scanner in = new Scanner(new FileReader(filepath));
 
 		findStates(in);
-		for(State state: states) {
-			Logger.d(state.toString());
-		}
 		
-		ReachabilityGraph reachabilityGraph = new ReachabilityGraph();
-		reachabilityGraph.setPlaces(places);
-		reachabilityGraph.setStates(states);
-		reachabilityGraph.setOmega(omega);
+		PTReachabilityGraph PTReachabilityGraph = new PTReachabilityGraph();
+		PTReachabilityGraph.setPTPlaces(PTPlaces);
+		PTReachabilityGraph.setPTStates(PTStates);
+		PTReachabilityGraph.setOmega(omega);
 		
-		return reachabilityGraph;
-		
+		return PTReachabilityGraph;
 	}
 
 	/**
@@ -64,10 +71,10 @@ public class KTSParser implements CovGraphParserInterface {
 		while(in.hasNextLine()) {
 			String line = in.nextLine();
 			try {
-				if(line.length() >=5 && line.substring(0, 5).equals("state")) {
+				if(line.length() >= 5 && line.substring(0, 5).equals("state")) {
 					int id = Integer.valueOf(line.substring(6));
-					State state = new State(id);
-					states.add(state);
+					PTState PTState = new PTState(id);
+					PTStates.add(PTState);
 					if(!in.hasNextLine()) {
 						throw new SyntaxException("No marking for state: " + line);
 					} else {
@@ -75,7 +82,7 @@ public class KTSParser implements CovGraphParserInterface {
 						if(!(nextLine.length() >=5 && nextLine.substring(0, 5).equals("props"))) {
 							throw new SyntaxException("No marking for state: " + line);
 						}
-						findMarking(state, nextLine);
+						findMarking(PTState, nextLine);
 					}
 					if(!in.hasNextLine()) {
 						throw new SyntaxException("No trans for state: " + line);
@@ -84,11 +91,11 @@ public class KTSParser implements CovGraphParserInterface {
 						if(!(nextLine.length() >=5 && nextLine.substring(0, 5).equals("trans"))) {
 							throw new SyntaxException("No trans for state: " + line);
 						}
-						transStrings.put(state, nextLine);
+						transStrings.put(PTState, nextLine);
 					}
 				}
 				
-			}catch(Exception e) {
+			} catch(Exception e) {
 				throw new SyntaxException("Exception in line: " + line);
 			}
 		}
@@ -97,8 +104,8 @@ public class KTSParser implements CovGraphParserInterface {
 		
 	}
 	private void findSuccessors() throws SyntaxException {
-		for(State state: transStrings.keySet()) {
-			String transText = transStrings.get(state);
+		for(PTState PTState : transStrings.keySet()) {
+			String transText = transStrings.get(PTState);
 			if(transText.length() < 7) {
 				continue;
 			}
@@ -113,9 +120,9 @@ public class KTSParser implements CovGraphParserInterface {
 				} catch (Exception e) {
 					throw new SyntaxException("Invalid successor id in line: " + transText);
 				}
-				for(State sucessor: states) {
+				for(PTState sucessor: PTStates) {
 					if(sucessor.getId() == sucessorId) {
-						state.addSuccessor(sucessor, element.substring(0, lastIndexOfSlash));
+						PTState.addSuccessor(sucessor, element.substring(0, lastIndexOfSlash));
 						break;
 					}
 				}
@@ -124,8 +131,8 @@ public class KTSParser implements CovGraphParserInterface {
 		}
 		
 	}
-	private void findMarking(State state, String line) throws SyntaxException {
 
+	private void findMarking(PTState PTState, String line) throws SyntaxException {
 		if(line.length() < 7) {
 			return;
 		}
@@ -149,16 +156,16 @@ public class KTSParser implements CovGraphParserInterface {
 			}
 			
 			if(!placeHasValueBiggerThanOne) {
-				state.addMarking(new Place(element), 1);
-				places.add(new Place(element));
+				PTState.addMarking(new PTPlace(element), 1);
+				PTPlaces.add(new PTPlace(element));
 			} else {
 				String value = element.substring(lastIndexOfAsterisk + 1);
 				if(value.equals("w")) {
-					state.addMarking(new Place(element.substring(0, lastIndexOfAsterisk)), omega);
+					PTState.addMarking(new PTPlace(element.substring(0, lastIndexOfAsterisk)), omega);
 				} else {
-					state.addMarking(new Place(element.substring(0, lastIndexOfAsterisk)), Integer.valueOf(value));
+					PTState.addMarking(new PTPlace(element.substring(0, lastIndexOfAsterisk)), Integer.valueOf(value));
 				}
-				places.add(new Place(element.substring(0, lastIndexOfAsterisk)));
+				PTPlaces.add(new PTPlace(element.substring(0, lastIndexOfAsterisk)));
 			}
 		}
 	}
@@ -201,7 +208,6 @@ public class KTSParser implements CovGraphParserInterface {
 	 * Ustawienia maxymalnej wartości znakowania - omega
 	 * @param omega Maxymalna wartość znakowania
 	 */
-	@Override
 	public void setOmega(int omega) {
 		this.omega = omega;
 		

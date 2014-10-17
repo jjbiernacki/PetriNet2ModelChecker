@@ -5,16 +5,15 @@ import org.oxbow.swingbits.dialog.task.TaskDialog;
 import pl.edu.agh.cpn2rtcpn.XmlParse;
 import pl.edu.agh.petrinet2nusmv.exceptions.ExtensionFilter;
 import pl.edu.agh.petrinet2nusmv.exceptions.SyntaxException;
-import pl.edu.agh.petrinet2nusmv.generator.aut.AutCPNGenerator;
-import pl.edu.agh.petrinet2nusmv.generator.aut.AutPTGenerator;
-import pl.edu.agh.petrinet2nusmv.generator.aut.AutRTCPGenerator;
+import pl.edu.agh.petrinet2nusmv.generator.aut.AutGenerator;
 import pl.edu.agh.petrinet2nusmv.generator.nuxmv.NuXMVCPNGenerator;
 import pl.edu.agh.petrinet2nusmv.generator.nuxmv.NuXMVGenerator;
 import pl.edu.agh.petrinet2nusmv.generator.nuxmv.NuXMVRTCPGenerator;
-import pl.edu.agh.petrinet2nusmv.model.Parser;
-import pl.edu.agh.petrinet2nusmv.parser.CPNParser;
-import pl.edu.agh.petrinet2nusmv.parser.KTSParser;
-import pl.edu.agh.petrinet2nusmv.parser.RTCPParser;
+import pl.edu.agh.petrinet2nusmv.model.base.ReachabilityGraph;
+import pl.edu.agh.petrinet2nusmv.parser.Parser;
+import pl.edu.agh.petrinet2nusmv.parser.formats.CPNToolsParser;
+import pl.edu.agh.petrinet2nusmv.parser.formats.KTSParser;
+import pl.edu.agh.petrinet2nusmv.parser.formats.RTCPParser;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -30,7 +29,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Scanner;
 
 /**
  * Created by agnieszka on 19.02.14.
@@ -542,8 +540,8 @@ public class Petri2NuSMV {
                 }
             }else if(parser2NuXMV == Parser.CPNPARSER) {
                 try {
-                    CPNParser cpnParser = new CPNParser();
-                    NuXMVCPNGenerator generator = new NuXMVCPNGenerator(cpnParser.parseFile(pathField.getText()));
+                    CPNToolsParser cpnToolsParser = new CPNToolsParser();
+                    NuXMVCPNGenerator generator = new NuXMVCPNGenerator(cpnToolsParser.parseFile(pathField.getText()));
                     nuSMVTextArea.setText(generator.generateNuSMVModule());
                     saveButton.setEnabled(true);
                     parsedFileName = pathField.getText();
@@ -591,75 +589,40 @@ public class Petri2NuSMV {
     ActionListener convertToAutActionListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(parser2aut == Parser.RTCPPARSER) {
+            try {
+                ReachabilityGraph reachabilityGraph;
+                if(parser2aut == Parser.RTCPPARSER) {
+                    RTCPParser rtcpParser = new RTCPParser();
+                    reachabilityGraph = rtcpParser.parseFile(autFieldPath.getText());
+                } else if(parser2aut == Parser.CPNPARSER) {
+                    CPNToolsParser cpnToolsParser = new CPNToolsParser();
+                    reachabilityGraph = cpnToolsParser.parseFile(autFieldPath.getText());
+                } else {
+                    KTSParser ktsParser = new KTSParser();
+                    reachabilityGraph = ktsParser.parseFile(autFieldPath.getText());
+                }
+                AutGenerator generator = new AutGenerator(reachabilityGraph);
                 parsedFileName = autFieldPath.getText();
                 parsedFileName = parsedFileName.substring(0, parsedFileName.indexOf("."));
-                try {
-                    RTCPParser rtcpParser = new RTCPParser();
-                    AutRTCPGenerator generator = new AutRTCPGenerator(rtcpParser.parseFile(autFieldPath.getText()));
-                    autTextArea.setText(generator.generateAut());
-                    saveAutButton.setEnabled(true);
-                } catch (FileNotFoundException e1) {
-                    JOptionPane.showMessageDialog(frame,
-                            "File not found.",
-                            "Error",
-                            JOptionPane.ERROR_MESSAGE);
-                } catch (SyntaxException e2) {
-                    JOptionPane.showMessageDialog(frame,
-                            e2.getMessage(),
-                            "Error",
-                            JOptionPane.ERROR_MESSAGE);
-                } catch (Exception e1) {
-                    JOptionPane.showMessageDialog(frame,
-                            e1.getMessage(),
-                            "Error",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-            }else if(parser2aut == Parser.CPNPARSER) {
-                try {
-                    CPNParser cpnParser = new CPNParser();
-                    AutCPNGenerator generator = new AutCPNGenerator(cpnParser.parseFile(autFieldPath.getText()));
-                    autTextArea.setText(generator.generateAut());
-                    saveAutButton.setEnabled(true);
-                    parsedFileName = autFieldPath.getText();
-                    parsedFileName = parsedFileName.substring(0, parsedFileName.indexOf("."));
-                } catch (FileNotFoundException e1) {
-                    JOptionPane.showMessageDialog(frame,
-                            "File not found.",
-                            "Error",
-                            JOptionPane.ERROR_MESSAGE);
-                } catch (SyntaxException e2) {
-                    JOptionPane.showMessageDialog(frame,
-                            e2.getMessage(),
-                            "Error",
-                            JOptionPane.ERROR_MESSAGE);
-                } catch (Exception e1) {
-                    JOptionPane.showMessageDialog(frame,
-                            e1.getMessage(),
-                            "Error",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-            } else {
-                try {
-                    KTSParser ktsParser = new KTSParser();
-                    ktsParser.setOmega(omega);
-                    AutPTGenerator generator = new AutPTGenerator(ktsParser.parseFile(autFieldPath.getText()));
-                    autTextArea.setText(generator.generateAut());
-                    saveAutButton.setEnabled(true);
-                    parsedFileName = autFieldPath.getText();
-                    parsedFileName = parsedFileName.substring(0, parsedFileName.indexOf("."));
-                } catch (FileNotFoundException e1) {
-                    JOptionPane.showMessageDialog(frame,
-                            "File not found.",
-                            "Error",
-                            JOptionPane.ERROR_MESSAGE);
-                } catch (SyntaxException e2) {
-                    JOptionPane.showMessageDialog(frame,
-                            e2.getMessage(),
-                            "Error",
-                            JOptionPane.ERROR_MESSAGE);
-                }
+                autTextArea.setText(generator.generateAut());
+                saveAutButton.setEnabled(true);
+            } catch (FileNotFoundException e1) {
+                JOptionPane.showMessageDialog(frame,
+                        "File not found.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            } catch (SyntaxException e2) {
+                JOptionPane.showMessageDialog(frame,
+                        e2.getMessage(),
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            } catch (Exception e1) {
+                JOptionPane.showMessageDialog(frame,
+                        e1.getMessage(),
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
+
         }
     };
     ActionListener parseRTCP = new ActionListener() {

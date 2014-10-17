@@ -13,7 +13,7 @@ import org.apache.commons.cli.ParseException;
 import pl.edu.agh.petrinet2nusmv.exceptions.SyntaxException;
 import pl.edu.agh.petrinet2nusmv.generator.nuxmv.NuXMVGenerator;
 import pl.edu.agh.petrinet2nusmv.logger.Logger;
-import pl.edu.agh.petrinet2nusmv.parser.KTSParser;
+import pl.edu.agh.petrinet2nusmv.parser.formats.KTSParser;
 
 public class ConsoleApplication {
 	

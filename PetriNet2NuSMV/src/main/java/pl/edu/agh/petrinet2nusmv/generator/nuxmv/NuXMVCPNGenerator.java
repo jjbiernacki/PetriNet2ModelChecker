@@ -1,9 +1,9 @@
 package pl.edu.agh.petrinet2nusmv.generator.nuxmv;
 
 import pl.edu.agh.petrinet2nusmv.model.color.Marking;
-import pl.edu.agh.petrinet2nusmv.model.color.Place;
-import pl.edu.agh.petrinet2nusmv.model.color.ReachabilityGraph;
-import pl.edu.agh.petrinet2nusmv.model.color.SSNode;
+import pl.edu.agh.petrinet2nusmv.model.color.CPNPlace;
+import pl.edu.agh.petrinet2nusmv.model.color.CPNReachabilityGraph;
+import pl.edu.agh.petrinet2nusmv.model.color.CPNState;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,13 +15,13 @@ import java.util.Map;
  */
 public class NuXMVCPNGenerator {
 
-	private ReachabilityGraph reachabilityGraph;
+	private CPNReachabilityGraph CPNReachabilityGraph;
     private StringBuilder sb;
     private int indent = 0;
     private Map<String, Variable> variables = new HashMap<String, Variable>();
 
-	public NuXMVCPNGenerator(final ReachabilityGraph reachabilityGraph) {
-		this.reachabilityGraph = reachabilityGraph;
+	public NuXMVCPNGenerator(final CPNReachabilityGraph CPNReachabilityGraph) {
+		this.CPNReachabilityGraph = CPNReachabilityGraph;
 		sb = new StringBuilder();
 	}
 	
@@ -50,9 +50,9 @@ public class NuXMVCPNGenerator {
             appendLine(variable.getName() + " := " + StrRes.CASE);
             indent++;
 
-            for(SSNode state: variable.getStateToMarking().keySet()) {
-                Long value = variable.getStateToMarking().get(state);
-                appendLine(StrRes.DEFAULT_STATE_NAME + " = " + state.getNusmvName() + " : " + value + ";");
+            for(CPNState CPNState : variable.getStateToMarking().keySet()) {
+                Long value = variable.getStateToMarking().get(CPNState);
+                appendLine(StrRes.DEFAULT_STATE_NAME + " = " + CPNState.getNusmvName() + " : " + value + ";");
             }
             String defaultValue = "0";
             appendLine(StrRes.Boolean.TRUE + " : " + defaultValue + ";");
@@ -67,19 +67,19 @@ public class NuXMVCPNGenerator {
     private void generateNextState() {
         appendLine(StrRes.NEXT + "(" + StrRes.DEFAULT_STATE_NAME + ") := " + StrRes.CASE);
         indent++;
-        for(SSNode ssNode: reachabilityGraph.getStates()) {
+        for(CPNState CPNState : CPNReachabilityGraph.getStates()) {
             tab();
-            sb.append(StrRes.DEFAULT_STATE_NAME + " = " + ssNode.getNusmvName()+ " : ");
-            if(ssNode.getSuccessorsList() == null || ssNode.getSuccessorsList().size() == 0) {
-                sb.append(ssNode.getNusmvName() + ";\n");
-            } else if(ssNode.getSuccessorsList().size() == 1) {
-                sb.append(ssNode.getSuccessorsList().get(0).getNusmvName() + ";\n");
+            sb.append(StrRes.DEFAULT_STATE_NAME + " = " + CPNState.getNusmvName()+ " : ");
+            if(CPNState.getSuccessorsList() == null || CPNState.getSuccessorsList().size() == 0) {
+                sb.append(CPNState.getNusmvName() + ";\n");
+            } else if(CPNState.getSuccessorsList().size() == 1) {
+                sb.append(((CPNState)(CPNState.getSuccessorsList().get(0))).getNusmvName() + ";\n");
             } else {
                 sb.append("{");
-                for(int i = 0; i < ssNode.getSuccessorsList().size(); i++) {
-                    SSNode successor = ssNode.getSuccessorsList().get(i);
+                for(int i = 0; i < CPNState.getSuccessorsList().size(); i++) {
+                    CPNState successor = (pl.edu.agh.petrinet2nusmv.model.color.CPNState) CPNState.getSuccessorsList().get(i);
                     sb.append(successor.getNusmvName());
-                    if(i < ssNode.getSuccessorsList().size() -1) {
+                    if(i < CPNState.getSuccessorsList().size() -1) {
                         sb.append(", ");
                     }
                 }
@@ -105,10 +105,10 @@ public class NuXMVCPNGenerator {
         tab();
         sb.append(StrRes.DEFAULT_STATE_NAME + ": {");
         int i =0;
-        for(SSNode state: reachabilityGraph.getStates()) {
-            state.setNusmvName("s" + state.getOrder());
-            sb.append(state.getNusmvName());
-            if(i < reachabilityGraph.getStates().size() - 1) {
+        for(CPNState CPNState : CPNReachabilityGraph.getStates()) {
+            CPNState.setNusmvName("s" + CPNState.getId());
+            sb.append(CPNState.getNusmvName());
+            if(i < CPNReachabilityGraph.getStates().size() - 1) {
                 sb.append(", ");
             }
             i++;
@@ -116,11 +116,12 @@ public class NuXMVCPNGenerator {
         sb.append("};\n");
 
         long omega = 0;
-        for(SSNode ssNode: reachabilityGraph.getStates()) {
-            for(Place place: ssNode.getMarking().keySet()) {
-                Marking marking = ssNode.getMarking().get(place);
+        for(CPNState CPNState : CPNReachabilityGraph.getStates()) {
+            for(Object CPNPlaceObject : CPNState.getMarking().keySet()) {
+                CPNPlace CPNPlace = (CPNPlace) CPNPlaceObject;
+                Marking marking = (Marking) CPNState.getMarking().get(CPNPlace);
                 for(String label: marking.getMarking().keySet()) {
-                    String tmpVar = place.getName() + "_" + label;
+                    String tmpVar = CPNPlace.getName() + "_" + label;
                     long markValue = marking.getMarking().get(label);
                     if(markValue > omega)
                         omega = markValue;
@@ -129,7 +130,7 @@ public class NuXMVCPNGenerator {
                         var = new Variable(tmpVar);
                         variables.put(tmpVar, var);
                     }
-                    var.addStateToMarking(ssNode, markValue);
+                    var.addStateToMarking(CPNState, markValue);
 
                 }
             }
@@ -167,7 +168,7 @@ public class NuXMVCPNGenerator {
 
     private class Variable {
         private String name;
-        private Map<SSNode, Long> stateToMarking;
+        private Map<CPNState, Long> stateToMarking;
 
         public Variable(String name) {
             this.name = name;
@@ -181,22 +182,22 @@ public class NuXMVCPNGenerator {
             this.name = createValidName(name);
         }
 
-        public Map<SSNode, Long> getStateToMarking() {
+        public Map<CPNState, Long> getStateToMarking() {
             if(stateToMarking == null) {
-                stateToMarking = new HashMap<SSNode, Long>();
+                stateToMarking = new HashMap<CPNState, Long>();
             }
             return stateToMarking;
         }
 
-        public void setStateToMarking(Map<SSNode, Long> stateToMarking) {
+        public void setStateToMarking(Map<CPNState, Long> stateToMarking) {
             this.stateToMarking = stateToMarking;
         }
 
-        public void addStateToMarking(SSNode ssNode, Long marking) {
+        public void addStateToMarking(CPNState CPNState, Long marking) {
             if(stateToMarking == null) {
-                stateToMarking = new HashMap<SSNode, Long>();
+                stateToMarking = new HashMap<CPNState, Long>();
             }
-            stateToMarking.put(ssNode, marking);
+            stateToMarking.put(CPNState, marking);
         }
     }
 

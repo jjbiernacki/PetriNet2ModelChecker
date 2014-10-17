@@ -1,4 +1,4 @@
-package pl.edu.agh.petrinet2nusmv.model;
+package pl.edu.agh.petrinet2nusmv.parser;
 
 /**
  * Created by agnieszka on 19.02.14.

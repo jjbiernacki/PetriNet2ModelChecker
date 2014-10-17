@@ -2,10 +2,10 @@ package pl.edu.agh.petrinet2nusmv.generator.nuxmv;
 
 import java.util.Map;
 
-import pl.edu.agh.petrinet2nusmv.model.base.Place;
-import pl.edu.agh.petrinet2nusmv.model.base.PlaceType;
-import pl.edu.agh.petrinet2nusmv.model.base.ReachabilityGraph;
-import pl.edu.agh.petrinet2nusmv.model.base.State;
+import pl.edu.agh.petrinet2nusmv.model.pt.PTPlace;
+import pl.edu.agh.petrinet2nusmv.model.pt.PlaceType;
+import pl.edu.agh.petrinet2nusmv.model.pt.PTReachabilityGraph;
+import pl.edu.agh.petrinet2nusmv.model.pt.PTState;
 
 /**
  * Generator pliku NuSMV na podstawie grafu osiągalności
@@ -14,12 +14,12 @@ import pl.edu.agh.petrinet2nusmv.model.base.State;
  */
 public class NuXMVGenerator {
 	
-	private ReachabilityGraph reachabilityGraph;
+	private PTReachabilityGraph PTReachabilityGraph;
 	private int indent = 0;
 	private StringBuilder sb;
 	
-	public NuXMVGenerator(final ReachabilityGraph reachabilityGraph) {
-		this.reachabilityGraph = reachabilityGraph;
+	public NuXMVGenerator(final PTReachabilityGraph PTReachabilityGraph) {
+		this.PTReachabilityGraph = PTReachabilityGraph;
 		sb = new StringBuilder();
 	}
 	
@@ -45,24 +45,24 @@ public class NuXMVGenerator {
 	 * Generowanie wartości zmiennych w zależności od stanów w NuSMV
 	 */
 	private void generateNextVarValues() {
-		for(Place place: reachabilityGraph.getPlaces()) {
-			appendLine(place.getValidNuSMVName() + " := " + StrRes.CASE);
+		for(PTPlace PTPlace : PTReachabilityGraph.getPTPlaces()) {
+			appendLine(PTPlace.getValidNuSMVName() + " := " + StrRes.CASE);
 			indent++;
 			
-			for(State state: reachabilityGraph.getStates()) {
-				Map<Place, Integer> marking = state.getMarking();
-				if(marking.containsKey(place) && marking.get(place) > 0) {
-					String value = String.valueOf(marking.get(place));
-					if(reachabilityGraph.getPlaceType() == PlaceType.BOOLEAN) {
+			for(PTState PTState : PTReachabilityGraph.getStates()) {
+				Map<PTPlace, Integer> marking = PTState.getMarking();
+				if(marking.containsKey(PTPlace) && marking.get(PTPlace) > 0) {
+					String value = String.valueOf(marking.get(PTPlace));
+					if(PTReachabilityGraph.getPlaceType() == PlaceType.BOOLEAN) {
 						value = StrRes.Boolean.TRUE.getName();
 					}
-					appendLine(StrRes.DEFAULT_STATE_NAME + " = " + state.getName() + " : " + value + ";");
+					appendLine(StrRes.DEFAULT_STATE_NAME + " = " + PTState.getName() + " : " + value + ";");
 				}
 			}
 			
 			
 			String defaultValue = "0";
-			if(reachabilityGraph.getPlaceType() == PlaceType.BOOLEAN) {
+			if(PTReachabilityGraph.getPlaceType() == PlaceType.BOOLEAN) {
 				defaultValue = StrRes.Boolean.FALSE.getName();
 			}
 			appendLine(StrRes.Boolean.TRUE + " : " + defaultValue + ";");
@@ -78,19 +78,19 @@ public class NuXMVGenerator {
 	private void generateNextState() {
 		appendLine(StrRes.NEXT + "(" + StrRes.DEFAULT_STATE_NAME + ") := " + StrRes.CASE);
 		indent++;
-		for(State state: reachabilityGraph.getStates()) {
+		for(PTState PTState : PTReachabilityGraph.getStates()) {
 			tab();
-			sb.append(StrRes.DEFAULT_STATE_NAME + " = " + state.getName() + " : ");
-			if(state.getSuccessorsList() == null || state.getSuccessorsList().size() == 0) {
-				sb.append(state.getName() + ";\n");
-			} else if(state.getSuccessorsList().size() == 1) {
-				sb.append(state.getSuccessorsList().get(0).getName() + ";\n");
+			sb.append(StrRes.DEFAULT_STATE_NAME + " = " + PTState.getName() + " : ");
+			if(PTState.getSuccessorsList() == null || PTState.getSuccessorsList().size() == 0) {
+				sb.append(PTState.getName() + ";\n");
+			} else if(PTState.getSuccessorsList().size() == 1) {
+				sb.append(PTState.getSuccessorsList().get(0).getName() + ";\n");
 			} else {
 				sb.append("{");
-				for(int i = 0; i < state.getSuccessorsList().size(); i++) {
-					State successor = state.getSuccessorsList().get(i);
+				for(int i = 0; i < PTState.getSuccessorsList().size(); i++) {
+					PTState successor = PTState.getSuccessorsList().get(i);
 					sb.append(successor.getName());
-					if(i < state.getSuccessorsList().size() -1) {
+					if(i < PTState.getSuccessorsList().size() -1) {
 						sb.append(", ");
 					}
 				}
@@ -107,7 +107,7 @@ public class NuXMVGenerator {
 	private void generateInit() {
 		appendLine(StrRes.ASSIGN);
 		indent++;
-		appendLine(StrRes.INIT + "(" + StrRes.DEFAULT_STATE_NAME + ") := "	+ reachabilityGraph.getInitState() + ";");
+		appendLine(StrRes.INIT + "(" + StrRes.DEFAULT_STATE_NAME + ") := "	+ PTReachabilityGraph.getInitState() + ";");
 	}
 
 	private void appendLine(String content) {
@@ -123,21 +123,22 @@ public class NuXMVGenerator {
 		indent++;
 		tab();
 		sb.append(StrRes.DEFAULT_STATE_NAME + ": {");
-		for(int i = 0; i < reachabilityGraph.getStates().size(); i++) {
-			State state = reachabilityGraph.getStates().get(i);
-			sb.append(state.getName());
-			if(i < reachabilityGraph.getStates().size() -1) {
-				sb.append(", ");
-			}
-		}
+        int i = 0;
+        for (PTState PTState: PTReachabilityGraph.getStates()) {
+            sb.append(PTState.getName());
+            if(i < PTReachabilityGraph.getStates().size() -1) {
+                sb.append(", ");
+            }
+            i++;
+        }
 		sb.append("};\n");
 		
-		for(Place place: reachabilityGraph.getPlaces()) {
-			String typeName = StrRes.INTEGER + reachabilityGraph.getOmega();
-			if(reachabilityGraph.getPlaceType() == PlaceType.BOOLEAN) {
+		for(PTPlace PTPlace : PTReachabilityGraph.getPTPlaces()) {
+			String typeName = StrRes.INTEGER + PTReachabilityGraph.getOmega();
+			if(PTReachabilityGraph.getPlaceType() == PlaceType.BOOLEAN) {
 				typeName = StrRes.BOOLEAN;
 			}
-			appendLine(place.getValidNuSMVName() + " : " + typeName + ";");
+			appendLine(PTPlace.getValidNuSMVName() + " : " + typeName + ";");
 		}
 		
 		indent--;

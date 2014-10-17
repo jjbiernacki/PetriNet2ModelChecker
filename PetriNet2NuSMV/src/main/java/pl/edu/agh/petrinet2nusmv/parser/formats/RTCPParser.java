@@ -1,29 +1,32 @@
-package pl.edu.agh.petrinet2nusmv.parser;
+package pl.edu.agh.petrinet2nusmv.parser.formats;
 
 import pl.edu.agh.petrinet2nusmv.exceptions.SyntaxException;
 import pl.edu.agh.petrinet2nusmv.model.rtcp.Marking;
-import pl.edu.agh.petrinet2nusmv.model.rtcp.Place;
-import pl.edu.agh.petrinet2nusmv.model.rtcp.ReachabilityGraph;
-import pl.edu.agh.petrinet2nusmv.model.rtcp.State;
+import pl.edu.agh.petrinet2nusmv.model.rtcp.RTCPPlace;
+import pl.edu.agh.petrinet2nusmv.model.rtcp.RTCPReachabilityGraph;
+import pl.edu.agh.petrinet2nusmv.model.rtcp.RTCPState;
+import pl.edu.agh.petrinet2nusmv.parser.interfaces.RTCPParsable;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.TreeSet;
 import java.util.regex.Pattern;
 
 /**
  * Created by agnieszka on 19.08.14.
  */
-public class RTCPParser {
+public class RTCPParser implements RTCPParsable {
 
-    private List<Place> places = new ArrayList<Place>();
-    private List<State> states = new ArrayList<State>();
+    private List<RTCPPlace> RTCPPlaces = new ArrayList<RTCPPlace>();
+    private TreeSet<RTCPState> RTCPStates = new TreeSet<RTCPState>();
     private long omega = Long.MIN_VALUE;
     private long minTimeOmega = Long.MAX_VALUE;
 
-    public ReachabilityGraph parseFile(final String filepath) throws FileNotFoundException, SyntaxException {
+    @Override
+    public RTCPReachabilityGraph parseFile(final String filepath) throws FileNotFoundException, SyntaxException {
         Scanner in = new Scanner(new FileReader(filepath));
 
         findPlaces(in);
@@ -32,16 +35,13 @@ public class RTCPParser {
         in = new Scanner(new FileReader(filepath));
         findSuccessors(in);
 
-        for (State state : states) {
-      //      System.out.println(state.toString());
-        }
+        RTCPReachabilityGraph RTCPReachabilityGraph = new RTCPReachabilityGraph();
+        RTCPReachabilityGraph.setRTCPPlaces(RTCPPlaces);
+        RTCPReachabilityGraph.setRTCPStates(RTCPStates);
+        RTCPReachabilityGraph.setOmega(omega);
+        RTCPReachabilityGraph.setMinTimeOmega(minTimeOmega);
 
-        ReachabilityGraph reachabilityGraph = new ReachabilityGraph();
-        reachabilityGraph.setPlaces(places);
-        reachabilityGraph.setStates(states);
-        reachabilityGraph.setOmega(omega);
-        reachabilityGraph.setMinTimeOmega(minTimeOmega);
-        return reachabilityGraph;
+        return RTCPReachabilityGraph;
 
     }
     private void findSuccessors(Scanner in) throws SyntaxException {
@@ -51,15 +51,15 @@ public class RTCPParser {
                 String firstNode = line.substring(1, line.indexOf(" "));
                 String secondPart = line.substring(line.indexOf("->") + 3);
                 String secondNode = secondPart.substring(0, secondPart.indexOf(" "));
-                State firstState = findStateById(firstNode);
-                State secondState = findStateById(secondNode);
+                RTCPState firstRTCPState = findStateById(firstNode);
+                RTCPState secondRTCPState = findStateById(secondNode);
                 String label = line.substring(line.indexOf("(") + 1, line.indexOf(","));
-                firstState.addSuccessor(secondState, label);
+                firstRTCPState.addSuccessor(secondRTCPState, label);
             }
         }
     }
 
-    private State findStateById(String idText) throws SyntaxException {
+    private RTCPState findStateById(String idText) throws SyntaxException {
 
         int id;
         try {
@@ -68,9 +68,9 @@ public class RTCPParser {
             throw new SyntaxException("Wrong state id=" + idText);
         }
 
-        for (State state: states) {
-            if (state.getId() == id) {
-                return state;
+        for (RTCPState RTCPState : RTCPStates) {
+            if (RTCPState.getId() == id) {
+                return RTCPState;
             }
         }
         throw new SyntaxException("Cannot find state with idText=" + idText);
@@ -105,13 +105,13 @@ public class RTCPParser {
 
     private void findState(String stateId, String markingText, String timeMarkingText) {
 
-        State state = new State(Integer.valueOf(stateId));
+        RTCPState RTCPState = new RTCPState(Integer.valueOf(stateId));
         List<String> markingTexts = getMarkingText(markingText);
         List<String> timeMarkingTexts = getTimeMarkingText(timeMarkingText);
 
-        for (int i = 0; i < places.size(); i++) {
+        for (int i = 0; i < RTCPPlaces.size(); i++) {
             String placeMarkingText = markingTexts.get(i);
-            Place place = places.get(i);
+            RTCPPlace RTCPPlace = RTCPPlaces.get(i);
             Marking placeMarking = new Marking();
             long timeMarking = Long.valueOf(timeMarkingTexts.get(i));
             placeMarking.setTimeMarking(timeMarking);
@@ -122,8 +122,6 @@ public class RTCPParser {
             if (timeMarking < minTimeOmega) {
                 minTimeOmega = timeMarking;
             }
-           // System.out.println("Place " + place.getName() + " time=" + timeMarkingTexts.get(i));
-
             for(String text: placeMarkingText.split("\\+")) {
                 if (text.charAt(0) == '-') {
                     continue;
@@ -140,13 +138,12 @@ public class RTCPParser {
 
                 String mark = text.replace("(", "").replace(")", "").replace(",", "_");
                 placeMarking.addMarking(mark, markingValue);
-               // System.out.println(">> " + mark + " " + markingValue);
-                place.addMarking(mark);
+                RTCPPlace.addMarking(mark);
             }
 
-            state.addMarking(place, placeMarking);
+            RTCPState.addMarking(RTCPPlace, placeMarking);
         }
-        states.add(state);
+        RTCPStates.add(RTCPState);
     }
     private List<String> getTimeMarkingText(String timeMarkingText) {
 
@@ -200,29 +197,18 @@ public class RTCPParser {
                 continue;
             }
         }
-        for (Place place: places) {
-       //     System.out.println(place);
-        }
     }
 
     private void setPlacesList(String[] strings) {
         for (String placeText: strings) {
             placeText = placeText.replace("(", "").replace(")", "").replace(" ", "").replace(",", "");
-            Place place = new Place(placeText);
-            places.add(place);
+            RTCPPlace RTCPPlace = new RTCPPlace(placeText);
+            RTCPPlaces.add(RTCPPlace);
         }
     }
 
 
     public static void main(String... args) {
-//        RTCPParser parser1 = new RTCPParser();
-//       try {
-//            parser1.parseFile("E:\\III\\Artykuły\\RTCP\\rtcpn-tools\\trunk\\PetriNet2NuSMV\\przyklady dot\\test3.dot");
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (SyntaxException e) {
-//           e.printStackTrace();
-//       }
         RTCPParser parser2 = new RTCPParser();
         System.out.println("########################################################################");
         try {
