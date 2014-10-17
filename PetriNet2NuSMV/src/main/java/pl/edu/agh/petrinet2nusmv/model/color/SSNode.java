@@ -1,8 +1,6 @@
 package pl.edu.agh.petrinet2nusmv.model.color;
 
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,8 +12,8 @@ import java.util.TreeMap;
 public class SSNode implements Comparable<SSNode> {
     private String id;
     private String text;
-    private long order;
-    private ArrayList<SSNode> successors = new ArrayList<SSNode>();
+    private int order;
+    private Map<SSNode, String> successors = new HashMap<SSNode, String>();
     Map<Place, Marking> marking = new TreeMap<Place, Marking>();
     private String nusmvName;
 
@@ -35,8 +33,8 @@ public class SSNode implements Comparable<SSNode> {
         this.text = text;
     }
 
-    public void addSuccessor(SSNode ssNode) {
-        successors.add(ssNode);
+    public void addSuccessor(SSNode ssNode, String transitionLabel) {
+        successors.put(ssNode, transitionLabel);
     }
 
     @Override
@@ -55,7 +53,7 @@ public class SSNode implements Comparable<SSNode> {
         return order;
     }
 
-    public void setOrder(long order) {
+    public void setOrder(int order) {
         this.order = order;
     }
 
@@ -75,8 +73,18 @@ public class SSNode implements Comparable<SSNode> {
         this.nusmvName = nusmvName;
     }
 
-    public ArrayList<SSNode> getSuccessors() {
-        return successors;
+    public String getTransitionLabel(final SSNode successor) {
+        return successors.get(successor);
+    }
+
+    public List<SSNode> getSuccessorsList() {
+        if (successors == null) {
+            return null;
+        } else {
+            List<SSNode> successorsList = new ArrayList<SSNode>();
+            successorsList.addAll(successors.keySet());
+            return successorsList;
+        }
     }
 
     @Override

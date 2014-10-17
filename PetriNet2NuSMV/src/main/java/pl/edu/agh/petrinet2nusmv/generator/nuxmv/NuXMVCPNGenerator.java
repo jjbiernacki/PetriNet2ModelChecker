@@ -70,16 +70,16 @@ public class NuXMVCPNGenerator {
         for(SSNode ssNode: reachabilityGraph.getStates()) {
             tab();
             sb.append(StrRes.DEFAULT_STATE_NAME + " = " + ssNode.getNusmvName()+ " : ");
-            if(ssNode.getSuccessors() == null || ssNode.getSuccessors().size() == 0) {
+            if(ssNode.getSuccessorsList() == null || ssNode.getSuccessorsList().size() == 0) {
                 sb.append(ssNode.getNusmvName() + ";\n");
-            } else if(ssNode.getSuccessors().size() == 1) {
-                sb.append(ssNode.getSuccessors().get(0).getNusmvName() + ";\n");
+            } else if(ssNode.getSuccessorsList().size() == 1) {
+                sb.append(ssNode.getSuccessorsList().get(0).getNusmvName() + ";\n");
             } else {
                 sb.append("{");
-                for(int i = 0; i < ssNode.getSuccessors().size(); i++) {
-                    SSNode successor = ssNode.getSuccessors().get(i);
+                for(int i = 0; i < ssNode.getSuccessorsList().size(); i++) {
+                    SSNode successor = ssNode.getSuccessorsList().get(i);
                     sb.append(successor.getNusmvName());
-                    if(i < ssNode.getSuccessors().size() -1) {
+                    if(i < ssNode.getSuccessorsList().size() -1) {
                         sb.append(", ");
                     }
                 }

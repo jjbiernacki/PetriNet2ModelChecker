@@ -115,7 +115,7 @@ public class KTSParser implements CovGraphParserInterface {
 				}
 				for(State sucessor: states) {
 					if(sucessor.getId() == sucessorId) {
-						state.addSuccessor(sucessor);
+						state.addSuccessor(sucessor, element.substring(0, lastIndexOfSlash));
 						break;
 					}
 				}
@@ -212,7 +212,7 @@ public class KTSParser implements CovGraphParserInterface {
         KTSParser parser = new KTSParser();
         parser.setOmega(50);
         try {
-            parser.parseFile("C:\\Users\\agnieszka\\Desktop\\przykłady magisterka\\bramka_logiczna.kts");
+            parser.parseFile("E:\\AGH\\Magisterka\\Praca\\pt_sieci\\bramka_logiczna.kts");
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

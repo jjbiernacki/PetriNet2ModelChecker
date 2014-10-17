@@ -5,6 +5,9 @@ import org.oxbow.swingbits.dialog.task.TaskDialog;
 import pl.edu.agh.cpn2rtcpn.XmlParse;
 import pl.edu.agh.petrinet2nusmv.exceptions.ExtensionFilter;
 import pl.edu.agh.petrinet2nusmv.exceptions.SyntaxException;
+import pl.edu.agh.petrinet2nusmv.generator.aut.AutCPNGenerator;
+import pl.edu.agh.petrinet2nusmv.generator.aut.AutPTGenerator;
+import pl.edu.agh.petrinet2nusmv.generator.aut.AutRTCPGenerator;
 import pl.edu.agh.petrinet2nusmv.generator.nuxmv.NuXMVCPNGenerator;
 import pl.edu.agh.petrinet2nusmv.generator.nuxmv.NuXMVGenerator;
 import pl.edu.agh.petrinet2nusmv.generator.nuxmv.NuXMVRTCPGenerator;
@@ -50,9 +53,16 @@ public class Petri2NuSMV {
     private JButton rtcpSaveButton;
     private JTabbedPane tabbedPane;
     private JButton exportToPdfButton;
+    private JTextField autFieldPath;
+    private JButton openToAutButton;
+    private JButton convertToAutButton;
+    private JComboBox toAutComboBox;
+    private JButton saveAutButton;
+    private JTextArea autTextArea;
 
     private JFrame frame;
-    Parser parser = Parser.CPNPARSER;
+    Parser parser2NuXMV = Parser.RTCPPARSER;
+    Parser parser2aut = Parser.RTCPPARSER;
     JMenuBar menuBar;
     JMenu menuFile, menuParser, menuHelp, menuRtcpSimulator;
     JMenuItem menuClose, menuOpen, menuOmega, menuAbout, menuEndtime;
@@ -67,6 +77,7 @@ public class Petri2NuSMV {
 
     private String[] rtcpParsers = {"CPN Tools >> Coverability Graph", "CPN Tools >> RTCP", "RTCP Net >> RTCP Simulator", "RTCP Net >> Coverability Graph"};
     private String[] cg2nsParsers = {"RTCP Nets","Coloured Petri Nets", "Place/transition Petri Nets"};
+    private String[] cg2autParsers = {"RTCP Nets","Coloured Petri Nets", "Place/transition Petri Nets"};
 
 
     public static void main(String[] args) {
@@ -112,19 +123,22 @@ public class Petri2NuSMV {
         menuRtcpSimulator.add(menuEndtime);
         frame.setJMenuBar(menuBar);
         openButton.addActionListener(openFile);
+        openToAutButton.addActionListener(openFile2Aut);
         parseButton.addActionListener(parse);
-        nuSMVTextArea.setEditable(false);
+        convertToAutButton.addActionListener(convertToAutActionListener);
+        saveAutButton.setEnabled(false);
+        saveAutButton.addActionListener(saveAutFileActionListener);
         menuOmega.setEnabled(false);
         menuAbout.addActionListener(showHelp);
         saveButton.setEnabled(false);
         saveButton.addActionListener(saveFile);
         tabbedPane.addChangeListener(tabChanged);
+        toAutComboBox.addActionListener(parser2AutChosen);
 
         //parse2NuSMV
         for (String item: cg2nsParsers) {
             comboBoxNuSMV.addItem(item);
         }
-        parser = Parser.RTCPPARSER;
         menuOmega.setEnabled(false);
         comboBoxNuSMV.addActionListener(parserChosen);
 
@@ -138,6 +152,10 @@ public class Petri2NuSMV {
         exportToPdfButton.setEnabled(false);
         exportToPdfButton.addActionListener(pdfListener);
         rtcpSaveButton.addActionListener(saveRTCPFile);
+        //parse2aut
+        for (String item: cg2autParsers) {
+            toAutComboBox.addItem(item);
+        }
     }
 
     public boolean isEnvironmentalRun() {
@@ -167,10 +185,10 @@ public class Petri2NuSMV {
             if (selItem  == 0){
 
                 menuOpen.addActionListener(openFile);
-            }
-            else
-            {
+            } else if (selItem  == 1){
                 menuOpen.addActionListener(openFileRTCP);
+            } else {
+                menuOpen.addActionListener(openFile2Aut);
             }
         }
     };
@@ -199,6 +217,28 @@ public class Petri2NuSMV {
         }
     };
 
+
+    ActionListener parser2AutChosen = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            int selItem = toAutComboBox.getSelectedIndex();
+            switch (selItem) {
+                case 0://RTCP nets
+                    parser2aut = Parser.RTCPPARSER;
+                    break;
+                case 1://CP Nets
+                    parser2aut = Parser.CPNPARSER;
+                    break;
+                case 2://PT Nets
+                    parser2aut = Parser.SIMPLEPARSER;
+                    break;
+                default:
+                    throw new IllegalStateException("No items to select");
+            }
+        }
+    };
+
     ActionListener parserChosen = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -206,15 +246,15 @@ public class Petri2NuSMV {
             int selItem = comboBoxNuSMV.getSelectedIndex();
             switch (selItem) {
                 case 0://RTCP nets
-                    parser = Parser.RTCPPARSER;
+                    parser2NuXMV = Parser.RTCPPARSER;
                     menuOmega.setEnabled(false);
                     break;
                 case 1://CP Nets
-                    parser = Parser.CPNPARSER;
+                    parser2NuXMV = Parser.CPNPARSER;
                     menuOmega.setEnabled(false);
                     break;
                 case 2://PT Nets
-                    parser = Parser.SIMPLEPARSER;
+                    parser2NuXMV = Parser.SIMPLEPARSER;
                     menuOmega.setEnabled(true);
                     break;
                 default:
@@ -230,9 +270,9 @@ public class Petri2NuSMV {
             final JFileChooser fc = new JFileChooser();
             fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
             FileFilter filter;
-            if(parser == Parser.RTCPPARSER){
+            if(parser2NuXMV == Parser.RTCPPARSER){
                 filter = new ExtensionFilter("DOT file (*.dot)", ".dot");
-            }else if(parser == Parser.CPNPARSER) {
+            }else if(parser2NuXMV == Parser.CPNPARSER) {
                 filter = new ExtensionFilter("CPN Tools file  (*.cpn)", ".cpn");
             } else{
                 filter = new ExtensionFilter("TINA kts file (*.kts)", ".kts");
@@ -245,6 +285,33 @@ public class Petri2NuSMV {
                 File file = fc.getSelectedFile();
                 System.out.print("Opening: " + file.getAbsolutePath());
                 pathField.setText(file.getAbsolutePath());
+            } else {
+                System.out.print("Open command cancelled by user.");
+            }
+        }
+    };
+
+    ActionListener openFile2Aut = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            final JFileChooser fc = new JFileChooser();
+            fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            FileFilter filter;
+            if(parser2aut == Parser.RTCPPARSER){
+                filter = new ExtensionFilter("DOT file (*.dot)", ".dot");
+            }else if(parser2aut == Parser.CPNPARSER) {
+                filter = new ExtensionFilter("CPN Tools file  (*.cpn)", ".cpn");
+            } else{
+                filter = new ExtensionFilter("TINA kts file (*.kts)", ".kts");
+            }
+            fc.addChoosableFileFilter(filter);
+            fc.setFileFilter(filter);
+            fc.setCurrentDirectory(new File(System.getProperty("user.dir")));
+            int returnVal = fc.showOpenDialog(frame);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = fc.getSelectedFile();
+                System.out.print("Opening: " + file.getAbsolutePath());
+                autFieldPath.setText(file.getAbsolutePath());
             } else {
                 System.out.print("Open command cancelled by user.");
             }
@@ -284,6 +351,34 @@ public class Petri2NuSMV {
             }
         }
     };
+
+    ActionListener saveAutFileActionListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            final JFileChooser fc = new JFileChooser();
+            fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            FileFilter filter = new ExtensionFilter("Aut file (*.aut)", ".aut");
+            fc.addChoosableFileFilter(filter);
+            fc.setFileFilter(filter);
+            fc.setCurrentDirectory(new File(System.getProperty("user.dir")));
+            fc.setSelectedFile(new File(parsedFileName + ".aut"));
+            int returnVal = fc.showSaveDialog(frame);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = fc.getSelectedFile();
+                PrintWriter out = null;
+                try {
+                    out = new PrintWriter(file.getAbsolutePath());
+                    out.println(autTextArea.getText());
+                    out.close();
+                } catch (FileNotFoundException e1) {
+                    e1.printStackTrace();
+                }
+            } else {
+                System.out.print("Save command cancelled by user.");
+            }
+        }
+    };
+
 
     ActionListener saveFile = new ActionListener() {
         @Override
@@ -421,7 +516,7 @@ public class Petri2NuSMV {
     ActionListener parse = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(parser == Parser.RTCPPARSER) {
+            if(parser2NuXMV == Parser.RTCPPARSER) {
                 parsedFileName = pathField.getText();
                 parsedFileName = parsedFileName.substring(0, parsedFileName.indexOf("."));
                 try {
@@ -445,7 +540,7 @@ public class Petri2NuSMV {
                             "Error",
                             JOptionPane.ERROR_MESSAGE);
                 }
-            }else if(parser == Parser.CPNPARSER) {
+            }else if(parser2NuXMV == Parser.CPNPARSER) {
                 try {
                     CPNParser cpnParser = new CPNParser();
                     NuXMVCPNGenerator generator = new NuXMVCPNGenerator(cpnParser.parseFile(pathField.getText()));
@@ -477,6 +572,81 @@ public class Petri2NuSMV {
                     nuSMVTextArea.setText(generator.generateNuSMVModule());
                     saveButton.setEnabled(true);
                     parsedFileName = pathField.getText();
+                    parsedFileName = parsedFileName.substring(0, parsedFileName.indexOf("."));
+                } catch (FileNotFoundException e1) {
+                    JOptionPane.showMessageDialog(frame,
+                            "File not found.",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                } catch (SyntaxException e2) {
+                    JOptionPane.showMessageDialog(frame,
+                            e2.getMessage(),
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+    };
+
+    ActionListener convertToAutActionListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(parser2aut == Parser.RTCPPARSER) {
+                parsedFileName = autFieldPath.getText();
+                parsedFileName = parsedFileName.substring(0, parsedFileName.indexOf("."));
+                try {
+                    RTCPParser rtcpParser = new RTCPParser();
+                    AutRTCPGenerator generator = new AutRTCPGenerator(rtcpParser.parseFile(autFieldPath.getText()));
+                    autTextArea.setText(generator.generateAut());
+                    saveAutButton.setEnabled(true);
+                } catch (FileNotFoundException e1) {
+                    JOptionPane.showMessageDialog(frame,
+                            "File not found.",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                } catch (SyntaxException e2) {
+                    JOptionPane.showMessageDialog(frame,
+                            e2.getMessage(),
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(frame,
+                            e1.getMessage(),
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }else if(parser2aut == Parser.CPNPARSER) {
+                try {
+                    CPNParser cpnParser = new CPNParser();
+                    AutCPNGenerator generator = new AutCPNGenerator(cpnParser.parseFile(autFieldPath.getText()));
+                    autTextArea.setText(generator.generateAut());
+                    saveAutButton.setEnabled(true);
+                    parsedFileName = autFieldPath.getText();
+                    parsedFileName = parsedFileName.substring(0, parsedFileName.indexOf("."));
+                } catch (FileNotFoundException e1) {
+                    JOptionPane.showMessageDialog(frame,
+                            "File not found.",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                } catch (SyntaxException e2) {
+                    JOptionPane.showMessageDialog(frame,
+                            e2.getMessage(),
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(frame,
+                            e1.getMessage(),
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                try {
+                    KTSParser ktsParser = new KTSParser();
+                    ktsParser.setOmega(omega);
+                    AutPTGenerator generator = new AutPTGenerator(ktsParser.parseFile(autFieldPath.getText()));
+                    autTextArea.setText(generator.generateAut());
+                    saveAutButton.setEnabled(true);
+                    parsedFileName = autFieldPath.getText();
                     parsedFileName = parsedFileName.substring(0, parsedFileName.indexOf("."));
                 } catch (FileNotFoundException e1) {
                     JOptionPane.showMessageDialog(frame,
@@ -660,10 +830,6 @@ public class Petri2NuSMV {
         dlg.setInstruction(instruction);
         dlg.setIcon(TaskDialog.StandardIcon.ERROR);
 
-//            JTextArea ta = new JTextArea();
-//            ta.setText("text\ntext\ntext");
-
-
         JScrollPane scrollPane = new JScrollPane(new JTextArea(details));
 
         scrollPane.setMaximumSize(new Dimension(300, 200));
@@ -675,27 +841,6 @@ public class Petri2NuSMV {
         dlg.getDetails().setExpanded(false);
         dlg.show();
 
-    }
-
-    private String file2String(File f){
-        try {
-            StringBuilder sb = new StringBuilder();
-            StringBuilder fileContents = new StringBuilder((int) f.length());
-            Scanner scanner = new Scanner(f);
-            String lineSeparator = System.getProperty("line.separator");
-
-            try {
-                while (scanner.hasNextLine()) {
-                    fileContents.append(scanner.nextLine() + lineSeparator);
-                }
-                return fileContents.toString();
-            } finally {
-                scanner.close();
-            }
-        }catch (FileNotFoundException e){
-            e.printStackTrace();
-            return "For details see simlog.log file.";
-        }
     }
 
 }

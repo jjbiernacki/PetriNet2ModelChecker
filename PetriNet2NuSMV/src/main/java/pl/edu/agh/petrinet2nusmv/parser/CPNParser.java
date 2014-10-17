@@ -54,7 +54,7 @@ public class CPNParser {
         }
 
         findSSNodes(cpnetChildren);
-        conectSSNodes(cpnetChildren);
+        connectSSNodes(cpnetChildren);
 
 
         for(SSNode s: ssNodes) {
@@ -129,7 +129,7 @@ public class CPNParser {
         return null;
     }
 
-    private void conectSSNodes(NodeList cpnetChildren) throws SyntaxException {
+    private void connectSSNodes(NodeList cpnetChildren) throws SyntaxException {
         for (int i = 0; i < cpnetChildren.getLength(); i++) {
             Node nNode = cpnetChildren.item(i);
             if (nNode.getNodeName().equals("page")) {
@@ -138,8 +138,17 @@ public class CPNParser {
                     Element ssarc = (Element) ssarcList.item(j);
                     SSNode src = findSSNodeById(((Element) ssarc.getElementsByTagName("source").item(0)).getAttribute("idref"));
                     SSNode dst = findSSNodeById(((Element) ssarc.getElementsByTagName("destination").item(0)).getAttribute("idref"));
+                    String transitionLabel = "";
+                    Element nodeDescriptor = (Element) ssarc.getElementsByTagName("descriptor").item(0);
+                    if (nodeDescriptor != null) {
+                        Element descriptorTextNode = (Element) nodeDescriptor.getElementsByTagName("text").item(0);
+                        String descriptorText = descriptorTextNode.getTextContent();
+                        descriptorText = descriptorText.substring(descriptorText.indexOf("'") + 1);
+                        descriptorText = descriptorText.substring(0, descriptorText.indexOf(":"));
+                        transitionLabel = descriptorText.substring(0, descriptorText.lastIndexOf(" "));
+                    }
                     if(src != null && dst != null) {
-                        src.addSuccessor(dst);
+                        src.addSuccessor(dst, transitionLabel);
                     } else {
                         throw new SyntaxException("SSArc has no src or dst");
                     }
@@ -167,7 +176,7 @@ public class CPNParser {
                     Element ssnodeEl = (Element) ssnodesList.item(j);
                     SSNode ssNode = new SSNode();
                     ssNode.setId(ssnodeEl.getAttribute("id"));
-                    ssNode.setOrder(Long.valueOf(ssnodeEl.getAttribute("number")));
+                    ssNode.setOrder(Integer.valueOf(ssnodeEl.getAttribute("number")));
                     ssNode.setText(ssnodeEl.getElementsByTagName("text").item(0).getTextContent());
                     ssNodes.add(ssNode);
                 }

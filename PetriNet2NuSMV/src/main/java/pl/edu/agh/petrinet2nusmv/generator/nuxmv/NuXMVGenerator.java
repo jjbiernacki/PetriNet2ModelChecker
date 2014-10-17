@@ -81,16 +81,16 @@ public class NuXMVGenerator {
 		for(State state: reachabilityGraph.getStates()) {
 			tab();
 			sb.append(StrRes.DEFAULT_STATE_NAME + " = " + state.getName() + " : ");
-			if(state.getSuccessors() == null || state.getSuccessors().size() == 0) {
+			if(state.getSuccessorsList() == null || state.getSuccessorsList().size() == 0) {
 				sb.append(state.getName() + ";\n");
-			} else if(state.getSuccessors().size() == 1) {
-				sb.append(state.getSuccessors().get(0).getName() + ";\n");
+			} else if(state.getSuccessorsList().size() == 1) {
+				sb.append(state.getSuccessorsList().get(0).getName() + ";\n");
 			} else {
 				sb.append("{");
-				for(int i = 0; i < state.getSuccessors().size(); i++) {
-					State successor = state.getSuccessors().get(i);
+				for(int i = 0; i < state.getSuccessorsList().size(); i++) {
+					State successor = state.getSuccessorsList().get(i);
 					sb.append(successor.getName());
-					if(i < state.getSuccessors().size() -1) {
+					if(i < state.getSuccessorsList().size() -1) {
 						sb.append(", ");
 					}
 				}

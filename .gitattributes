@@ -131,7 +131,10 @@ PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/Petri2NuSMV.form -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/Petri2NuSMV.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/exceptions/ExtensionFilter.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/exceptions/SyntaxException.java -text
-PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/generator/aut/AutGenerator.java -text
+PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/generator/aut/AutCPNGenerator.java -text
+PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/generator/aut/AutPTGenerator.java -text
+PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/generator/aut/AutRTCPGenerator.java -text
+PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/generator/aut/BaseAutGenerator.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/generator/nuxmv/NuXMVCPNGenerator.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/generator/nuxmv/NuXMVGenerator.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2nusmv/generator/nuxmv/NuXMVRTCPGenerator.java -text

@@ -11,8 +11,8 @@ import java.util.*;
  */
 public class State implements Comparable<State> {
 	private final int id;
-	Map<Place, Marking> marking = new TreeMap<Place, Marking>();
-	Map<State, String> successors = new HashMap<State, String>();
+    private Map<Place, Marking> marking = new TreeMap<Place, Marking>();
+    private Map<State, String> successors = new HashMap<State, String>();
 
 	public State(final int id) {
 		this.id = id;
@@ -49,7 +49,7 @@ public class State implements Comparable<State> {
 		successors.put(state, transitionLabel);
 	}
 
-    public String getTransitionStateLabel(final State successor) {
+    public String getTransitionLabel(final State successor) {
         return successors.get(successor);
     }
 
