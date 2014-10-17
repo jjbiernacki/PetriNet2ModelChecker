@@ -53,7 +53,8 @@ public class RTCPParser {
                 String secondNode = secondPart.substring(0, secondPart.indexOf(" "));
                 State firstState = findStateById(firstNode);
                 State secondState = findStateById(secondNode);
-                firstState.addSuccessor(secondState);
+                String label = line.substring(line.indexOf("(") + 1, line.indexOf(","));
+                firstState.addSuccessor(secondState, label);
             }
         }
     }

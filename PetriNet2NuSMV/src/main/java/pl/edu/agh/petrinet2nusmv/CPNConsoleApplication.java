@@ -2,11 +2,9 @@ package pl.edu.agh.petrinet2nusmv;
 
 import org.apache.commons.cli.*;
 import pl.edu.agh.petrinet2nusmv.exceptions.SyntaxException;
-import pl.edu.agh.petrinet2nusmv.generator.NuSMVCPNGenerator;
-import pl.edu.agh.petrinet2nusmv.generator.NuSMVGenerator;
+import pl.edu.agh.petrinet2nusmv.generator.nuxmv.NuXMVCPNGenerator;
 import pl.edu.agh.petrinet2nusmv.logger.Logger;
 import pl.edu.agh.petrinet2nusmv.parser.CPNParser;
-import pl.edu.agh.petrinet2nusmv.parser.KTSParser;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -36,7 +34,7 @@ public class CPNConsoleApplication {
                 try {
 
             		
-        			NuSMVCPNGenerator generator = new NuSMVCPNGenerator(cpnParser.parseFile(file));
+        			NuXMVCPNGenerator generator = new NuXMVCPNGenerator(cpnParser.parseFile(file));
         			String nuSMV = generator.generateNuSMVModule(); 
         			Logger.d("==============================================================");
         			Logger.i(nuSMV);

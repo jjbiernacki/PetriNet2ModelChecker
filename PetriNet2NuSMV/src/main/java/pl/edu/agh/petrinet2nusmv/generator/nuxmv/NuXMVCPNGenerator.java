@@ -1,4 +1,4 @@
-package pl.edu.agh.petrinet2nusmv.generator;
+package pl.edu.agh.petrinet2nusmv.generator.nuxmv;
 
 import pl.edu.agh.petrinet2nusmv.model.color.Marking;
 import pl.edu.agh.petrinet2nusmv.model.color.Place;
@@ -13,14 +13,14 @@ import java.util.Map;
  * @author abiernacka, jbiernacki
  *
  */
-public class NuSMVCPNGenerator {
+public class NuXMVCPNGenerator {
 
 	private ReachabilityGraph reachabilityGraph;
     private StringBuilder sb;
     private int indent = 0;
     private Map<String, Variable> variables = new HashMap<String, Variable>();
 
-	public NuSMVCPNGenerator(final ReachabilityGraph reachabilityGraph) {
+	public NuXMVCPNGenerator(final ReachabilityGraph reachabilityGraph) {
 		this.reachabilityGraph = reachabilityGraph;
 		sb = new StringBuilder();
 	}

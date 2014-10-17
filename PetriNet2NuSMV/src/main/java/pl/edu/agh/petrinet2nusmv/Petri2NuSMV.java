@@ -5,9 +5,9 @@ import org.oxbow.swingbits.dialog.task.TaskDialog;
 import pl.edu.agh.cpn2rtcpn.XmlParse;
 import pl.edu.agh.petrinet2nusmv.exceptions.ExtensionFilter;
 import pl.edu.agh.petrinet2nusmv.exceptions.SyntaxException;
-import pl.edu.agh.petrinet2nusmv.generator.NuSMVCPNGenerator;
-import pl.edu.agh.petrinet2nusmv.generator.NuSMVGenerator;
-import pl.edu.agh.petrinet2nusmv.generator.NuSMVRTCPGenerator;
+import pl.edu.agh.petrinet2nusmv.generator.nuxmv.NuXMVCPNGenerator;
+import pl.edu.agh.petrinet2nusmv.generator.nuxmv.NuXMVGenerator;
+import pl.edu.agh.petrinet2nusmv.generator.nuxmv.NuXMVRTCPGenerator;
 import pl.edu.agh.petrinet2nusmv.model.Parser;
 import pl.edu.agh.petrinet2nusmv.parser.CPNParser;
 import pl.edu.agh.petrinet2nusmv.parser.KTSParser;
@@ -426,7 +426,7 @@ public class Petri2NuSMV {
                 parsedFileName = parsedFileName.substring(0, parsedFileName.indexOf("."));
                 try {
                     RTCPParser rtcpParser = new RTCPParser();
-                    NuSMVRTCPGenerator generator = new NuSMVRTCPGenerator(rtcpParser.parseFile(pathField.getText()));
+                    NuXMVRTCPGenerator generator = new NuXMVRTCPGenerator(rtcpParser.parseFile(pathField.getText()));
                     nuSMVTextArea.setText(generator.generateNuSMVModule());
                     saveButton.setEnabled(true);
                 } catch (FileNotFoundException e1) {
@@ -448,7 +448,7 @@ public class Petri2NuSMV {
             }else if(parser == Parser.CPNPARSER) {
                 try {
                     CPNParser cpnParser = new CPNParser();
-                    NuSMVCPNGenerator generator = new NuSMVCPNGenerator(cpnParser.parseFile(pathField.getText()));
+                    NuXMVCPNGenerator generator = new NuXMVCPNGenerator(cpnParser.parseFile(pathField.getText()));
                     nuSMVTextArea.setText(generator.generateNuSMVModule());
                     saveButton.setEnabled(true);
                     parsedFileName = pathField.getText();
@@ -473,7 +473,7 @@ public class Petri2NuSMV {
                 try {
                     KTSParser ktsParser = new KTSParser();
                     ktsParser.setOmega(omega);
-                    NuSMVGenerator generator = new NuSMVGenerator(ktsParser.parseFile(pathField.getText()));
+                    NuXMVGenerator generator = new NuXMVGenerator(ktsParser.parseFile(pathField.getText()));
                     nuSMVTextArea.setText(generator.generateNuSMVModule());
                     saveButton.setEnabled(true);
                     parsedFileName = pathField.getText();

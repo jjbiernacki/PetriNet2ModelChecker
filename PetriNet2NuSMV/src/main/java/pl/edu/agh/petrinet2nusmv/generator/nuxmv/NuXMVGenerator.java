@@ -1,4 +1,4 @@
-package pl.edu.agh.petrinet2nusmv.generator;
+package pl.edu.agh.petrinet2nusmv.generator.nuxmv;
 
 import java.util.Map;
 
@@ -12,13 +12,13 @@ import pl.edu.agh.petrinet2nusmv.model.base.State;
  * @author abiernacka, jbiernacki
  *
  */
-public class NuSMVGenerator {
+public class NuXMVGenerator {
 	
 	private ReachabilityGraph reachabilityGraph;
 	private int indent = 0;
 	private StringBuilder sb;
 	
-	public NuSMVGenerator(final ReachabilityGraph reachabilityGraph) {
+	public NuXMVGenerator(final ReachabilityGraph reachabilityGraph) {
 		this.reachabilityGraph = reachabilityGraph;
 		sb = new StringBuilder();
 	}

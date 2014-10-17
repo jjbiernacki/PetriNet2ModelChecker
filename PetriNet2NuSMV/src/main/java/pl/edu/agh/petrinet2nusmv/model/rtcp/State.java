@@ -2,10 +2,7 @@ package pl.edu.agh.petrinet2nusmv.model.rtcp;
 
 import pl.edu.agh.petrinet2nusmv.model.base.Place;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Stan w grafie pokrycia
@@ -15,7 +12,7 @@ import java.util.TreeMap;
 public class State implements Comparable<State> {
 	private final int id;
 	Map<Place, Marking> marking = new TreeMap<Place, Marking>();
-	List<State> successors = new ArrayList<State>();
+	Map<State, String> successors = new HashMap<State, String>();
 
 	public State(final int id) {
 		this.id = id;
@@ -48,16 +45,26 @@ public class State implements Comparable<State> {
 	 * Dodanie następnika stanu
 	 * @param state Następny stan
 	 */
-	public void addSuccessor(final State state) {
-		successors.add(state);
+	public void addSuccessor(final State state, final String transitionLabel) {
+		successors.put(state, transitionLabel);
 	}
+
+    public String getTransitionStateLabel(final State successor) {
+        return successors.get(successor);
+    }
 
 	/**
 	 * Pobranie następników stanu
 	 * @return Następniki stanu
 	 */
-	public List<State> getSuccessors() {
-		return successors;
+	public List<State> getSuccessorsList() {
+		if (successors == null) {
+            return null;
+        } else {
+            List<State> successorsList = new ArrayList<State>();
+            successorsList.addAll(successors.keySet());
+            return successorsList;
+        }
 	}
 
 	/**
@@ -85,9 +92,11 @@ public class State implements Comparable<State> {
 			sb.append("\n");
 		}
 		sb.append("Successors:\n");
-		for(State state: successors) {
+		for(State state: getSuccessorsList()) {
 			sb.append("State: " + state.getId());
 			sb.append("\n");
+            sb.append("By transition: " + successors.get(state));
+            sb.append("\n");
 		}
 		return sb.toString();
 	}

@@ -1,4 +1,4 @@
-package pl.edu.agh.petrinet2nusmv.generator;
+package pl.edu.agh.petrinet2nusmv.generator.nuxmv;
 
 import pl.edu.agh.petrinet2nusmv.exceptions.SyntaxException;
 import pl.edu.agh.petrinet2nusmv.model.rtcp.Place;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by agnieszka on 20.08.14.
  */
-public class NuSMVRTCPGenerator {
+public class NuXMVRTCPGenerator {
 
     private ReachabilityGraph reachabilityGraph;
     private StringBuilder sb;
@@ -21,7 +21,7 @@ public class NuSMVRTCPGenerator {
     private List<Variable> variables = new ArrayList<Variable>();
     private List<TimeVariable> timeVariables = new ArrayList<TimeVariable>();
 
-    public NuSMVRTCPGenerator(final ReachabilityGraph reachabilityGraph) {
+    public NuXMVRTCPGenerator(final ReachabilityGraph reachabilityGraph) {
         this.reachabilityGraph = reachabilityGraph;
         sb = new StringBuilder();
     }
@@ -93,16 +93,16 @@ public class NuSMVRTCPGenerator {
         for(State state: reachabilityGraph.getStates()) {
             tab();
             sb.append(StrRes.DEFAULT_STATE_NAME + " = " + state.getName()+ " : ");
-            if(state.getSuccessors() == null || state.getSuccessors().size() == 0) {
+            if(state.getSuccessorsList() == null || state.getSuccessorsList().size() == 0) {
                 sb.append(state.getName() + ";\n");
-            } else if(state.getSuccessors().size() == 1) {
-                sb.append(state.getSuccessors().get(0).getName() + ";\n");
+            } else if(state.getSuccessorsList().size() == 1) {
+                sb.append(state.getSuccessorsList().get(0).getName() + ";\n");
             } else {
                 sb.append("{");
-                for(int i = 0; i < state.getSuccessors().size(); i++) {
-                    State successor = state.getSuccessors().get(i);
+                for(int i = 0; i < state.getSuccessorsList().size(); i++) {
+                    State successor = state.getSuccessorsList().get(i);
                     sb.append(successor.getName());
-                    if(i < state.getSuccessors().size() -1) {
+                    if(i < state.getSuccessorsList().size() -1) {
                         sb.append(", ");
                     }
                 }
@@ -185,7 +185,7 @@ public class NuSMVRTCPGenerator {
     public static void main(String ... args) {
         try {
             RTCPParser parser = new RTCPParser();
-            NuSMVRTCPGenerator generator = new NuSMVRTCPGenerator(parser.parseFile("E:\\III\\Artykuły\\RTCP\\rtcpn-tools\\trunk\\PetriNet2NuSMV\\przyklady dot\\model1.dot"));
+            NuXMVRTCPGenerator generator = new NuXMVRTCPGenerator(parser.parseFile("E:\\AGH\\dr\\RTCP\\PetriNet2NuSMV_Release\\przyklady rtcp\\zwrotnica.dot"));
             String content = generator.generateNuSMVModule();
             System.out.print(content);
         } catch (FileNotFoundException e) {

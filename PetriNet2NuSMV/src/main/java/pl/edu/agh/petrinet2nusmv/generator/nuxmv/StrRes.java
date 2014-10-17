@@ -1,4 +1,4 @@
-package pl.edu.agh.petrinet2nusmv.generator;
+package pl.edu.agh.petrinet2nusmv.generator.nuxmv;
 
 /**
  * Stałe znakowe programu

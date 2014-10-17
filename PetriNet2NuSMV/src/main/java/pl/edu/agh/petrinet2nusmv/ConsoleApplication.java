@@ -11,7 +11,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 import pl.edu.agh.petrinet2nusmv.exceptions.SyntaxException;
-import pl.edu.agh.petrinet2nusmv.generator.NuSMVGenerator;
+import pl.edu.agh.petrinet2nusmv.generator.nuxmv.NuXMVGenerator;
 import pl.edu.agh.petrinet2nusmv.logger.Logger;
 import pl.edu.agh.petrinet2nusmv.parser.KTSParser;
 
@@ -54,7 +54,7 @@ public class ConsoleApplication {
                 try {
 
             		
-        			NuSMVGenerator generator = new NuSMVGenerator(ktsParser.parseFile(file));
+        			NuXMVGenerator generator = new NuXMVGenerator(ktsParser.parseFile(file));
         			String nuSMV = generator.generateNuSMVModule(); 
         			Logger.i("==============================================================");
         			Logger.i(nuSMV);
