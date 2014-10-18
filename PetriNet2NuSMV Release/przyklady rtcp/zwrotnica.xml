@@ -4,7 +4,7 @@
 color SwitchZoneState = with occupied | free;
 color Direction = with l | s | r;
 color SwitchState = with locked | unlocked;
-color ChoosedDirectionState = with yes | no;
+color DirectionChosenState = with yes | no;
 color DecisionTime = int with 1..5;
 color AutoLockState = with on | off;
 var sDir: Direction;
@@ -43,7 +43,7 @@ var any: AutoLockState;
 <markingLabel x="0" y="0"/>
 </icon>
 </place>
-<place name="DirectionChoosed" type="ChoosedDirectionState" marking="1(no)" time="0" fusion="">
+<place name="DirectionChosen" type="DirectionChosenState" marking="1(no)" time="0" fusion="">
 <icon x="0" y="0" width="0" height="0">
 <nameLabel x="0" y="0"/>
 <typeLabel x="0" y="0"/>
@@ -95,6 +95,12 @@ var any: AutoLockState;
 <guardLabel x="0" y="0"/>
 </icon>
 </transition>
+<transition name="PassThrough" priority="0" guard="" substituted="no">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<guardLabel x="0" y="0"/>
+</icon>
+</transition>
 </transitions>
 <arcs>
 <arc place="SwitchZone" transition="TramArrived" direction="In/Out" inExpression="occupied"  outExpression="free" inTime="" outTime="">
@@ -121,7 +127,7 @@ var any: AutoLockState;
 <icon x="0" y="0">
 </icon>
 </arc>
-<arc place="ExpectedDirection" transition="LockSwitch" direction="Out" inExpression=""  outExpression="sDir" inTime="" outTime="">
+<arc place="ExpectedDirection" transition="LockSwitch" direction="Out" inExpression="sDir"  outExpression="sDir" inTime="" outTime="">
 <icon x="0" y="0">
 </icon>
 </arc>
@@ -129,15 +135,15 @@ var any: AutoLockState;
 <icon x="0" y="0">
 </icon>
 </arc>
-<arc place="Switch" transition="TramLeft" direction="In/Out" inExpression="unlocked"  outExpression="locked" inTime="" outTime="">
+<arc place="Switch" transition="TramLeft" direction="In/Out" inExpression="unlocked"  outExpression="locked" inTime="" outTime="5">
 <icon x="0" y="0">
 </icon>
 </arc>
-<arc place="DirectionChoosed" transition="CheckDirectionSign" direction="In/Out" inExpression="yes"  outExpression="no" inTime="" outTime="">
+<arc place="DirectionChosen" transition="CheckDirectionSign" direction="In/Out" inExpression="yes"  outExpression="no" inTime="" outTime="">
 <icon x="0" y="0">
 </icon>
 </arc>
-<arc place="DirectionChoosed" transition="TramLeft" direction="In/Out" inExpression="no"  outExpression="yes" inTime="" outTime="">
+<arc place="DirectionChosen" transition="TramLeft" direction="In/Out" inExpression="no"  outExpression="yes" inTime="" outTime="">
 <icon x="0" y="0">
 </icon>
 </arc>
@@ -165,7 +171,11 @@ var any: AutoLockState;
 <icon x="0" y="0">
 </icon>
 </arc>
-<arc place="ExpectedDirection" transition="AutoLock" direction="Out" inExpression=""  outExpression="eDir" inTime="" outTime="">
+<arc place="ExpectedDirection" transition="PassThrough" direction="Out" inExpression=""  outExpression="eDir" inTime="" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="Switch" transition="PassThrough" direction="In" inExpression="locked"  outExpression="locked" inTime="" outTime="">
 <icon x="0" y="0">
 </icon>
 </arc>
