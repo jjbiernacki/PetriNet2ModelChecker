@@ -127,7 +127,7 @@ var any: AutoLockState;
 <icon x="0" y="0">
 </icon>
 </arc>
-<arc place="ExpectedDirection" transition="LockSwitch" direction="Out" inExpression="sDir"  outExpression="sDir" inTime="" outTime="">
+<arc place="ExpectedDirection" transition="LockSwitch" direction="In/Out" inExpression="sDir"  outExpression="sDir" inTime="" outTime="">
 <icon x="0" y="0">
 </icon>
 </arc>
@@ -175,7 +175,7 @@ var any: AutoLockState;
 <icon x="0" y="0">
 </icon>
 </arc>
-<arc place="Switch" transition="PassThrough" direction="In" inExpression="locked"  outExpression="locked" inTime="" outTime="">
+<arc place="Switch" transition="PassThrough" direction="In/Out" inExpression="locked"  outExpression="locked" inTime="" outTime="">
 <icon x="0" y="0">
 </icon>
 </arc>

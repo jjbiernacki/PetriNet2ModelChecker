@@ -869,7 +869,7 @@
                   filled="false"/>
         <lineattr colour="Black"
                   thick="1"
-                  type="Solid"/>
+                  type="solid"/>
         <textattr colour="Black"
                   bold="false"/>
         <text>PassThrough</text>
@@ -1140,7 +1140,7 @@
         </annot>
       </arc>
       <arc id="ID1412721502"
-           orientation="PtoT"
+           orientation="BOTHDIR"
            order="1">
         <posattr x="0.000000"
                  y="0.000000"/>
@@ -1667,7 +1667,7 @@
         </annot>
       </arc>
       <arc id="ID1412999234"
-           orientation="TtoP"
+           orientation="BOTHDIR"
            order="1">
         <posattr x="0.000000"
                  y="0.000000"/>
@@ -1726,18 +1726,12 @@
       </arc>
       <constraints/>
       <hguideline id="ID1412722778"
-                  y="-125.000000">
-        <guideline_elm idref="ID1412989469"/>
-        <guideline_elm idref="ID1413004850"/>
-        <guideline_elm idref="ID1413017864"/>
-        <guideline_elm idref="ID1412990301"/>
-      </hguideline>
+                  y="-125.000000"/>
       <hguideline id="ID1412722926"
                   y="-42.000000"/>
       <hguideline id="ID1412722951"
                   y="41.000000">
         <guideline_elm idref="ID1412720553"/>
-        <guideline_elm idref="ID1412919577"/>
       </hguideline>
       <hguideline id="ID1412723091"
                   y="167.000000"/>
@@ -1746,16 +1740,11 @@
       <vguideline id="ID1412722664"
                   x="-210.000000">
         <guideline_elm idref="ID1412903168"/>
-        <guideline_elm idref="ID1412990301"/>
       </vguideline>
       <vguideline id="ID1412722674"
-                  x="-83.000000">
-        <guideline_elm idref="ID1413004850"/>
-      </vguideline>
+                  x="-83.000000"/>
       <vguideline id="ID1412722708"
-                  x="41.000000">
-        <guideline_elm idref="ID1413007163"/>
-      </vguideline>
+                  x="41.000000"/>
       <vguideline id="ID1412722724"
                   x="169.000000"/>
     </page>
@@ -2061,9 +2050,7 @@
           </IndexNode>
         </IndexNode>
       </IndexNode>
-      <IndexNode expanded="false">
-        <IndexNode expanded="false"/>
-      </IndexNode>
+      <IndexNode expanded="false"/>
       <IndexNode expanded="true">
         <IndexNode expanded="false">
           <IndexNode expanded="true"/>
