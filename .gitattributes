@@ -1,6 +1,6 @@
 * text=auto !eol
 PetriNet2NuSMV[!!-~]Release/Krótka[!!-~]instrukcja[!!-~]obsługi[!!-~]programu[!!-~]PetriNet2NuSMV.pdf -text
-PetriNet2NuSMV[!!-~]Release/PetriNet2NuSMV.jar -text
+PetriNet2NuSMV[!!-~]Release/PetriNet2NuXMV.jar -text
 PetriNet2NuSMV[!!-~]Release/przykladowe[!!-~]pliki/model1.dot -text
 PetriNet2NuSMV[!!-~]Release/przykladowe[!!-~]pliki/model1.smv -text
 PetriNet2NuSMV[!!-~]Release/przykladowe[!!-~]pliki/model1.xml -text
