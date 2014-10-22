@@ -965,7 +965,7 @@
                     bold="false"/>
         </bendpoint>
         <annot id="ID1412722320">
-          <posattr x="-391.000000"
+          <posattr x="-390.000000"
                    y="-103.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -1028,9 +1028,35 @@
                    currentcyckle="2"/>
         <transend idref="ID1412720434"/>
         <placeend idref="ID1412720553"/>
+        <bendpoint id="ID1413018280"
+                   serial="1">
+          <posattr x="-109.000000"
+                   y="-114.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+        </bendpoint>
+        <bendpoint id="ID1413019858"
+                   serial="2">
+          <posattr x="-83.000000"
+                   y="-97.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+        </bendpoint>
         <annot id="ID1412722322">
-          <posattr x="-150.000000"
-                   y="-90.000000"/>
+          <posattr x="-64.000000"
+                   y="-107.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -1093,8 +1119,8 @@
         <transend idref="ID1412720473"/>
         <placeend idref="ID1412720585"/>
         <annot id="ID1412722324">
-          <posattr x="165.000000"
-                   y="29.000000"/>
+          <posattr x="172.000000"
+                   y="13.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -1382,8 +1408,8 @@
         <transend idref="ID1412720497"/>
         <placeend idref="ID1412720524"/>
         <annot id="ID1412803231">
-          <posattr x="-536.000000"
-                   y="27.000000"/>
+          <posattr x="-528.000000"
+                   y="21.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -1440,8 +1466,8 @@
                     bold="false"/>
         </bendpoint>
         <annot id="ID1412851503">
-          <posattr x="-386.000000"
-                   y="10.000000"/>
+          <posattr x="-384.000000"
+                   y="11.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -1620,8 +1646,8 @@
         <transend idref="ID1412720497"/>
         <placeend idref="ID1412843989"/>
         <annot id="ID1412952108">
-          <posattr x="-458.000000"
-                   y="140.000000"/>
+          <posattr x="-451.000000"
+                   y="146.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
