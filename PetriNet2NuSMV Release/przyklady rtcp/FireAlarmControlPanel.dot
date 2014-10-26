@@ -26,11 +26,11 @@ digraph G {
 	4 -> 7 [label = "(EmergencyCall, ())/0"];
 	5 -> 8 [label = "(ConfirmAlarm, (120/t))/50"];
 	5 -> 9 [label = "(ConfirmAlarm, (300/t))/50"];
-	6 -> 10 [label = "(TurnOnAlarm2, ())/60"];
+	6 -> 10 [label = "(T1_TurnOnAlarm2, ())/60"];
 	7 -> 0 [label = "(ResetSystem, (off/clkState, off/clkState2, off/confState, dblWarning/detState, idle/empState, calledFor/fdState))/0"];
-	8 -> 11 [label = "(TurnOffAlarm1_2, ())/120"];
-	8 -> 12 [label = "(EmpTurnOnAlarm2, ())/120"];
-	9 -> 13 [label = "(TurnOnAlarm2_2, ())/180"];
+	8 -> 11 [label = "(TurnOffAlarm1, ())/120"];
+	8 -> 12 [label = "(Emp_TurnOnAlarm2, ())/120"];
+	9 -> 13 [label = "(T2_TurnOnAlarm2, ())/180"];
 	10 -> 14 [label = "(EmergencyCall, ())/0"];
 	11 -> 0 [label = "(ResetSystem, (on/clkState, on/clkState2, on/confState, warning/detState, act/empState, none/fdState))/60"];
 	12 -> 15 [label = "(EmergencyCall, ())/0"];

@@ -666,7 +666,7 @@
                   type="solid"/>
         <textattr colour="Black"
                   bold="false"/>
-        <text>TurnOffAlarm1_2</text>
+        <text>TurnOffAlarm1</text>
         <box w="116.000000"
              h="40.000000"/>
         <binding x="7.200000"
@@ -814,13 +814,13 @@
                   type="solid"/>
         <textattr colour="Black"
                   bold="false"/>
-        <text>TurnOnAlarm2</text>
-        <box w="108.000000"
+        <text>T1_TurnOnAlarm2</text>
+        <box w="127.519317"
              h="40.000000"/>
         <binding x="7.200000"
                  y="-3.000000"/>
         <cond id="ID1413541375">
-          <posattr x="-32.000000"
+          <posattr x="-41.759659"
                    y="283.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -834,7 +834,7 @@
                 version="4.0.0"/>
         </cond>
         <time id="ID1413541376">
-          <posattr x="99.500000"
+          <posattr x="109.259659"
                    y="283.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -848,7 +848,7 @@
                 version="4.0.0"/>
         </time>
         <code id="ID1413541377">
-          <posattr x="119.500000"
+          <posattr x="129.259659"
                    y="200.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -862,7 +862,7 @@
                 version="4.0.0"/>
         </code>
         <priority id="ID1413541379">
-          <posattr x="-61.000000"
+          <posattr x="-70.759659"
                    y="221.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -888,13 +888,13 @@
                   type="solid"/>
         <textattr colour="Black"
                   bold="false"/>
-        <text>TurnOnAlarm2_2</text>
-        <box w="120.000000"
+        <text>T2_TurnOnAlarm2</text>
+        <box w="135.615454"
              h="40.000000"/>
         <binding x="7.200000"
                  y="-3.000000"/>
         <cond id="ID1413541570">
-          <posattr x="-237.000000"
+          <posattr x="-244.807727"
                    y="-240.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -908,7 +908,7 @@
                 version="4.0.0"/>
         </cond>
         <time id="ID1413541571">
-          <posattr x="-93.500000"
+          <posattr x="-85.692273"
                    y="-240.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -922,7 +922,7 @@
                 version="4.0.0"/>
         </time>
         <code id="ID1413541572">
-          <posattr x="-73.500000"
+          <posattr x="-65.692273"
                    y="-323.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -936,7 +936,7 @@
                 version="4.0.0"/>
         </code>
         <priority id="ID1413541574">
-          <posattr x="-266.000000"
+          <posattr x="-273.807727"
                    y="-302.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -1036,7 +1036,7 @@
                   type="solid"/>
         <textattr colour="Black"
                   bold="false"/>
-        <text>EmpTurnOnAlarm2</text>
+        <text>Emp_TurnOnAlarm2</text>
         <box w="136.000000"
              h="40.000000"/>
         <binding x="7.200000"
@@ -1256,7 +1256,7 @@
                   filled="false"/>
         <lineattr colour="Black"
                   thick="1"
-                  type="Solid"/>
+                  type="solid"/>
         <textattr colour="Black"
                   bold="false"/>
         <text>ResetSystem</text>
@@ -1279,7 +1279,7 @@
                 version="4.0.0">[detState &lt;&gt; normal]</text>
         </cond>
         <time id="ID1413666641">
-          <posattr x="437.331760"
+          <posattr x="437.331759"
                    y="199.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -1293,7 +1293,7 @@
                 version="4.0.0"/>
         </time>
         <code id="ID1413666642">
-          <posattr x="457.331760"
+          <posattr x="457.331759"
                    y="116.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -1307,7 +1307,7 @@
                 version="4.0.0"/>
         </code>
         <priority id="ID1413666644">
-          <posattr x="265.168240"
+          <posattr x="265.168241"
                    y="137.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -1455,7 +1455,7 @@
                     bold="false"/>
         </bendpoint>
         <annot id="ID1413527661">
-          <posattr x="-89.000000"
+          <posattr x="-93.000000"
                    y="42.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -1615,7 +1615,7 @@
         <transend idref="ID1413541374"/>
         <placeend idref="ID1413535441"/>
         <annot id="ID1413546488">
-          <posattr x="-93.000000"
+          <posattr x="-99.000000"
                    y="263.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -1673,7 +1673,7 @@
                     bold="false"/>
         </bendpoint>
         <annot id="ID1413548073">
-          <posattr x="187.000000"
+          <posattr x="190.000000"
                    y="263.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -1731,8 +1731,8 @@
                     bold="false"/>
         </bendpoint>
         <annot id="ID1413565137">
-          <posattr x="-282.000000"
-                   y="-126.000000"/>
+          <posattr x="-281.000000"
+                   y="-115.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -1840,7 +1840,7 @@
         <transend idref="ID1413541569"/>
         <placeend idref="ID1413554494"/>
         <annot id="ID1413579666">
-          <posattr x="-287.000000"
+          <posattr x="-291.000000"
                    y="-265.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -1885,7 +1885,7 @@
                     bold="false"/>
         </bendpoint>
         <annot id="ID1413583871">
-          <posattr x="-60.000000"
+          <posattr x="-55.000000"
                    y="-260.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -2195,7 +2195,7 @@
         </bendpoint>
         <annot id="ID1413639352">
           <posattr x="-401.000000"
-                   y="0.000000"/>
+                   y="11.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
