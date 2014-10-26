@@ -27,6 +27,9 @@ PetriNet2NuSMV[!!-~]Release/przyklady[!!-~]rtcp/Archive/zwrotnica4_blad.cpn -tex
 PetriNet2NuSMV[!!-~]Release/przyklady[!!-~]rtcp/FireAlarmControlPanel.aut -text
 PetriNet2NuSMV[!!-~]Release/przyklady[!!-~]rtcp/FireAlarmControlPanel.cpn -text
 PetriNet2NuSMV[!!-~]Release/przyklady[!!-~]rtcp/FireAlarmControlPanel.dot -text
+PetriNet2NuSMV[!!-~]Release/przyklady[!!-~]rtcp/FireAlarmControlPanel_60s.aut -text
+PetriNet2NuSMV[!!-~]Release/przyklady[!!-~]rtcp/FireAlarmControlPanel_60s.cpn -text
+PetriNet2NuSMV[!!-~]Release/przyklady[!!-~]rtcp/FireAlarmControlPanel_60s.dot -text
 PetriNet2NuSMV[!!-~]Release/przyklady[!!-~]rtcp/zwrotnica.cpn -text
 PetriNet2NuSMV[!!-~]Release/przyklady[!!-~]rtcp/zwrotnica.dot -text
 PetriNet2NuSMV[!!-~]Release/przyklady[!!-~]rtcp/zwrotnica.xml -text

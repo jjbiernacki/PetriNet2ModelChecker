@@ -2916,7 +2916,7 @@
           <textattr colour="Black"
                     bold="false"/>
           <text tool="CPN Tools"
-                version="4.0.0">on | on@1</text>
+                version="4.0.0">on | on@60</text>
         </annot>
       </arc>
       <constraints/>
