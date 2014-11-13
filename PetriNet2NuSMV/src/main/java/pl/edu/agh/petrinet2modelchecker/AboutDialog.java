@@ -23,12 +23,15 @@ public class AboutDialog extends JDialog {
             }
         });
         String text = "The PetriNet2ModelChecker tool deals with the problem of translation of reachability graphs\n" +
-                "for place-transition, coloured and real-time coloured Petri nets into the NuXMV language.\n" +
+                "for place-transition, coloured and real-time coloured Petri nets into the NuXMV language\n" +
+                "and Aldebaran format.\n" +
                 "PetriNet2ModelChecker works with reachability graphs generated respectively by the TINA,\n" +
                 "CPN Tools and RTCPNC software. Thus, it provides the possibility of formal verification\n" + "" +
-                "of Petri nets designed with these environments using model checking techniques and a mainstream\n" +
-                "model checker for LTL and CTL temporal logics. It also integrates cpn2rtcpn and rtcpnc software\n" +  "" +
-                "and allows to load RTCP nets modelled in CPN Tools and generate their coverability graphs or simulators.";
+                "of Petri nets designed with these environments using model checking techniques and mainstream\n" +
+                "model checkers - nuXmv for LTL and CTL temporal logics, CADP Evaluator for \n" +
+                "regular alternation-free mu-calculus.\n" +
+                "It also integrates cpn2rtcpn and rtcpnc software and allows to load RTCP nets modelled in\n" +
+                "CPN Tools and generate their coverability graphs or simulators.";
         aboutLabel.setText(convertToMultiline(text));
         picLabel.setIcon(new ImageIcon(getClass().getClassLoader().getResource("logo.png")));
 

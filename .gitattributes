@@ -82,9 +82,11 @@ PetriNet2NuSMV/przyklady[!!-~]dot/test10.dot -text
 PetriNet2NuSMV/przyklady[!!-~]dot/test2.dot -text
 PetriNet2NuSMV/przyklady[!!-~]dot/test3.dot -text
 PetriNet2NuSMV/przyklady[!!-~]dot/test40.dot -text
+PetriNet2NuSMV/res/logo.png -text
 PetriNet2NuSMV/res/logo.tif -text
 PetriNet2NuSMV/res/logo_pn2mc.png -text
 PetriNet2NuSMV/res/logo_przyciete.png -text
+PetriNet2NuSMV/res/logo_xmv.png -text
 PetriNet2NuSMV/rtcpnc/lib/antlr-2.7.7.jar -text
 PetriNet2NuSMV/rtcpnc/lib/antlr-3.0.jar -text
 PetriNet2NuSMV/rtcpnc/lib/junit-4.8.1.jar -text
