@@ -1,5 +1,6 @@
 * text=auto !eol
 PetriNet2NuSMV[!!-~]Release/Krótka[!!-~]instrukcja[!!-~]obsługi[!!-~]programu[!!-~]PetriNet2ModelChecker.pdf -text svneol=unset#unset
+PetriNet2NuSMV[!!-~]Release/PetriNet2ModelChecker[!!-~]Quick[!!-~]Start.pdf -text
 PetriNet2NuSMV[!!-~]Release/PetriNet2ModelChecker.jar -text
 PetriNet2NuSMV[!!-~]Release/przykladowe[!!-~]pliki/model1.dot -text
 PetriNet2NuSMV[!!-~]Release/przykladowe[!!-~]pliki/model1.smv -text
