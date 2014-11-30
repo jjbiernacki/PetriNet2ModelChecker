@@ -140,11 +140,17 @@ PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/PetriNet2ModelChec
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/exceptions/ExtensionFilter.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/exceptions/SyntaxException.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/generator/aut/AutGenerator.java -text
+PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/generator/nuxmv/NuXMVAlvisGenerator.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/generator/nuxmv/NuXMVCPNGenerator.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/generator/nuxmv/NuXMVGenerator.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/generator/nuxmv/NuXMVRTCPGenerator.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/generator/nuxmv/StrRes.java -text
+PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/helper/NuXmvValidator.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/logger/Logger.java -text
+PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/model/alvis/AgentState.java -text
+PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/model/alvis/Am.java -text
+PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/model/alvis/LTSGraph.java -text
+PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/model/alvis/State.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/model/base/ReachabilityGraph.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/model/base/State.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/model/color/CPNPlace.java -text
@@ -162,6 +168,7 @@ PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/model/rtcp/RTCPPla
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/model/rtcp/RTCPReachabilityGraph.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/model/rtcp/RTCPState.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/parser/Parser.java -text
+PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/parser/alvis/AlvisDotParser.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/parser/formats/CPNToolsParser.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/parser/formats/KTSParser.java -text
 PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/parser/formats/RTCPParser.java -text

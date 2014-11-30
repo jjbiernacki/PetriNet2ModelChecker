@@ -11,6 +11,7 @@ public class StrRes {
 	public static final String DEFAULT_STATE_NAME = "s";
 	public static final String MODULE = "MODULE";
 	public static final String VAR = "VAR";
+    public static final String IVAR = "IVAR";
 	public static final String ASSIGN = "ASSIGN";
 	public static final String BOOLEAN = "boolean";
 	public static final String INTEGER = "0..";

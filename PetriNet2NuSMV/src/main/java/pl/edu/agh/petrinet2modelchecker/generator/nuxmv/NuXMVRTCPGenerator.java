@@ -88,7 +88,8 @@ public class NuXMVRTCPGenerator {
         appendLine(StrRes.ASSIGN);
         indent++;
         appendLine(StrRes.INIT + "(" + StrRes.DEFAULT_STATE_NAME + ") := s" + RTCPReachabilityGraph.getStates().first().getId() + ";");
-    }private void generateNextState() {
+    }
+    private void generateNextState() {
         appendLine(StrRes.NEXT + "(" + StrRes.DEFAULT_STATE_NAME + ") := " + StrRes.CASE);
         indent++;
         for(RTCPState RTCPState : RTCPReachabilityGraph.getStates()) {
