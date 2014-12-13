@@ -74,6 +74,14 @@ public final class NuXmvValidator {
             validPv = validPv.substring(0, validPv.length() - 1);
         }
         String[] pvArray = validPv.split(",");
-        return new ArrayList<String>(Arrays.asList(pvArray));
+
+        ArrayList list = new ArrayList();
+        for (String element: pvArray) {
+            if (!element.isEmpty()) {
+                list.add(element);
+            }
+        }
+
+        return list;
     }
 }

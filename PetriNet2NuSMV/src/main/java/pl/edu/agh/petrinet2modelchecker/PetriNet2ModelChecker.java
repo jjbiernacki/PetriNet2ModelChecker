@@ -6,11 +6,13 @@ import pl.edu.agh.cpn2rtcpn.XmlParse;
 import pl.edu.agh.petrinet2modelchecker.exceptions.ExtensionFilter;
 import pl.edu.agh.petrinet2modelchecker.exceptions.SyntaxException;
 import pl.edu.agh.petrinet2modelchecker.generator.aut.AutGenerator;
+import pl.edu.agh.petrinet2modelchecker.generator.nuxmv.NuXMVAlvisGenerator;
 import pl.edu.agh.petrinet2modelchecker.generator.nuxmv.NuXMVCPNGenerator;
 import pl.edu.agh.petrinet2modelchecker.generator.nuxmv.NuXMVGenerator;
 import pl.edu.agh.petrinet2modelchecker.generator.nuxmv.NuXMVRTCPGenerator;
 import pl.edu.agh.petrinet2modelchecker.model.base.ReachabilityGraph;
 import pl.edu.agh.petrinet2modelchecker.parser.Parser;
+import pl.edu.agh.petrinet2modelchecker.parser.alvis.AlvisDotParser;
 import pl.edu.agh.petrinet2modelchecker.parser.formats.CPNToolsParser;
 import pl.edu.agh.petrinet2modelchecker.parser.formats.KTSParser;
 import pl.edu.agh.petrinet2modelchecker.parser.formats.RTCPParser;
@@ -59,7 +61,7 @@ public class PetriNet2ModelChecker {
     private JTextArea autTextArea;
 
     private JFrame frame;
-    Parser parser2NuXMV = Parser.RTCPPARSER;
+    Parser parser2NuXMV = Parser.ALVIS;
     Parser parser2aut = Parser.RTCPPARSER;
     JMenuBar menuBar;
     JMenu menuFile, menuParser, menuHelp, menuRtcpSimulator;
@@ -74,7 +76,7 @@ public class PetriNet2ModelChecker {
     private boolean isEnvironmentalRun = false;
 
     private String[] rtcpParsers = {"CPN Tools >> Coverability Graph", "CPN Tools >> RTCP", "RTCP Net >> RTCP Simulator", "RTCP Net >> Coverability Graph"};
-    private String[] cg2nsParsers = {"RTCP Nets","Coloured Petri Nets", "Place/transition Petri Nets"};
+    private String[] cg2nsParsers = {"RTCP Nets","Coloured Petri Nets", "Place/transition Petri Nets", "Alvis"};
     private String[] cg2autParsers = {"RTCP Nets","Coloured Petri Nets", "Place/transition Petri Nets"};
 
 
@@ -243,6 +245,7 @@ public class PetriNet2ModelChecker {
 
             int selItem = comboBoxNuXMV.getSelectedIndex();
             switch (selItem) {
+
                 case 0://RTCP nets
                     parser2NuXMV = Parser.RTCPPARSER;
                     menuOmega.setEnabled(false);
@@ -254,6 +257,10 @@ public class PetriNet2ModelChecker {
                 case 2://PT Nets
                     parser2NuXMV = Parser.SIMPLEPARSER;
                     menuOmega.setEnabled(true);
+                    break;
+                case 3://Alvis
+                    parser2NuXMV = Parser.ALVIS;
+                    menuOmega.setEnabled(false);
                     break;
                 default:
                     throw new IllegalStateException("No items to select");
@@ -268,7 +275,7 @@ public class PetriNet2ModelChecker {
             final JFileChooser fc = new JFileChooser();
             fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
             FileFilter filter;
-            if(parser2NuXMV == Parser.RTCPPARSER){
+            if(parser2NuXMV == Parser.RTCPPARSER || parser2NuXMV == Parser.ALVIS){
                 filter = new ExtensionFilter("DOT file (*.dot)", ".dot");
             }else if(parser2NuXMV == Parser.CPNPARSER) {
                 filter = new ExtensionFilter("CPN Tools file  (*.cpn)", ".cpn");
@@ -383,7 +390,7 @@ public class PetriNet2ModelChecker {
         public void actionPerformed(ActionEvent e) {
             final JFileChooser fc = new JFileChooser();
             fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-            FileFilter filter = new ExtensionFilter("NuXMV file (*.smv)", ".smv");
+            FileFilter filter = new ExtensionFilter("nuXmv file (*.smv)", ".smv");
             fc.addChoosableFileFilter(filter);
             fc.setFileFilter(filter);
             fc.setCurrentDirectory(new File(System.getProperty("user.dir")));
@@ -514,7 +521,26 @@ public class PetriNet2ModelChecker {
     ActionListener parse = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(parser2NuXMV == Parser.RTCPPARSER) {
+            if(parser2NuXMV == Parser.ALVIS) {
+                parsedFileName = pathField.getText();
+                parsedFileName = parsedFileName.substring(0, parsedFileName.indexOf("."));
+                try {
+                    AlvisDotParser alvisParser = new AlvisDotParser();
+                    NuXMVAlvisGenerator generator = new NuXMVAlvisGenerator(alvisParser.parseFile(pathField.getText()));
+                    nuXMVTextArea.setText(generator.generateNuXmvCode());
+                    saveButton.setEnabled(true);
+                } catch (FileNotFoundException e1) {
+                    JOptionPane.showMessageDialog(frame,
+                            "File not found.",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(frame,
+                            e1.getMessage(),
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            } else if(parser2NuXMV == Parser.RTCPPARSER) {
                 parsedFileName = pathField.getText();
                 parsedFileName = parsedFileName.substring(0, parsedFileName.indexOf("."));
                 try {

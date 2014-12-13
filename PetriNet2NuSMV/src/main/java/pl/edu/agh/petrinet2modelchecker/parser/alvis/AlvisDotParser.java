@@ -67,6 +67,7 @@ public class AlvisDotParser {
         transText = transText.replace(")", "$");
         transText = transText.replace(".", "-");
         transText = transText.replace("|", "-");
+        transText = transText.replace("/", "-");
         transText = transText.replace(",", "_");
         ltsGraph.addEdge(stateId, successorId, transText);
     }
@@ -124,7 +125,7 @@ public class AlvisDotParser {
         }
         AgentState agentState = new AgentState(agentName);
         agentState = ltsGraph.addAgentStateIfNotExistAndReturn(agentState);
-        agentState.addAm(stateId, Am.valueOf(am));
+        agentState.addAm(stateId, Am.valueOf(am.toLowerCase()));
         agentState.addPc(stateId, Integer.valueOf(pc));
         agentState.addCi(stateId, NuXmvValidator.ciList(ci));
         agentState.addPv(stateId, NuXmvValidator.pvList(pv));
@@ -133,7 +134,7 @@ public class AlvisDotParser {
 
     public static void main(String[] args) {
         try {
-            new AlvisDotParser().parseFile("E:\\AGH\\dr\\RTCP\\RTCPN Tools\\alvis-examples\\t033.dot");
+            new AlvisDotParser().parseFile("E:\\AGH\\dr\\RTCP\\PetriNet2ModelChecker\\alvis-examples\\t033.dot");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (Exception e) {

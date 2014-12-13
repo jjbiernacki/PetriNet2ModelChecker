@@ -14,7 +14,7 @@ public class AutGenerator {
     private static final String transitionText = "(%d, \"%s\", %d)\n";
     private static final String desText = "des (%d, %d, %d)\n";
     private static final String aut = "%s%s";
-    private int transactionsCounter = 0;
+    private int transitionsCounter = 0;
     private ReachabilityGraph reachabilityGraph;
 
 
@@ -37,7 +37,7 @@ public class AutGenerator {
             for(Object successorObject: state.getSuccessorsList()) {
                 State successor = (State) successorObject;
                 transitionTextBuilder.append(String.format(transitionText, state.getId(), state.getTransitionLabel(successor), successor.getId()));
-                transactionsCounter++;
+                transitionsCounter++;
             }
         }
         return transitionTextBuilder.toString();
@@ -57,12 +57,12 @@ public class AutGenerator {
     }
 
     public String generateAut() {
-        String transactions = generateTransitions();
+        String transitions = generateTransitions();
         String des = generateDes();
-        return String.format(aut, des, transactions);
+        return String.format(aut, des, transitions);
     }
 
     private String generateDes() {
-        return String.format(desText, getFirstStateId(), transactionsCounter, getStatesSize());
+        return String.format(desText, getFirstStateId(), transitionsCounter, getStatesSize());
     }
 }

@@ -19,7 +19,8 @@ public class StrRes {
 	public static final String CASE = "case";
 	public static final String ESAC = "esac";
 	public static final String NEXT = "next";
-	
+    public static final String DEFAULT_IVAR_NAME = "action";
+    public static final String DEFAULT_EMPTY_ACTION_NAME = "NOTHING";
 	
 	public enum Boolean {
 		FALSE("FALSE"), TRUE("TRUE");

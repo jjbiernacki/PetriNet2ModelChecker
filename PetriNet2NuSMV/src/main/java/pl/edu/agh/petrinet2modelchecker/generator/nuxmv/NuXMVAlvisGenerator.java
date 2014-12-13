@@ -2,7 +2,10 @@ package pl.edu.agh.petrinet2modelchecker.generator.nuxmv;
 
 import com.sun.deploy.util.StringUtils;
 import pl.edu.agh.petrinet2modelchecker.model.alvis.AgentState;
+import pl.edu.agh.petrinet2modelchecker.model.alvis.Am;
 import pl.edu.agh.petrinet2modelchecker.model.alvis.LTSGraph;
+import pl.edu.agh.petrinet2modelchecker.model.alvis.State;
+import pl.edu.agh.petrinet2modelchecker.model.rtcp.RTCPState;
 import pl.edu.agh.petrinet2modelchecker.parser.alvis.AlvisDotParser;
 
 import java.io.FileNotFoundException;
@@ -33,18 +36,121 @@ public class NuXMVAlvisGenerator {
         generateIVariables();
         generateVariables();
         generateInit();
-//        generateNextState();
-//        generateNextVarValues();
+        generateNextState();
+        generateNextVarValues();
+        generateTrans();
 
         return sb.toString();
     }
 
-    private void generateIVariables() {
-        appendLine(StrRes.IVAR);
+    private void generateNextState() {
+        appendLine(StrRes.NEXT + "(" + StrRes.DEFAULT_STATE_NAME + ") := " + StrRes.CASE);
         indent++;
-        tab();
-        appendLine(String.format("action: { %s}", StringUtils.join(ltsGraph.getAllTransitions(), ", ")));
+        for(State state : ltsGraph.getStates().values()) {
+            for (String availableTransition: state.getSuccessors().keySet()) {
+                State successor = state.getSuccessors().get(availableTransition);
+                appendLine(String.format("%s = s%s & %s = %s: s%s;", StrRes.DEFAULT_STATE_NAME, state.getId(), StrRes.DEFAULT_IVAR_NAME, availableTransition, successor.getId()));
+            }
+        }
+        appendLine(String.format("TRUE: s;"));
         indent--;
+        appendLine(StrRes.ESAC + ";");
+    }
+    private void generateNextVarValues() {
+        generateAmNextVarValues();
+        generatePcNextVarValues();
+        generateCiNextVarValues();
+        generatePvNextVarValues();
+    }
+
+    private void generateAmNextVarValues() {
+        for(AMVariable variable: amVariables) {
+            appendLine(variable.getName() + " := " + StrRes.CASE);
+            indent++;
+
+            for(String stateId : variable.getAgentState().getAmStates().keySet()) {
+                Am am =  variable.getAgentState().getAmStates().get(stateId);
+                appendLine(StrRes.DEFAULT_STATE_NAME + " = s" + stateId + " : " + am.name() + ";");
+            }
+            indent--;
+            appendLine(StrRes.ESAC + ";");
+        }
+
+    }
+
+    private void generatePcNextVarValues() {
+        for(PCVariable variable: pcVariables) {
+            if (variable.isConstant()) {
+                return;
+            }
+            appendLine(variable.getName() + " := " + StrRes.CASE);
+            indent++;
+
+            for(String stateId : variable.getAgentState().getPcStates().keySet()) {
+                Integer value =  variable.getAgentState().getPcStates().get(stateId);
+                appendLine(StrRes.DEFAULT_STATE_NAME + " = s" + stateId + " : " + value + ";");
+            }
+            indent--;
+            appendLine(StrRes.ESAC + ";");
+        }
+
+    }
+
+    private void generateCiNextVarValues() {
+        for(CIVariable variable: ciVariables) {
+            appendLine(variable.getName() + " := " + StrRes.CASE);
+            indent++;
+
+            for(String stateId : variable.getAgentState().getCiStates().keySet()) {
+                for (String value: variable.getAgentState().getCiStates().get(stateId)) {
+                    if (variable.getCi().equals(value)) {
+                        appendLine(StrRes.DEFAULT_STATE_NAME + " = s" + stateId + " : " + StrRes.Boolean.TRUE + ";");
+                    }
+                }
+            }
+            appendLine(StrRes.Boolean.TRUE + " : " + StrRes.Boolean.FALSE + ";");
+            indent--;
+            appendLine(StrRes.ESAC + ";");
+        }
+
+    }
+
+    private void generatePvNextVarValues() {
+        for(PVVariable variable: pvVariables) {
+            if (variable.isConstant()) {
+                return;
+            }
+            appendLine(variable.getName() + " := " + StrRes.CASE);
+            indent++;
+
+            for(String stateId : variable.getAgentState().getPvStates().keySet()) {
+                String value = variable.getAgentState().getPvStates().get(stateId).get(variable.getValueIndex());
+                if (variable.getType() == Type.BOOLEAN) {
+                    appendLine(StrRes.DEFAULT_STATE_NAME + " = s" + stateId + " : " + value.toUpperCase() + ";");
+                } else {
+                    appendLine(StrRes.DEFAULT_STATE_NAME + " = s" + stateId + " : " + value + ";");
+                }
+            }
+            switch (variable.getType()) {
+                case BOOLEAN:
+                    appendLine(StrRes.Boolean.TRUE + " : " + StrRes.Boolean.FALSE + ";");
+                    break;
+                default:
+                    break;
+            }
+            indent--;
+            appendLine(StrRes.ESAC + ";");
+        }
+
+    }
+
+    private void generateIVariables() {
+        if(ltsGraph.getAllTransitions().size()>0) {
+            appendLine(StrRes.IVAR);
+            indent++;
+            appendLine(String.format("%s: {%s, %s};", StrRes.DEFAULT_IVAR_NAME,StrRes.DEFAULT_EMPTY_ACTION_NAME, StringUtils.join(ltsGraph.getAllTransitions(), ", ")));
+            indent--;
+        }
     }
 
     private void generateHeader(String name) {
@@ -63,10 +169,32 @@ public class NuXMVAlvisGenerator {
         indent--;
     }
 
+    private void generateTrans() {
+        sb.append("\n");
+        for(State state : ltsGraph.getStates().values()) {
+            if (state.getSuccessors().isEmpty()) {
+                sb.append(String.format("TRANS %s = s%s -> %s = %s\n", StrRes.DEFAULT_STATE_NAME, state.getId(),StrRes.DEFAULT_IVAR_NAME, StrRes.DEFAULT_EMPTY_ACTION_NAME));
+            }else{
+                sb.append(String.format("TRANS %s = s%s -> (", StrRes.DEFAULT_STATE_NAME, state.getId()));
+                int actionCounter = 0;
+                for (String availableTransition: state.getSuccessors().keySet()) {
+
+                    State successor = state.getSuccessors().get(availableTransition);
+                    sb.append(String.format("%s = %s", StrRes.DEFAULT_IVAR_NAME, availableTransition, successor.getId()));
+                    actionCounter++;
+                    if (actionCounter < state.getSuccessors().keySet().size()){
+                        sb.append(" | ");
+                    }
+                }
+                sb.append(")\n");
+            }
+        }
+    }
+
     private void generateAmVariables() {
         for (AgentState agentState: ltsGraph.getAgentStates()) {
             AMVariable amVariable = new AMVariable(agentState);
-            appendLine(String.format("%s: {X, W, F, I, T};", amVariable.getName()));
+            appendLine(String.format("%s: {x, w, f, i, t};", amVariable.getName()));
             amVariables.add(amVariable);
         }
     }
@@ -92,9 +220,11 @@ public class NuXMVAlvisGenerator {
     private void generatePvVariables() {
         for (AgentState agentState: ltsGraph.getAgentStates()) {
             for (Integer pv: agentState.getPvValues().keySet()) {
-                PVVariable pvVariable = new PVVariable(agentState, pv);
-                appendLine(String.format("%s: %s;", pvVariable.getName(), pvVariable.getTypeName()));
-                pvVariables.add(pvVariable);
+                if (!agentState.getPvValues().get(pv).isEmpty()) {
+                    PVVariable pvVariable = new PVVariable(agentState, pv);
+                    appendLine(String.format("%s: %s;", pvVariable.getName(), pvVariable.getTypeName()));
+                    pvVariables.add(pvVariable);
+                }
             }
         }
     }
@@ -130,17 +260,6 @@ public class NuXMVAlvisGenerator {
         sb.append("\n");
     }
 
-    public static void main(String[] args) {
-        try {
-            System.out.print(new NuXMVAlvisGenerator(new AlvisDotParser().parseFile("E:\\AGH\\dr\\RTCP\\RTCPN Tools\\alvis-examples\\t033.dot"))
-                    .generateNuXmvCode());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     class AMVariable {
         private AgentState agentState;
 
@@ -150,6 +269,10 @@ public class NuXMVAlvisGenerator {
 
         public String getName() {
             return String.format("%s#am", agentState.getName());
+        }
+
+        public AgentState getAgentState() {
+            return agentState;
         }
     }
 
@@ -173,6 +296,14 @@ public class NuXMVAlvisGenerator {
             }
             return maxValue;
         }
+
+        public boolean isConstant() {
+            return getMaxValue() == 0;
+        }
+
+        public AgentState getAgentState() {
+            return agentState;
+        }
     }
 
     class CIVariable {
@@ -187,6 +318,14 @@ public class NuXMVAlvisGenerator {
         public String getName() {
             return String.format("%s#ci#%s", agentState.getName(), ci);
         }
+
+        public String getCi() {
+            return ci;
+        }
+
+        public AgentState getAgentState() {
+            return agentState;
+        }
     }
 
     class PVVariable {
@@ -200,6 +339,10 @@ public class NuXMVAlvisGenerator {
             this.agentState = agentState;
             this.valueIndex = valueIndex;
             type = checkType();
+        }
+
+        public boolean isConstant() {
+            return type == Type.INTEGER && maxIntValue == minIntValue;
         }
 
         private Type checkType() {
@@ -238,6 +381,18 @@ public class NuXMVAlvisGenerator {
             return String.format("%s#pv%d", agentState.getName(), valueIndex + 1);
         }
 
+        public Type getType() {
+            return type;
+        }
+
+        public Integer getValueIndex() {
+            return valueIndex;
+        }
+
+        public AgentState getAgentState() {
+            return agentState;
+        }
+
         public String getTypeName() {
             switch (type) {
                 case BOOLEAN:
@@ -248,9 +403,22 @@ public class NuXMVAlvisGenerator {
                     return String.format("{ %s}", StringUtils.join(agentState.getPvValues().get(valueIndex), ", "));
             }
         }
+
+
     }
 
     enum Type {
         BOOLEAN, INTEGER, ENUM
+    }
+
+    public static void main(String[] args) {
+        try {
+            System.out.print(new NuXMVAlvisGenerator(new AlvisDotParser().parseFile("E:\\AGH\\dr\\RTCP\\PetriNet2ModelChecker\\alvis-examples\\t033.dot"))
+                    .generateNuXmvCode());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
