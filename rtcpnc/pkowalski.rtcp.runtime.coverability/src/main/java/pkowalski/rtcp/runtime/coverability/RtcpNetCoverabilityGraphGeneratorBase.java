@@ -63,6 +63,7 @@ public abstract class RtcpNetCoverabilityGraphGeneratorBase extends RtcpNetSimul
         NetState currentState = ReadCurrentState(true);
         //processingQueue.add(currentState);
         Queue<NetState> localQueue = new ConcurrentLinkedQueue<NetState>();
+        Queue<NetState> localQueueHistory = new ConcurrentLinkedQueue<NetState>();
         int time=0;
         final List<Transition> transitions = new ArrayList<Transition>();
         Queue<NetState> procesingQueueHistory = new ConcurrentLinkedQueue<NetState>();
@@ -83,25 +84,27 @@ public abstract class RtcpNetCoverabilityGraphGeneratorBase extends RtcpNetSimul
             transitions.addAll(CalculateTransitionsAvailability());
             if (!transitions.isEmpty()){
                 localQueue.clear();
+                localQueueHistory.clear();
                 localQueue.add(currentState);
                 int innerTime = time;
 
                 do{
                     NetState localState = localQueue.remove();
+                    localQueueHistory.add(localState);
                     int localTime = innerTime;
                     innerTime = 0;
                     RestoreState(localState);
                     List<Transition> localTransitions = CalculateTransitionsAvailability();
-                    try{
-                        localTransitions = Utils.Where(localTransitions, new Func<Boolean, Transition>() {
-                            @Override
-                            public Boolean Invoke(Transition transition) throws Exception {
-                                return transitions.contains(transition);
-                            }
-                        });
-                    }catch(Exception e){
-                        throw new RuntimeException(e);
-                    }
+//                                       try{
+//                        localTransitions = Utils.Where(localTransitions, new Func<Boolean, Transition>() {
+//                            @Override
+//                            public Boolean Invoke(Transition transition) throws Exception {
+//                                return transitions.contains(transition);
+//                            }
+//                        });
+//                    }catch(Exception e){
+//                        throw new RuntimeException(e);
+//                    }
 
                     localTransitions = GetActiveTransitions(localTransitions);
 
@@ -115,7 +118,7 @@ public abstract class RtcpNetCoverabilityGraphGeneratorBase extends RtcpNetSimul
 
                                 CollectNetLink(localState.getTimeInsensitiveState(), newState.getTimeInsensitiveState(), transition, binding, localTime);
 
-                                if (!ExistsInQueue(newState, localQueue))
+                                if (!ExistsInQueue(newState, localQueue) && !ExistsInQueue(newState, localQueueHistory))
                                     localQueue.add(newState);
 
                                 RestoreState(localState);
