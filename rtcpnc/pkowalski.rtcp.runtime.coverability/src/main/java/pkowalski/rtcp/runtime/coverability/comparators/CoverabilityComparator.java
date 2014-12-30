@@ -58,11 +58,12 @@ public class CoverabilityComparator extends ReachabilityComparator{
                         max = Math.max(max, ((OutArc) arc).getOutTime());
                 }
                 transition.SetBinding(currentBinding);
-
-                if(maxAge == null)
-                    maxAge = max;
-                else
-                    maxAge = Math.max(max, maxAge);
+                if(max != null) {
+                    if (maxAge == null)
+                        maxAge = max;
+                    else
+                        maxAge = Math.max(max, maxAge);
+                }
             }
         }
         if(maxAge == null){
