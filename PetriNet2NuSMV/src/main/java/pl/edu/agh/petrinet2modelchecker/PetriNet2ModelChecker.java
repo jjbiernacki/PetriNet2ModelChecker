@@ -61,13 +61,13 @@ public class PetriNet2ModelChecker {
     private JTextArea autTextArea;
 
     private JFrame frame;
-    Parser parser2NuXMV = Parser.ALVIS;
+    Parser parser2NuXMV = Parser.RTCPPARSER;
     Parser parser2aut = Parser.RTCPPARSER;
     JMenuBar menuBar;
     JMenu menuFile, menuParser, menuHelp, menuRtcpSimulator;
     JMenuItem menuClose, menuOpen, menuOmega, menuAbout, menuEndtime;
     JRadioButtonMenuItem cpnMenuItem, simpleNetMenuItem;
-    String parsedFileName = "", parsedRTCPFileName = "";
+    String parsedFileName = "", parsedRTCPFileName = "", simulatorName="";
     int omega = 1000;
     int rtcpSimulatorEndTime = 1000;
 
@@ -481,7 +481,7 @@ public class PetriNet2ModelChecker {
                     System.out.print("Save command cancelled by user.");
                     return;
                 }
-                File tmpDir = new File("tmp");
+                File tmpDir = new File("tmp"+Long.toString(System.currentTimeMillis()));
                 if (!tmpDir.exists()) {
                     tmpDir.mkdir();
                 }
@@ -656,6 +656,7 @@ public class PetriNet2ModelChecker {
         public void actionPerformed(ActionEvent e) {
             int i = comboBoxRTCP.getSelectedIndex();
             String path = rtcpPathField.getText();
+            simulatorName = "simulator" + Long.toString(System.currentTimeMillis());
             try {
 
                 String currentDir = getCurrentDirectory();
@@ -665,7 +666,7 @@ public class PetriNet2ModelChecker {
                             String parsedFile = new XmlParse().parse(path);
                             parsedRTCPFileName = rtcpPathField.getText();
                             parsedRTCPFileName = parsedRTCPFileName.substring(0, parsedRTCPFileName.indexOf("."));
-                            File tmpDir = new File("tmp");
+                            File tmpDir = new File("tmp"+Long.toString(System.currentTimeMillis()));
                             if (!tmpDir.exists()) {
                                 tmpDir.mkdir();
                             }
@@ -705,8 +706,7 @@ public class PetriNet2ModelChecker {
                     case 2://rtcp net to rtcp simulator
                         exportToPdfButton.setEnabled(false);
                         try {
-
-                            ProcessBuilder createSimulatorPB = new ProcessBuilder("java", "-jar", "rtcpnc.jar", "\"" + path + "\"", "simulator");
+                            ProcessBuilder createSimulatorPB = new ProcessBuilder("java", "-jar", "rtcpnc.jar", "\"" + path + "\"", simulatorName);
                             createSimulatorPB.directory(new File(currentDir + "rtcpnc"));
                             createSimulatorPB.redirectOutput(ProcessBuilder.Redirect.INHERIT);
                             createSimulatorPB.redirectErrorStream(true);
@@ -719,8 +719,8 @@ public class PetriNet2ModelChecker {
                             int returnVal = dirChooser.showSaveDialog(frame);
                             if (returnVal == JFileChooser.APPROVE_OPTION) {
                                 File selectedDir = dirChooser.getSelectedFile();
-                                FileUtils.copyDirectory(new File(currentDir + "rtcpnc/simulator"), new File(selectedDir.getAbsolutePath() + "/simulator"));
-                                FileUtils.deleteDirectory(new File(currentDir + "rtcpnc/simulator"));
+                                FileUtils.copyDirectory(new File(currentDir + "rtcpnc/"+simulatorName), new File(selectedDir.getAbsolutePath() + "/" + simulatorName));
+                                FileUtils.deleteDirectory(new File(currentDir + "rtcpnc/"+simulatorName));
                             } else {
                                 System.out.print("Open command cancelled by user.");
                             }
@@ -769,7 +769,7 @@ public class PetriNet2ModelChecker {
 
         StringBuilder logs = new StringBuilder();
         try {
-            ProcessBuilder createSimulatorPB = new ProcessBuilder("java", "-jar", "rtcpnc.jar", "\"" + path + "\"", "simulator");
+            ProcessBuilder createSimulatorPB = new ProcessBuilder("java", "-jar", "rtcpnc.jar", "\"" + path + "\"", simulatorName);
             createSimulatorPB.directory(new File(currentDir + "rtcpnc"));
             createSimulatorPB.redirectErrorStream(true);
             Process processGenerateSimulator = createSimulatorPB.start();
@@ -781,8 +781,8 @@ public class PetriNet2ModelChecker {
             }
             processGenerateSimulator.waitFor();
 
-            ProcessBuilder getCoverabilityGraphPB = new ProcessBuilder("java", "-jar", "simulator.jar" , String.valueOf(rtcpSimulatorEndTime),  "-cg");
-            getCoverabilityGraphPB.directory(new File(currentDir + "rtcpnc/simulator"));
+            ProcessBuilder getCoverabilityGraphPB = new ProcessBuilder("java", "-jar", simulatorName+".jar" , String.valueOf(rtcpSimulatorEndTime),  "-cg");
+            getCoverabilityGraphPB.directory(new File(currentDir + "rtcpnc/"+simulatorName));
             getCoverabilityGraphPB.redirectErrorStream(true);
             Process processSimulate = getCoverabilityGraphPB.start();
             BufferedReader outputCG = new BufferedReader(new InputStreamReader(processSimulate.getInputStream()));
@@ -793,7 +793,7 @@ public class PetriNet2ModelChecker {
             }
             processSimulate.waitFor();
 
-            String coverabilityGraphText = new String(Files.readAllBytes(Paths.get(currentDir + "rtcpnc/simulator", "coverability-graph.dot")));
+            String coverabilityGraphText = new String(Files.readAllBytes(Paths.get(currentDir + "rtcpnc/"+simulatorName, "coverability-graph.dot")));
             rtcpTextArea.setText(coverabilityGraphText);
             rtcpSaveButton.setEnabled(true);
             exportToPdfButton.setEnabled(true);
@@ -802,7 +802,7 @@ public class PetriNet2ModelChecker {
             showErrorDialog(frame, "Error", "Error occurred. Either the chosen file is corrupted or you do not have tools.jar library in '[JRE path]/lib' folder.", logs.toString());
         } finally {
             try {
-                FileUtils.deleteDirectory(new File(currentDir + "rtcpnc/simulator"));
+                FileUtils.deleteDirectory(new File(currentDir + "rtcpnc/"+simulatorName));
             } catch (IOException e) {
                 e.printStackTrace();
             }
