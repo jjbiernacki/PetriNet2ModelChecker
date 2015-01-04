@@ -42,7 +42,7 @@ public class RtcpNetSimulator extends RtcpNetCoverabilityGraphGeneratorBase{
     }
 
     public static void main(String[] args) {
-        if (args.length < 1 || args.length > 2){
+        if (args.length < 1 || (args.length == 3 && args[2]!="-v") || args.length>3){
             System.out.println("Usage: java -jar Simulator.jar endtime [options]");
             System.out.println("\twhere options:");
             System.out.println("\t\t-sim\t(Default) simulation");
@@ -66,6 +66,10 @@ public class RtcpNetSimulator extends RtcpNetCoverabilityGraphGeneratorBase{
         if (args.length ==2){
             options = args[1];
         }
+        else if (args.length == 3){
+            options = args[1];
+            simulator.setVerboseOn(true);
+        }
         else {
             System.out.println("No options parameter! '-sim' will be used!");
             options = "-sim";
@@ -86,9 +90,6 @@ public class RtcpNetSimulator extends RtcpNetCoverabilityGraphGeneratorBase{
             System.out.println("Unknown option: " + options);
             System.exit(1);
         }
-
-
-
 
         simulator.run();
     }

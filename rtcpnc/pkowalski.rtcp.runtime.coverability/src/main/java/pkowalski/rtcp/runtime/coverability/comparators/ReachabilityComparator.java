@@ -28,18 +28,18 @@ public class ReachabilityComparator implements EqualityComparator<NetState>{
 
     protected boolean IsMarkingEqual(NetState objA, NetState objB){
         boolean isMarkingEqual = true;
+        if (objB.getMarking().keySet().size() != objA.getMarking().keySet().size())
+            return false;
         for(Place place : objA.getMarking().keySet()){
             List<Token> ATokens = new ArrayList<Token>();
             List<Token> BTokens = new ArrayList<Token>();
             ATokens.addAll(objA.getMarking().get(place));
             BTokens.addAll(objB.getMarking().get(place));
 
-            while(!ATokens.isEmpty()){
+            while(!ATokens.isEmpty() && ATokens.size() == BTokens.size()){
                 Token aToken = ATokens.get(0);
                 ATokens.remove(aToken);
                 BTokens.remove(aToken);
-                if(ATokens.size() != BTokens.size())
-                    break;
             }
             isMarkingEqual = isMarkingEqual && (ATokens.size() == BTokens.size());
 

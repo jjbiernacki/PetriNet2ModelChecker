@@ -13,6 +13,8 @@ import pkowalski.utils.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -25,6 +27,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  */
 public abstract class RtcpNetCoverabilityGraphGeneratorBase extends RtcpNetSimulatorBase{
     private RunMode runMode;
+    private boolean verboseOn;
     public RunMode getRunMode(){
         return runMode;
     }
@@ -32,6 +35,14 @@ public abstract class RtcpNetCoverabilityGraphGeneratorBase extends RtcpNetSimul
     public void setRunMode(RunMode runMode){
         this.runMode = runMode;
 
+    }
+
+    public boolean isVerboseOn() {
+        return verboseOn;
+    }
+
+    public void setVerboseOn(boolean verboseOn) {
+        this.verboseOn = verboseOn;
     }
 
     private EqualityComparator<NetState> _netStateEqualityComparator;
@@ -52,7 +63,7 @@ public abstract class RtcpNetCoverabilityGraphGeneratorBase extends RtcpNetSimul
         processingQueue = new ConcurrentLinkedQueue<NetState>();
         stateList = new ArrayList<NetState>();
         stateLinks = new ArrayList<NetStateLink>();
-
+        verboseOn = false;
         setNetStateEqualityComparator(new CoverabilityComparator());
     }
 
@@ -65,6 +76,8 @@ public abstract class RtcpNetCoverabilityGraphGeneratorBase extends RtcpNetSimul
         Queue<NetState> localQueue = new ConcurrentLinkedQueue<NetState>();
         Queue<NetState> localQueueHistory = new ConcurrentLinkedQueue<NetState>();
         int time=0;
+        long lastDebugTimestamp = System.currentTimeMillis();
+        DateFormat formatter = new SimpleDateFormat("HH:mm:ss:SSS");
         final List<Transition> transitions = new ArrayList<Transition>();
         Queue<NetState> procesingQueueHistory = new ConcurrentLinkedQueue<NetState>();
 
@@ -133,7 +146,14 @@ public abstract class RtcpNetCoverabilityGraphGeneratorBase extends RtcpNetSimul
                             procesingQueueHistory.add(new NetState(localState));
                         }
                     }
-
+                    if(verboseOn && lastDebugTimestamp + 60000 < System.currentTimeMillis() ){
+                           lastDebugTimestamp = System.currentTimeMillis();
+                           System.out.println("\n-------------------------------------------------------------------\n"
+                                   + "INFO (" + formatter.format(new Date(lastDebugTimestamp))
+                                   + "):\t States: "+ stateList.size() + " \n\t Current state: " + currentState
+                                   + "\n\tlocal queue:" + localQueue.size() + " \tprocessing queue:" + processingQueue.size()
+                           );
+                    }
                 }while (!localQueue.isEmpty());
                 currentState = null;
                 time=0;
