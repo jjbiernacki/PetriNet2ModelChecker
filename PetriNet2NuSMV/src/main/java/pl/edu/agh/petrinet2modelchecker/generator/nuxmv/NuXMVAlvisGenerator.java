@@ -118,7 +118,7 @@ public class NuXMVAlvisGenerator {
     private void generatePvNextVarValues() {
         for(PVVariable variable: pvVariables) {
             if (variable.isConstant()) {
-                return;
+                continue;
             }
             appendLine(variable.getName() + " := " + StrRes.CASE);
             indent++;
@@ -180,7 +180,7 @@ public class NuXMVAlvisGenerator {
                 for (String availableTransition: state.getSuccessors().keySet()) {
 
                     State successor = state.getSuccessors().get(availableTransition);
-                    sb.append(String.format("%s = %s", StrRes.DEFAULT_IVAR_NAME, availableTransition, successor.getId()));
+                    sb.append(String.format("%s = %s", StrRes.DEFAULT_IVAR_NAME, availableTransition));
                     actionCounter++;
                     if (actionCounter < state.getSuccessors().keySet().size()){
                         sb.append(" | ");

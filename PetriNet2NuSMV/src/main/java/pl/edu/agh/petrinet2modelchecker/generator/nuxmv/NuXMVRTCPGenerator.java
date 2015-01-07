@@ -1,5 +1,6 @@
 package pl.edu.agh.petrinet2modelchecker.generator.nuxmv;
 
+import com.sun.deploy.util.StringUtils;
 import pl.edu.agh.petrinet2modelchecker.exceptions.SyntaxException;
 import pl.edu.agh.petrinet2modelchecker.model.rtcp.RTCPPlace;
 import pl.edu.agh.petrinet2modelchecker.model.rtcp.RTCPReachabilityGraph;
@@ -36,10 +37,12 @@ public class NuXMVRTCPGenerator {
 
     private String generateNuXMVModule(String name) {
         generateHeader(name);
+        generateIVariables();
         generateVariables();
         generateInit();
         generateNextState();
         generateNextVarValues();
+        generateTrans();
 
         return sb.toString();
     }
@@ -48,6 +51,15 @@ public class NuXMVRTCPGenerator {
         appendLine(StrRes.MODULE + " " + name);
     }
 
+
+    private void generateIVariables() {
+        if(!RTCPReachabilityGraph.getTransitions().isEmpty()) {
+            appendLine(StrRes.IVAR);
+            indent++;
+            appendLine(String.format("%s: {%s, %s};", StrRes.DEFAULT_IVAR_NAME,StrRes.DEFAULT_EMPTY_ACTION_NAME, StringUtils.join(RTCPReachabilityGraph.getTransitions(), ", ")));
+            indent--;
+        }
+    }
     private void generateVariables() {
         appendLine(StrRes.VAR);
         indent++;
@@ -89,28 +101,21 @@ public class NuXMVRTCPGenerator {
         indent++;
         appendLine(StrRes.INIT + "(" + StrRes.DEFAULT_STATE_NAME + ") := s" + RTCPReachabilityGraph.getStates().first().getId() + ";");
     }
+
     private void generateNextState() {
         appendLine(StrRes.NEXT + "(" + StrRes.DEFAULT_STATE_NAME + ") := " + StrRes.CASE);
         indent++;
-        for(RTCPState RTCPState : RTCPReachabilityGraph.getStates()) {
-            tab();
-            sb.append(StrRes.DEFAULT_STATE_NAME + " = " + RTCPState.getName()+ " : ");
-            if(RTCPState.getSuccessorsList() == null || RTCPState.getSuccessorsList().size() == 0) {
-                sb.append(RTCPState.getName() + ";\n");
-            } else if(RTCPState.getSuccessorsList().size() == 1) {
-                sb.append(RTCPState.getSuccessorsList().get(0).getName() + ";\n");
-            } else {
-                sb.append("{");
-                for(int i = 0; i < RTCPState.getSuccessorsList().size(); i++) {
-                    RTCPState successor = RTCPState.getSuccessorsList().get(i);
-                    sb.append(successor.getName());
-                    if(i < RTCPState.getSuccessorsList().size() -1) {
-                        sb.append(", ");
-                    }
+        for(RTCPState state : RTCPReachabilityGraph.getStates()) {
+            for (String transitionLabel: state.getAvailableTransitions().keySet()) {
+                ArrayList<String> availableStatesTextList = new ArrayList<String>();
+                for (RTCPState successor: state.getAvailableTransitions().get(transitionLabel)) {
+                    availableStatesTextList.add(String.format("s%s", successor.getId()));
                 }
-                sb.append("};\n");
+                String availableStates = availableStatesTextList.size() > 1 ? "{" + StringUtils.join(availableStatesTextList, ", ") + "}" : availableStatesTextList.get(0);
+                appendLine(String.format("%s = s%s & %s = %s: %s;", StrRes.DEFAULT_STATE_NAME, state.getId(), StrRes.DEFAULT_IVAR_NAME, transitionLabel, availableStates));
             }
         }
+        appendLine(String.format("TRUE: s;"));
         indent--;
         appendLine(StrRes.ESAC + ";");
     }
@@ -146,6 +151,26 @@ public class NuXMVRTCPGenerator {
             appendLine(StrRes.ESAC + ";");
         }
 
+    }
+
+    private void generateTrans() {
+        sb.append("\n");
+        for(RTCPState state : RTCPReachabilityGraph.getStates()) {
+            if (state.getSuccessors().isEmpty()) {
+                sb.append(String.format("TRANS %s = s%s -> %s = %s\n", StrRes.DEFAULT_STATE_NAME, state.getId(),StrRes.DEFAULT_IVAR_NAME, StrRes.DEFAULT_EMPTY_ACTION_NAME));
+            } else {
+                sb.append(String.format("TRANS %s = s%s -> (", StrRes.DEFAULT_STATE_NAME, state.getId()));
+                int actionCounter = 0;
+                for (String transitionLabel: state.getAvailableTransitions().keySet()) {
+                    sb.append(String.format("%s = %s", StrRes.DEFAULT_IVAR_NAME, transitionLabel));
+                    actionCounter++;
+                    if (actionCounter < state.getAvailableTransitions().keySet().size()){
+                        sb.append(" | ");
+                    }
+                }
+                sb.append(")\n");
+            }
+        }
     }
 
     private void tab() {

@@ -1,4 +1,6 @@
 MODULE main
+IVAR
+	action: {NOTHING, Comp1, Comp2, Get1, Get2, Put};
 VAR
 	s: {s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19, s20, s21, s22, s23};
 	Sensor_d : 0..3;
@@ -16,30 +18,31 @@ VAR
 ASSIGN
 	init(s) := s0;
 	next(s) := case
-		s = s0 : s1;
-		s = s1 : s2;
-		s = s2 : {s3, s4, s5};
-		s = s3 : s1;
-		s = s4 : s6;
-		s = s5 : s7;
-		s = s6 : s8;
-		s = s7 : s9;
-		s = s8 : s2;
-		s = s9 : s10;
-		s = s10 : {s11, s12, s13};
-		s = s11 : s1;
-		s = s12 : s14;
-		s = s13 : s16;
-		s = s14 : s15;
-		s = s15 : {s11, s18, s19};
-		s = s16 : s17;
-		s = s17 : {s12, s20, s21};
-		s = s18 : s6;
-		s = s19 : s7;
-		s = s20 : s22;
-		s = s21 : s23;
-		s = s22 : s8;
-		s = s23 : s9;
+		s = s0 & action = Put: s1;
+		s = s1 & action = Get1: s2;
+		s = s2 & action = Comp1: {s3, s4, s5};
+		s = s3 & action = Put: s1;
+		s = s4 & action = Put: s6;
+		s = s5 & action = Put: s7;
+		s = s6 & action = Put: s8;
+		s = s7 & action = Put: s9;
+		s = s8 & action = Get1: s2;
+		s = s9 & action = Get2: s10;
+		s = s10 & action = Comp2: {s11, s12, s13};
+		s = s11 & action = Put: s1;
+		s = s12 & action = Put: s14;
+		s = s13 & action = Put: s16;
+		s = s14 & action = Get1: s15;
+		s = s15 & action = Comp1: {s11, s18, s19};
+		s = s16 & action = Get1: s17;
+		s = s17 & action = Comp1: {s12, s20, s21};
+		s = s18 & action = Put: s6;
+		s = s19 & action = Put: s7;
+		s = s20 & action = Put: s22;
+		s = s21 & action = Put: s23;
+		s = s22 & action = Put: s8;
+		s = s23 & action = Put: s9;
+		TRUE: s;
 	esac;
 	Sensor_d := case
 		s = s0 : 1;
@@ -269,4 +272,29 @@ ASSIGN
 		s = s23 : 1;
 		TRUE : 0;
 	esac;
+
+TRANS s = s0 -> (action = Put)
+TRANS s = s1 -> (action = Get1)
+TRANS s = s2 -> (action = Comp1)
+TRANS s = s3 -> (action = Put)
+TRANS s = s4 -> (action = Put)
+TRANS s = s5 -> (action = Put)
+TRANS s = s6 -> (action = Put)
+TRANS s = s7 -> (action = Put)
+TRANS s = s8 -> (action = Get1)
+TRANS s = s9 -> (action = Get2)
+TRANS s = s10 -> (action = Comp2)
+TRANS s = s11 -> (action = Put)
+TRANS s = s12 -> (action = Put)
+TRANS s = s13 -> (action = Put)
+TRANS s = s14 -> (action = Get1)
+TRANS s = s15 -> (action = Comp1)
+TRANS s = s16 -> (action = Get1)
+TRANS s = s17 -> (action = Comp1)
+TRANS s = s18 -> (action = Put)
+TRANS s = s19 -> (action = Put)
+TRANS s = s20 -> (action = Put)
+TRANS s = s21 -> (action = Put)
+TRANS s = s22 -> (action = Put)
+TRANS s = s23 -> (action = Put)
 

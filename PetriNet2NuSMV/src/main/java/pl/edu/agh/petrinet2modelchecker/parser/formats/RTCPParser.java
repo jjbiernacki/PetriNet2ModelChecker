@@ -22,6 +22,7 @@ public class RTCPParser implements RTCPParsable {
 
     private List<RTCPPlace> RTCPPlaces = new ArrayList<RTCPPlace>();
     private TreeSet<RTCPState> RTCPStates = new TreeSet<RTCPState>();
+    private TreeSet<String> transitions = new TreeSet<String>();
     private long omega = Long.MIN_VALUE;
     private long minTimeOmega = Long.MAX_VALUE;
 
@@ -40,6 +41,7 @@ public class RTCPParser implements RTCPParsable {
         RTCPReachabilityGraph.setRTCPStates(RTCPStates);
         RTCPReachabilityGraph.setOmega(omega);
         RTCPReachabilityGraph.setMinTimeOmega(minTimeOmega);
+        RTCPReachabilityGraph.setTransitions(transitions);
 
         return RTCPReachabilityGraph;
 
@@ -55,6 +57,7 @@ public class RTCPParser implements RTCPParsable {
                 RTCPState secondRTCPState = findStateById(secondNode);
                 String label = line.substring(line.indexOf("(") + 1, line.indexOf(","));
                 firstRTCPState.addSuccessor(secondRTCPState, label);
+                transitions.add(label);
             }
         }
     }

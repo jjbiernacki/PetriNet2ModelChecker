@@ -13,6 +13,7 @@ import java.util.TreeSet;
 public class RTCPReachabilityGraph extends ReachabilityGraph {
 	private List<RTCPPlace> RTCPPlaces;
 	private TreeSet<RTCPState> RTCPStates;
+    private TreeSet<String> transitions;
     private long omega;
 
     public long getMinTimeOmega() {
@@ -68,5 +69,13 @@ public class RTCPReachabilityGraph extends ReachabilityGraph {
 
     public void setOmega(long omega) {
         this.omega = omega;
+    }
+
+    public void setTransitions(TreeSet<String> transitions) {
+        this.transitions = transitions;
+    }
+
+    public TreeSet<String> getTransitions() {
+        return transitions;
     }
 }

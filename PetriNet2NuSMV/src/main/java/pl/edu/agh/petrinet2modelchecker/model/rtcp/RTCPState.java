@@ -14,6 +14,7 @@ public class RTCPState extends State {
 	private final int id;
     private Map<PTPlace, Marking> marking = new TreeMap<PTPlace, Marking>();
     private Map<RTCPState, String> successors = new HashMap<RTCPState, String>();
+    private Map<String, ArrayList<RTCPState>> availableTransitions = new HashMap<String, ArrayList<RTCPState>>();
 
 	public RTCPState(final int id) {
 		this.id = id;
@@ -49,7 +50,14 @@ public class RTCPState extends State {
 	 */
 	public void addSuccessor(final RTCPState RTCPState, final String transitionLabel) {
 		successors.put(RTCPState, transitionLabel);
-	}
+        if (!availableTransitions.containsKey(transitionLabel)) {
+            ArrayList statesList = new ArrayList();
+            statesList.add(RTCPState);
+            availableTransitions.put(transitionLabel, statesList);
+        } else if (!availableTransitions.get(transitionLabel).contains(RTCPState)) {
+            availableTransitions.get(transitionLabel).add(RTCPState);
+        }
+    }
 
     public String getTransitionLabel(final RTCPState successor) {
         return successors.get(successor);
@@ -70,7 +78,7 @@ public class RTCPState extends State {
 	}
 
     @Override
-    protected Map getSuccessors() {
+    public Map getSuccessors() {
         return successors;
     }
 
@@ -124,5 +132,9 @@ public class RTCPState extends State {
             }
         }
         return 0;
+    }
+
+    public Map<String, ArrayList<RTCPState>> getAvailableTransitions() {
+        return availableTransitions;
     }
 }
