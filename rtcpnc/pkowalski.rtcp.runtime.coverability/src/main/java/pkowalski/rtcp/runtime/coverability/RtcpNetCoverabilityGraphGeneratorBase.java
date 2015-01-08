@@ -28,6 +28,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public abstract class RtcpNetCoverabilityGraphGeneratorBase extends RtcpNetSimulatorBase{
     private RunMode runMode;
     private boolean verboseOn;
+
     public RunMode getRunMode(){
         return runMode;
     }
@@ -166,7 +167,7 @@ public abstract class RtcpNetCoverabilityGraphGeneratorBase extends RtcpNetSimul
         }while (!processingQueue.isEmpty() || currentState != null);
 
 
-        PrintResults();
+//        PrintResults(); //Zakomentowane w celu przyspieszenia
         GraphWriter graphWriter = null;
         try {
             graphWriter = new GraphWriter(String.format("%s-graph.dot", netStateComparator.getName()), getPlaces());
@@ -178,7 +179,7 @@ public abstract class RtcpNetCoverabilityGraphGeneratorBase extends RtcpNetSimul
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
-
+        System.out.println("Graph generated successfully.");
     }
 
     protected void CollectNetLink(final NetState predecessor, final NetState successor, Transition transition, Binding binding, int time){
