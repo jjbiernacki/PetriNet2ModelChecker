@@ -151,7 +151,7 @@ public abstract class RtcpNetCoverabilityGraphGeneratorBase extends RtcpNetSimul
                            lastDebugTimestamp = System.currentTimeMillis();
                            System.out.println("\n-------------------------------------------------------------------\n"
                                    + "INFO (" + formatter.format(new Date(lastDebugTimestamp))
-                                   + "):\t States: "+ stateList.size() + " \n\t Current state: " + currentState
+                                   + "):\t States: "+ stateList.size()
                                    + "\n\tlocal queue:" + localQueue.size() + " \tprocessing queue:" + processingQueue.size()
                            );
                     }
