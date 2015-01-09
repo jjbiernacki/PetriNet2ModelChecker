@@ -1,6 +1,6 @@
 package pl.edu.agh.petrinet2modelchecker.generator.nuxmv;
 
-import com.sun.deploy.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import pl.edu.agh.petrinet2modelchecker.model.alvis.AgentState;
 import pl.edu.agh.petrinet2modelchecker.model.alvis.Am;
 import pl.edu.agh.petrinet2modelchecker.model.alvis.LTSGraph;

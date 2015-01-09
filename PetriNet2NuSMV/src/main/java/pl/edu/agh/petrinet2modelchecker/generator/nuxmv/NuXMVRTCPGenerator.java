@@ -1,6 +1,6 @@
 package pl.edu.agh.petrinet2modelchecker.generator.nuxmv;
 
-import com.sun.deploy.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import pl.edu.agh.petrinet2modelchecker.exceptions.SyntaxException;
 import pl.edu.agh.petrinet2modelchecker.model.rtcp.RTCPPlace;
 import pl.edu.agh.petrinet2modelchecker.model.rtcp.RTCPReachabilityGraph;
