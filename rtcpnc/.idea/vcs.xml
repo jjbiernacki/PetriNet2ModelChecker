@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="VcsDirectoryMappings">
-    <mapping directory="" vcs="" />
+    <mapping directory="$PROJECT_DIR$" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/pkowalski.rtcp" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/pkowalski.rtcp.codefactory" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/pkowalski.rtcp.codefactory.java" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/pkowalski.rtcp.model" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/pkowalski.rtcp.model.syntax" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/pkowalski.rtcp.runtime.coverability" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/pkowalski.rtcp.runtime.ui.console" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/pkowalski.rtcp.xml" vcs="svn" />
   </component>
 </project>
 

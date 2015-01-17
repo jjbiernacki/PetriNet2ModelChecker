@@ -45,9 +45,15 @@ public class RtcpRuntimeGenerator {
         }
         String xmlFileName = args[0];
         String simulatorName = args[1];
-        
-        
-        
+
+        if (xmlFileName.length() > 2) {
+            if (xmlFileName.charAt(0) == '\'' || xmlFileName.charAt(0) == '\"') {
+                xmlFileName = xmlFileName.substring(1);
+            }
+            if (xmlFileName.charAt(xmlFileName.length() - 1) == '\'' || xmlFileName.charAt(xmlFileName.length() - 1) == '\"') {
+                xmlFileName = xmlFileName.substring(0, xmlFileName.length() - 1);
+            }
+        }
 
         RtcpRuntimeGenerator rtcpRuntimeGenerator = new RtcpRuntimeGenerator();
         try {
@@ -81,7 +87,9 @@ public class RtcpRuntimeGenerator {
 
 
     void GenerateSimulator(String modelXmlFile, String simulatorName) throws IOException, LoaderException, GenerationException {
+
         File xmlFile = new File(modelXmlFile);
+        
         if (xmlFile.exists()){
             System.out.println("Loading RTCP-net model from XML file...");
         }
