@@ -20,7 +20,7 @@ public class StrRes {
 	public static final String ESAC = "esac";
 	public static final String NEXT = "next";
     public static final String DEFAULT_IVAR_NAME = "action";
-    public static final String DEFAULT_EMPTY_ACTION_NAME = "NOTHING";
+    public static final String DEFAULT_EMPTY_ACTION_NAME = "NOP";
 	
 	public enum Boolean {
 		FALSE("FALSE"), TRUE("TRUE");
