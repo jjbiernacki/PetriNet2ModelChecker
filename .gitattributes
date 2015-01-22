@@ -72,6 +72,8 @@ PetriNet2NuSMV[!!-~]Release/przyklady[!!-~]rtcp/testy/konsument[!!-~]producent19
 PetriNet2NuSMV[!!-~]Release/przyklady[!!-~]rtcp/testy/konsument[!!-~]producent19655.dot -text
 PetriNet2NuSMV[!!-~]Release/przyklady[!!-~]rtcp/testy/konsument[!!-~]producent3695.cpn -text
 PetriNet2NuSMV[!!-~]Release/przyklady[!!-~]rtcp/testy/konsument[!!-~]producent3695.dot -text
+PetriNet2NuSMV[!!-~]Release/przyklady[!!-~]rtcp/testy/konsument[!!-~]producentX3.cpn -text
+PetriNet2NuSMV[!!-~]Release/przyklady[!!-~]rtcp/testy/konsument[!!-~]producentX3.xml -text
 PetriNet2NuSMV[!!-~]Release/przyklady[!!-~]rtcp/testy/konsument[!!-~]producent_139.cpn -text
 PetriNet2NuSMV[!!-~]Release/przyklady[!!-~]rtcp/testy/konsument[!!-~]producent_139.dot -text
 PetriNet2NuSMV[!!-~]Release/przyklady[!!-~]rtcp/testy/konsument[!!-~]producent_139.pdf -text svneol=unset#unset
@@ -84,6 +86,7 @@ PetriNet2NuSMV[!!-~]Release/przyklady[!!-~]rtcp/testy/zwrotnica191.cpn -text
 PetriNet2NuSMV[!!-~]Release/przyklady[!!-~]rtcp/testy/zwrotnica191.dot -text
 PetriNet2NuSMV[!!-~]Release/przyklady[!!-~]rtcp/testy/zwrotnica815.cpn -text
 PetriNet2NuSMV[!!-~]Release/przyklady[!!-~]rtcp/testy/zwrotnica815.dot -text
+PetriNet2NuSMV[!!-~]Release/przyklady[!!-~]rtcp/testy/zwrotnica_34718.dot -text
 PetriNet2NuSMV[!!-~]Release/przyklady[!!-~]rtcp/testy/zwrotnica_41.cpn -text
 PetriNet2NuSMV[!!-~]Release/przyklady[!!-~]rtcp/testy/zwrotnica_41.dot -text
 PetriNet2NuSMV[!!-~]Release/przyklady[!!-~]rtcp/testy/zwrotnica_big.xml -text
