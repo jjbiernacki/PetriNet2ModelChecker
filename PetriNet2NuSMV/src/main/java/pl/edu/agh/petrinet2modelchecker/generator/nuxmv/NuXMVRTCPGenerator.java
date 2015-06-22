@@ -19,6 +19,7 @@ public class NuXMVRTCPGenerator {
     private RTCPReachabilityGraph RTCPReachabilityGraph;
     private StringBuilder sb;
     private int indent = 0;
+    private boolean extendedOutput = false;
     private List<Variable> variables = new ArrayList<Variable>();
     private List<TimeVariable> timeVariables = new ArrayList<TimeVariable>();
 
@@ -31,18 +32,25 @@ public class NuXMVRTCPGenerator {
      * Generowanie tekstu modułu NuXMV z grafu osiągalności
      * @return Tekst modułu NuXMV
      */
+    public String generateNuXMVModule(boolean extended) {
+        extendedOutput = extended;
+        return generateNuXMVModule(StrRes.DEFAULT_MODULE_NAME);
+    }
     public String generateNuXMVModule() {
+        extendedOutput = false;
         return generateNuXMVModule(StrRes.DEFAULT_MODULE_NAME);
     }
 
     private String generateNuXMVModule(String name) {
         generateHeader(name);
-        generateIVariables();
+        if(extendedOutput)
+            generateIVariables();
         generateVariables();
         generateInit();
         generateNextState();
         generateNextVarValues();
-        generateTrans();
+        if(extendedOutput)
+            generateTrans();
 
         return sb.toString();
     }
@@ -105,14 +113,27 @@ public class NuXMVRTCPGenerator {
     private void generateNextState() {
         appendLine(StrRes.NEXT + "(" + StrRes.DEFAULT_STATE_NAME + ") := " + StrRes.CASE);
         indent++;
-        for(RTCPState state : RTCPReachabilityGraph.getStates()) {
-            for (String transitionLabel: state.getAvailableTransitions().keySet()) {
+        if(extendedOutput) {
+            for (RTCPState state : RTCPReachabilityGraph.getStates()) {
+                for (String transitionLabel : state.getAvailableTransitions().keySet()) {
+                    ArrayList<String> availableStatesTextList = new ArrayList<String>();
+                    for (RTCPState successor : state.getAvailableTransitions().get(transitionLabel)) {
+                        availableStatesTextList.add(String.format("s%s", successor.getId()));
+                    }
+                    String availableStates = availableStatesTextList.size() > 1 ? "{" + StringUtils.join(availableStatesTextList, ", ") + "}" : availableStatesTextList.get(0);
+                    appendLine(String.format("%s = s%s & %s = %s: %s;", StrRes.DEFAULT_STATE_NAME, state.getId(), StrRes.DEFAULT_IVAR_NAME, transitionLabel, availableStates));
+                }
+            }
+        }else{
+            for (RTCPState state : RTCPReachabilityGraph.getStates()) {
                 ArrayList<String> availableStatesTextList = new ArrayList<String>();
-                for (RTCPState successor: state.getAvailableTransitions().get(transitionLabel)) {
+                for (RTCPState successor : state.getSuccessorsList()) {
                     availableStatesTextList.add(String.format("s%s", successor.getId()));
                 }
-                String availableStates = availableStatesTextList.size() > 1 ? "{" + StringUtils.join(availableStatesTextList, ", ") + "}" : availableStatesTextList.get(0);
-                appendLine(String.format("%s = s%s & %s = %s: %s;", StrRes.DEFAULT_STATE_NAME, state.getId(), StrRes.DEFAULT_IVAR_NAME, transitionLabel, availableStates));
+                if(availableStatesTextList.size() >0) {
+                    String availableStates = availableStatesTextList.size() > 1 ? "{" + StringUtils.join(availableStatesTextList, ", ") + "}" : availableStatesTextList.get(0);
+                    appendLine(String.format("%s = s%s: %s;", StrRes.DEFAULT_STATE_NAME, state.getId(), availableStates));
+                }
             }
         }
         appendLine(String.format("TRUE: s;"));

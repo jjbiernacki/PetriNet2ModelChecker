@@ -20,6 +20,7 @@ import pl.edu.agh.petrinet2modelchecker.parser.formats.RTCPParser;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.filechooser.FileFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -59,16 +60,18 @@ public class PetriNet2ModelChecker {
     private JComboBox toAutComboBox;
     private JButton saveAutButton;
     private JTextArea autTextArea;
+    private JCheckBoxMenuItem menuExtendedOutput;
 
     private JFrame frame;
     Parser parser2NuXMV = Parser.RTCPPARSER;
     Parser parser2aut = Parser.RTCPPARSER;
     JMenuBar menuBar;
-    JMenu menuFile, menuParser, menuHelp, menuRtcpSimulator;
+    JMenu menuFile, menuParser, menuHelp, menuRtcpSimulator, menuGenerator;
     JMenuItem menuClose, menuOpen, menuOmega, menuAbout, menuEndtime;
     JRadioButtonMenuItem cpnMenuItem, simpleNetMenuItem;
     String parsedFileName = "", parsedRTCPFileName = "", simulatorName="";
     int omega = 1000;
+    boolean extendedOutput = false;
     int rtcpSimulatorEndTime = 1000;
 
 
@@ -103,6 +106,8 @@ public class PetriNet2ModelChecker {
         menuBar.add(menuFile);
         menuParser = new JMenu("Parser");
         menuBar.add(menuParser);
+        menuGenerator= new JMenu("Generator");
+        menuBar.add(menuGenerator);
         menuRtcpSimulator = new JMenu("RTCP Simulator");
         menuBar.add(menuRtcpSimulator);
         menuHelp = new JMenu("Help");
@@ -118,6 +123,10 @@ public class PetriNet2ModelChecker {
         menuClose.addActionListener(closeListener);
         menuFile.add(menuClose);
         menuParser.add(menuOmega);
+
+        menuExtendedOutput = new JCheckBoxMenuItem("Extended output");
+        menuExtendedOutput.addChangeListener(extendedOutputChanged);
+        menuGenerator.add(menuExtendedOutput);
         menuEndtime = new JMenuItem("Endtime...", KeyEvent.VK_M);
         menuEndtime.addActionListener(setEndtime);
         menuRtcpSimulator.add(menuEndtime);
@@ -172,6 +181,13 @@ public class PetriNet2ModelChecker {
             AboutDialog aboutDialog = new AboutDialog();
             aboutDialog.pack();
             aboutDialog.setVisible(true);
+        }
+    };
+
+    ChangeListener extendedOutputChanged = new ChangeListener() {
+        @Override
+        public void stateChanged(ChangeEvent e) {
+            extendedOutput = menuExtendedOutput.getState();
         }
     };
 
@@ -527,7 +543,7 @@ public class PetriNet2ModelChecker {
                 try {
                     AlvisDotParser alvisParser = new AlvisDotParser();
                     NuXMVAlvisGenerator generator = new NuXMVAlvisGenerator(alvisParser.parseFile(pathField.getText()));
-                    nuXMVTextArea.setText(generator.generateNuXmvCode());
+                    nuXMVTextArea.setText(generator.generateNuXmvCode(extendedOutput));
                     saveButton.setEnabled(true);
                 } catch (FileNotFoundException e1) {
                     JOptionPane.showMessageDialog(frame,
@@ -546,7 +562,7 @@ public class PetriNet2ModelChecker {
                 try {
                     RTCPParser rtcpParser = new RTCPParser();
                     NuXMVRTCPGenerator generator = new NuXMVRTCPGenerator(rtcpParser.parseFile(pathField.getText()));
-                    nuXMVTextArea.setText(generator.generateNuXMVModule());
+                    nuXMVTextArea.setText(generator.generateNuXMVModule(extendedOutput));
                     saveButton.setEnabled(true);
                 } catch (FileNotFoundException e1) {
                     JOptionPane.showMessageDialog(frame,

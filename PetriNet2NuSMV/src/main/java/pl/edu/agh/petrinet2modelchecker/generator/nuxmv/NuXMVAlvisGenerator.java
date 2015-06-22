@@ -20,6 +20,7 @@ public class NuXMVAlvisGenerator {
     private final LTSGraph ltsGraph;
     private StringBuilder sb = new StringBuilder();
     private int indent = 0;
+    private boolean extendedOutput = false;
     private List<AMVariable> amVariables = new ArrayList<AMVariable>();
     private List<PCVariable> pcVariables = new ArrayList<PCVariable>();
     private List<CIVariable> ciVariables = new ArrayList<CIVariable>();
@@ -31,25 +32,46 @@ public class NuXMVAlvisGenerator {
     }
 
     public String generateNuXmvCode() {
+        return generateNuXmvCode(false);
+    }
 
+    public String generateNuXmvCode(boolean extended) {
+        extendedOutput = extended;
         generateHeader(StrRes.DEFAULT_MODULE_NAME);
-        generateIVariables();
+        if(extendedOutput)
+            generateIVariables();
         generateVariables();
         generateInit();
         generateNextState();
         generateNextVarValues();
-        generateTrans();
-
+        if(extendedOutput)
+            generateTrans();
         return sb.toString();
     }
 
     private void generateNextState() {
         appendLine(StrRes.NEXT + "(" + StrRes.DEFAULT_STATE_NAME + ") := " + StrRes.CASE);
         indent++;
-        for(State state : ltsGraph.getStates().values()) {
-            for (String availableTransition: state.getSuccessors().keySet()) {
-                State successor = state.getSuccessors().get(availableTransition);
-                appendLine(String.format("%s = s%s & %s = %s: s%s;", StrRes.DEFAULT_STATE_NAME, state.getId(), StrRes.DEFAULT_IVAR_NAME, availableTransition, successor.getId()));
+        if(extendedOutput) {
+            for (State state : ltsGraph.getStates().values()) {
+                for (String availableTransition : state.getSuccessors().keySet()) {
+                    State successor = state.getSuccessors().get(availableTransition);
+                    appendLine(String.format("%s = s%s & %s = %s: s%s;", StrRes.DEFAULT_STATE_NAME, state.getId(), StrRes.DEFAULT_IVAR_NAME, availableTransition, successor.getId()));
+                }
+            }
+        }else{
+            for (State state : ltsGraph.getStates().values()) {
+                ArrayList<String> availableStatesTextList = new ArrayList<String>();
+
+                for (String availableTransition : state.getSuccessors().keySet()) {
+                    State successor = state.getSuccessors().get(availableTransition);
+                    availableStatesTextList.add(String.format("s%s", successor.getId()));
+                }
+
+                if(availableStatesTextList.size() >0) {
+                    String availableStates = availableStatesTextList.size() > 1 ? "{" + StringUtils.join(availableStatesTextList, ", ") + "}" : availableStatesTextList.get(0);
+                    appendLine(String.format("%s = s%s: %s;", StrRes.DEFAULT_STATE_NAME, state.getId(), availableStates));
+                }
             }
         }
         appendLine(String.format("TRUE: s;"));
