@@ -61,6 +61,8 @@ public class PetriNet2ModelChecker {
     private JButton saveAutButton;
     private JTextArea autTextArea;
     private JCheckBoxMenuItem menuExtendedOutput;
+    private JCheckBoxMenuItem menuAlvisOnlyPV;
+
 
     private JFrame frame;
     Parser parser2NuXMV = Parser.RTCPPARSER;
@@ -72,6 +74,7 @@ public class PetriNet2ModelChecker {
     String parsedFileName = "", parsedRTCPFileName = "", simulatorName="";
     int omega = 1000;
     boolean extendedOutput = false;
+    boolean alvisOnlyPV = true;
     int rtcpSimulatorEndTime = 1000;
 
 
@@ -126,7 +129,12 @@ public class PetriNet2ModelChecker {
 
         menuExtendedOutput = new JCheckBoxMenuItem("Extended output");
         menuExtendedOutput.addChangeListener(extendedOutputChanged);
+        menuExtendedOutput.setState(extendedOutput);
+        menuAlvisOnlyPV = new JCheckBoxMenuItem("Alvis - Only PV");
+        menuAlvisOnlyPV.setState(alvisOnlyPV);
+        menuAlvisOnlyPV.addChangeListener(menuAlvisOnlyPVChanged);
         menuGenerator.add(menuExtendedOutput);
+        menuGenerator.add(menuAlvisOnlyPV);
         menuEndtime = new JMenuItem("Endtime...", KeyEvent.VK_M);
         menuEndtime.addActionListener(setEndtime);
         menuRtcpSimulator.add(menuEndtime);
@@ -190,6 +198,15 @@ public class PetriNet2ModelChecker {
             extendedOutput = menuExtendedOutput.getState();
         }
     };
+
+    ChangeListener menuAlvisOnlyPVChanged = new ChangeListener() {
+        @Override
+        public void stateChanged(ChangeEvent e) {
+            alvisOnlyPV = menuAlvisOnlyPV.getState();
+        }
+    };
+
+
 
     ChangeListener tabChanged = new ChangeListener() {
         @Override
@@ -543,7 +560,7 @@ public class PetriNet2ModelChecker {
                 try {
                     AlvisDotParser alvisParser = new AlvisDotParser();
                     NuXMVAlvisGenerator generator = new NuXMVAlvisGenerator(alvisParser.parseFile(pathField.getText()));
-                    nuXMVTextArea.setText(generator.generateNuXmvCode(extendedOutput));
+                    nuXMVTextArea.setText(generator.generateNuXmvCode(extendedOutput, alvisOnlyPV));
                     saveButton.setEnabled(true);
                 } catch (FileNotFoundException e1) {
                     JOptionPane.showMessageDialog(frame,

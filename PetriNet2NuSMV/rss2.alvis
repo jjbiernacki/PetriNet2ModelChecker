@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE alvisproject PUBLIC "alvisPublicId-v0.1" "alvisSystemId-v0.1">
+<alvisproject>
+<hierarchy>
+<node agent="" name="System"/>
+</hierarchy>
+<page name="System">
+<agent active="1" color="white" height="220.0" index="1" name="SwitchDriver" running="1" width="370.0" x="420.0" y="140.0">
+<port color="white" id="871896235" name="getDirection" x="0.0" y="0.2727272727272727"/>
+<port color="white" id="1159573891" name="tramIn" x="-3.463203463203446E-4" y="0.7720095693779905"/>
+<port color="white" id="983940978" name="manualDirChange" x="0.0" y="0.6315789473684211"/>
+<port color="white" id="1375192138" name="setBladesState" x="0.5405405405405406" y="1.000956937799043"/>
+<port color="white" id="992642744" name="setLightsState" x="0.5675675675675675" y="0.0"/>
+<port color="white" id="1518942379" name="tramOut" x="0.0" y="0.9090909090909092"/>
+</agent>
+<agent active="1" color="white" height="130.0" index="1" name="Tram" running="0" width="180.0" x="80.0" y="180.0">
+<port color="white" id="157738762" name="iRSender" x="0.3323412698412699" y="0.0"/>
+<port color="white" id="1906833552" name="manualDirChange" x="1.0" y="0.8"/>
+<port color="white" id="1988702388" name="lights" x="1.0" y="0.23076923076923078"/>
+</agent>
+<agent active="1" color="white" height="100.0" index="1" name="IRReceiver" running="0" width="140.0" x="210.0" y="20.0">
+<port color="white" id="346683809" name="setDirection" x="1.0" y="0.8"/>
+<port color="white" id="1569025318" name="getDirection" x="0.0" y="0.20000000000000007"/>
+</agent>
+<agent active="0" color="white" height="100.0" index="1" name="SwitchBlades" running="0" width="180.0" x="520.0" y="400.0">
+<port color="white" id="1390419504" name="setBladesState" x="0.5531746031746032" y="0.0"/>
+</agent>
+<agent active="0" color="white" height="100.0" index="1" name="TrafficLights" running="0" width="240.0" x="490.0" y="0.0">
+<port color="white" id="384830628" name="setLightsState" x="0.5818181818181819" y="1.0"/>
+<port color="white" id="133489614" name="getState" x="0.0" y="0.2"/>
+</agent>
+<agent active="1" color="white" height="100.0" index="1" name="InductionLoops" running="0" width="140.0" x="110.0" y="360.0">
+<port color="white" id="1683970398" name="tramIn" x="1.0" y="0.2"/>
+<port color="white" id="370582766" name="tramOut" x="1.0" y="0.8"/>
+</agent>
+<connection direction="target" source="346683809" style="straight" target="871896235"/>
+<connection direction="target" source="992642744" style="straight" target="384830628"/>
+<connection direction="target" source="157738762" style="straight" target="1569025318"/>
+<connection direction="target" source="1683970398" style="straight" target="1159573891"/>
+<connection direction="target" source="1906833552" style="straight" target="983940978"/>
+<connection direction="target" source="1375192138" style="straight" target="1390419504"/>
+<connection direction="target" source="133489614" style="straight" target="1988702388"/>
+<connection direction="target" source="370582766" style="straight" target="1518942379"/>
+</page>
+<code>agent Tram{
+  state :: Int = 0;
+  --tram state: 0 - before switch, 1 - past switch zone
+  desiredDirection :: Int = 0;
+  bladesState :: Int = 0;
+
+  desiredDirection = pick [1,2];
+
+  out iRSender desiredDirection;
+  --some time later:
+  in lights bladesState; 
+  select{
+    alt(bladesState == desiredDirection){ 
+    --switch blades in right direction and switch is locked
+      state = 1; -- tram goes through
+    }
+    alt(True){ 
+    -- dir change not received - has to change manually
+      out manualDirChange desiredDirection;
+      in lights bladesState; 
+
+      select{
+        alt(bladesState &gt; 0){ 
+        --switch is locked after manual direction change
+          state = 1; -- tram goes through
+        }
+        -- else - switch not locked - tram cannot go throgh
+      }
+    }    
+  }
+}
+
+agent IRReceiver{
+  direction :: Int = 0;
+  in getDirection direction;
+  out setDirection direction;
+}
+
+agent SwitchDriver{
+  direction :: Int = 0;
+  state :: Int = 0;
+  state = pick [-2,-1];
+  out setLightsState state;
+  out setBladesState state;
+  start InductionLoops;
+  start IRReceiver;
+  start Tram;
+  
+  in (0) tramIn{ --checking tram detection system
+    fail{
+      in getDirection direction;
+      direction = -1 * direction;
+      in (0) tramIn{ --checking tram detection system
+        fail{
+          out setBladesState direction;
+          out setLightsState direction;
+          state = direction;
+          in tramIn; --waiting for a tram detection system
+        }
+      }
+    }
+  }
+  direction = -1 * state; --blocking switch blades in current position
+  out setBladesState direction;
+  out setLightsState direction;
+  state = direction;
+
+  in (0) manualDirChange direction{ --Manual change
+    success{
+      out setBladesState direction;
+      out setLightsState direction;
+      state = direction;
+    }
+  }
+
+  in tramOut;
+  state = -1 * state; --unblocking switch blades
+  out setBladesState state;
+  out setLightsState state;
+}
+
+agent InductionLoops{
+  out tramIn;
+  --some time later
+  out tramOut;
+}
+
+
+agent SwitchBlades{
+  bladesState :: Int = 0;
+  -- state: 1 - left locked, 2 - right locked
+  -- state: -1 - left not locked, -2 - right not locked
+  proc setBladesState{
+    in setBladesState bladesState;
+    exit;
+  }
+}
+
+agent TrafficLights{
+  lightsState :: Int = 0;
+  -- state: 1 - left locked, 2 - right locked
+  -- state: -1 - left not locked, -2 - right not locked
+  proc setLightsState{
+    in setLightsState lightsState;
+    exit;
+  }
+  proc getState{
+    out getState lightsState;
+    exit;
+  }
+
+}
+</code>
+</alvisproject>
+

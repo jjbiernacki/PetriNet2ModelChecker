@@ -5,7 +5,6 @@ import pl.edu.agh.petrinet2modelchecker.model.alvis.AgentState;
 import pl.edu.agh.petrinet2modelchecker.model.alvis.Am;
 import pl.edu.agh.petrinet2modelchecker.model.alvis.LTSGraph;
 import pl.edu.agh.petrinet2modelchecker.model.alvis.State;
-import pl.edu.agh.petrinet2modelchecker.model.rtcp.RTCPState;
 import pl.edu.agh.petrinet2modelchecker.parser.alvis.AlvisDotParser;
 
 import java.io.FileNotFoundException;
@@ -20,7 +19,8 @@ public class NuXMVAlvisGenerator {
     private final LTSGraph ltsGraph;
     private StringBuilder sb = new StringBuilder();
     private int indent = 0;
-    private boolean extendedOutput = false;
+    private boolean containsTransitionNames = false;
+    private boolean onlyPV = true;
     private List<AMVariable> amVariables = new ArrayList<AMVariable>();
     private List<PCVariable> pcVariables = new ArrayList<PCVariable>();
     private List<CIVariable> ciVariables = new ArrayList<CIVariable>();
@@ -32,19 +32,20 @@ public class NuXMVAlvisGenerator {
     }
 
     public String generateNuXmvCode() {
-        return generateNuXmvCode(false);
+        return generateNuXmvCode(false, true);
     }
 
-    public String generateNuXmvCode(boolean extended) {
-        extendedOutput = extended;
+    public String generateNuXmvCode(boolean _containsTransitionNames, boolean _onlyPV) {
+        containsTransitionNames = _containsTransitionNames;
+        onlyPV = _onlyPV;
         generateHeader(StrRes.DEFAULT_MODULE_NAME);
-        if(extendedOutput)
+        if(containsTransitionNames)
             generateIVariables();
         generateVariables();
         generateInit();
         generateNextState();
         generateNextVarValues();
-        if(extendedOutput)
+        if(containsTransitionNames)
             generateTrans();
         return sb.toString();
     }
@@ -52,7 +53,7 @@ public class NuXMVAlvisGenerator {
     private void generateNextState() {
         appendLine(StrRes.NEXT + "(" + StrRes.DEFAULT_STATE_NAME + ") := " + StrRes.CASE);
         indent++;
-        if(extendedOutput) {
+        if(containsTransitionNames) {
             for (State state : ltsGraph.getStates().values()) {
                 for (String availableTransition : state.getSuccessors().keySet()) {
                     State successor = state.getSuccessors().get(availableTransition);
@@ -79,9 +80,11 @@ public class NuXMVAlvisGenerator {
         appendLine(StrRes.ESAC + ";");
     }
     private void generateNextVarValues() {
-        generateAmNextVarValues();
-        generatePcNextVarValues();
-        generateCiNextVarValues();
+        if (!onlyPV){
+            generateAmNextVarValues();
+            generatePcNextVarValues();
+            generateCiNextVarValues();
+        }
         generatePvNextVarValues();
     }
 
@@ -184,9 +187,11 @@ public class NuXMVAlvisGenerator {
         indent++;
         tab();
         generateStateVariable();
-        generateAmVariables();
-        generatePcVariables();
-        generateCiVariables();
+        if (!onlyPV) {
+            generateAmVariables();
+            generatePcVariables();
+            generateCiVariables();
+        }
         generatePvVariables();
         indent--;
     }
@@ -435,8 +440,8 @@ public class NuXMVAlvisGenerator {
 
     public static void main(String[] args) {
         try {
-            System.out.print(new NuXMVAlvisGenerator(new AlvisDotParser().parseFile("E:\\AGH\\dr\\RTCP\\PetriNet2ModelChecker\\alvis-examples\\t033.dot"))
-                    .generateNuXmvCode());
+            System.out.print(new NuXMVAlvisGenerator(new AlvisDotParser().parseFile("/home/jerzy/PetriNet2ModelChecker/PetriNet2NuSMV/t034.dot"))
+                    .generateNuXmvCode(false, true));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (Exception e) {
