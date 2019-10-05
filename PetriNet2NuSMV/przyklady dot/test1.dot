@@ -1,6 +1,0 @@
-digraph G {
-	rankdir=TB;
-	0 [label = "(A, B)\n((a), -)\n(0, 0)" shape=box];
-	1 [label = "(-, (b))\n(0, 0)" shape=box];
-	0 -> 1 [label = "(T, ())/0"];
-}

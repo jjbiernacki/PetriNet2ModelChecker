@@ -1,0 +1,1110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="PetriNet2ModelChecker" />
+    </artifacts-to-build>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="23124cc2-d9b0-4348-b164-d96552eb2807" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/Krótka instrukcja obsługi programu PetriNet2ModelChecker.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/Petri&amp;Alvis2ModelChecker.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/PetriNet2ModelChecker Quick Start.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/PetriNet2ModelChecker.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przykladowe pliki/model1.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przykladowe pliki/model1.smv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przykladowe pliki/model1.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/Archive/FireAlarmControlPanel — kopia.cpn" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/Archive/spp_v1.cpn" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/Archive/spp_v1.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/Archive/spp_v1.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/Archive/spp_v1.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/Archive/spp_v2.cpn" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/Archive/spp_v2.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/Archive/spp_v2.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/Archive/spp_v2.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/Archive/zwrotnica.cpn" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/Archive/zwrotnica.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/Archive/zwrotnica.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/Archive/zwrotnica.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/Archive/zwrotnica2.cpn" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/Archive/zwrotnica2.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/Archive/zwrotnica2.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/Archive/zwrotnica3.cpn" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/Archive/zwrotnica3.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/Archive/zwrotnica3.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/Archive/zwrotnica4_blad.cpn" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/FireAlarmControlPanel.aut" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/FireAlarmControlPanel.cpn" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/FireAlarmControlPanel.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/FireAlarmControlPanel_60s.aut" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/FireAlarmControlPanel_60s.cpn" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/FireAlarmControlPanel_60s.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/FireAlarmControlPanel.cpn" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/FireAlarmControlPanel.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/FireAlarmControlPanel_bigger.cpn" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/FireAlarmControlPanel_bigger_36467.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/FireAlarmControlPanel_bigger_45565.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/FireAlarmControlPanel_bigger_45565.smv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/FireAlarmControlPanel_even_bigger.cpn" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/FireAlarmControlPanel_even_bigger.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/SimpleProtocol.cpn" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/SimpleProtocol.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/SimpleProtocol.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/SimpleProtocol11000.cpn" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/SimpleProtocol11000.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/SimpleProtocol11000.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/SimpleProtocol17.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/SimpleProtocol2.cpn" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/SimpleProtocol2.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/SimpleProtocol2.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/SimpleProtocol55.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/SimpleProtocol550.cpn" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/SimpleProtocol550.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/SimpleProtocol5500.cpn" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/SimpleProtocol5500.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/SimpleProtocol5500.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/SimpleProtocol55000.cpn" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/SimpleProtocol55000.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/SimpleProtocol55000.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/SimpleProtocol_1_23696.cpn" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/SimpleProtocol_1_23696.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/SimpleProtocol_1_33.cpn" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/SimpleProtocol_1_33.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/SimpleProtocol_1_7385.cpn" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/SimpleProtocol_1_7389.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/_FireAlarmControlPanel.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/cpntools.dump" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/konsument producent10415.cpn" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/konsument producent10415.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/konsument producent19655.cpn" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/konsument producent19655.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/konsument producent3695.cpn" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/konsument producent3695.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/konsument producentX3.cpn" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/konsument producentX3.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/konsument producent_139.cpn" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/konsument producent_139.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/konsument producent_139.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/konsument producent_139.smv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/konsument producent_139.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/konsument producent_64820.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/sp_1" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/zwrotnica.cpn" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/zwrotnica191.cpn" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/zwrotnica191.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/zwrotnica815.cpn" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/zwrotnica815.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/zwrotnica_34718.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/zwrotnica_41.cpn" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/zwrotnica_41.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/testy/zwrotnica_big.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/zwrotnica.cpn" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/zwrotnica.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/przyklady rtcp/zwrotnica.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/lib/antlr-2.7.7.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/lib/antlr-3.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/lib/junit-4.8.1.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/lib/pkowalski-junit-1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/lib/pkowalski-rtcp-codefactory-1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/lib/pkowalski-rtcp-codefactory-java-1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/lib/pkowalski-rtcp-model-1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/lib/pkowalski-rtcp-model-impl-1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/lib/pkowalski-rtcp-model-syntax-1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/lib/pkowalski-rtcp-runtime-1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/lib/pkowalski-rtcp-runtime-coverability-1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/lib/pkowalski-rtcp-runtime-ui-console-1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/lib/pkowalski-rtcp-xml-1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/lib/pkowalski-utils-1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/lib/runtime/pkowalski-rtcp-runtime-1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/lib/runtime/pkowalski-rtcp-runtime-coverability-1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/lib/runtime/pkowalski-rtcp-runtime-ui-console-1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/lib/runtime/pkowalski-utils-1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/lib/stringtemplate-3.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/maven-archiver/pom.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/rtcpnc.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/templates/ArcExpressionPart.st" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/templates/ArcFile.st" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/templates/BindingFile.st" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/templates/BoolTokenFile.st" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/templates/EnumFile.st" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/templates/EnumTokenFile.st" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/templates/IntTokenFile.st" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/templates/Manifest.st" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/templates/PlaceFile.st" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/templates/ProductTokenConstruction.st" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/templates/ProductTokenFile.st" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/templates/SimulatorFile.st" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV Release/rtcpnc/templates/TransitionFile.st" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/RSS3_timed.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/RSS3_timed.dot.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/RSS3_timed_lite.smv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/alvis-examples/rss2.alvis" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/alvis-examples/t033.alvis" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/alvis-examples/t033.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/alvis-examples/t034.alvis" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/alvis-examples/t034.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/alvis-examples/t035.alvis" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/alvis-examples/t035.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/alvis-examples/t036.alvis" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/alvis-examples/t036.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/alvis-examples/t040.alvis" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/alvis-examples/t040.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/alvis-examples/t041.alvis" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/alvis-examples/t041.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/alvis-examples/t042.alvis" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/alvis-examples/t042.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/alvis-examples/t043.alvis" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/alvis-examples/t043.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/alvis-examples/t044.alvis" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/alvis-examples/t044.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/alvis-examples/t045.alvis" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/alvis-examples/t045.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/alvis-examples/t046.alvis" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/alvis-examples/t046.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/alvis-examples/t047.alvis" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/alvis-examples/t047.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/alvis-examples/t050.alvis" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/alvis-examples/t050.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/alvis-examples/t051.alvis" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/alvis-examples/t051.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/alvis-examples/t052.alvis" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/alvis-examples/t052.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/lib/commons-cli-1.2.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/lib/commons-io-2.4.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/lib/commons-lang3-3.8.1.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/lib/jgoodies-common-1.7.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/lib/jgoodies-forms-1.7.2.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/lib/miglayout-4.0-swing.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/lib/miglayout-4.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/lib/swing-bits-1.0.0-SNAPSHOT.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/model1.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/przyklady dot/model1.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/przyklady dot/model1.smv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/przyklady dot/test1.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/przyklady dot/test10.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/przyklady dot/test2.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/przyklady dot/test3.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/przyklady dot/test40.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/res/logo.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/res/logo.tif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/res/logo_pn2mc.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/res/logo_przyciete.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/res/logo_xmv.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rss.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rss2.alvis" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rss_timed.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rss_timed.smv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rss_timed2.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/lib/antlr-2.7.7.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/lib/antlr-3.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/lib/junit-4.8.1.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/lib/pkowalski-junit-1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/lib/pkowalski-rtcp-codefactory-1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/lib/pkowalski-rtcp-codefactory-java-1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/lib/pkowalski-rtcp-model-1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/lib/pkowalski-rtcp-model-impl-1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/lib/pkowalski-rtcp-model-syntax-1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/lib/pkowalski-rtcp-runtime-1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/lib/pkowalski-rtcp-runtime-coverability-1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/lib/pkowalski-rtcp-runtime-ui-console-1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/lib/pkowalski-rtcp-xml-1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/lib/pkowalski-utils-1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/lib/runtime/pkowalski-rtcp-runtime-1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/lib/runtime/pkowalski-rtcp-runtime-coverability-1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/lib/runtime/pkowalski-rtcp-runtime-ui-console-1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/lib/runtime/pkowalski-utils-1.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/lib/stringtemplate-3.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/maven-archiver/pom.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/rtcpnc.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/templates/ArcExpressionPart.st" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/templates/ArcFile.st" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/templates/BindingFile.st" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/templates/BoolTokenFile.st" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/templates/EnumFile.st" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/templates/EnumTokenFile.st" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/templates/IntTokenFile.st" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/templates/Manifest.st" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/templates/PlaceFile.st" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/templates/ProductTokenConstruction.st" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/templates/ProductTokenFile.st" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/templates/SimulatorFile.st" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/rtcpnc/templates/TransitionFile.st" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/META-INF/MANIFEST.MF" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/MF/META-INF/MANIFEST.MF" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/cpn2rtcpn/Arc.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/cpn2rtcpn/InputErrorException.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/cpn2rtcpn/Page.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/cpn2rtcpn/Place.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/cpn2rtcpn/Subpage.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/cpn2rtcpn/Transition.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/cpn2rtcpn/XmlParse.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/cpn2rtcpn/XmlWriter.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/AboutDialog.form" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/AboutDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/CPNConsoleApplication.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/ConsoleApplication.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/PetriNet2ModelChecker.form" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/PetriNet2ModelChecker.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/exceptions/ExtensionFilter.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/exceptions/SyntaxException.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/generator/aut/AutGenerator.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/generator/nuxmv/NuXMVAlvisGenerator.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/generator/nuxmv/NuXMVCPNGenerator.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/generator/nuxmv/NuXMVGenerator.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/generator/nuxmv/NuXMVRTCPGenerator.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/generator/nuxmv/StrRes.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/helper/NuXmvValidator.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/logger/Logger.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/model/alvis/AgentState.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/model/alvis/Am.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/model/alvis/LTSGraph.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/model/alvis/State.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/model/base/ReachabilityGraph.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/model/base/State.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/model/color/CPNPlace.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/model/color/CPNReachabilityGraph.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/model/color/CPNState.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/model/color/Color.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/model/color/ColorType.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/model/color/Marking.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/model/pt/PTPlace.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/model/pt/PTReachabilityGraph.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/model/pt/PTState.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/model/pt/PlaceType.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/model/rtcp/Marking.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/model/rtcp/RTCPPlace.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/model/rtcp/RTCPReachabilityGraph.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/model/rtcp/RTCPState.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/parser/Parser.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/parser/alvis/AlvisDotParser.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/parser/formats/CPNToolsParser.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/parser/formats/KTSParser.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/parser/formats/RTCPParser.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/parser/interfaces/CPNParsable.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/parser/interfaces/PTNetParsable.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/parser/interfaces/RTCPParsable.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/java/pl/edu/agh/petrinet2modelchecker/utils/MarkingParser.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/src/main/resources/logo.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/t034.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../PetriNet2NuSMV/t034_nt.dot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../petrinet2modelchecker_v1_0_5.zip" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../petrinet2modelchecker_v1_0_6.zip" afterPath="" />
+    </list>
+    <ignored path="PetriNet2NuSMV.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored path="$PROJECT_DIR$/out/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/PetriNet2NuSMV$NuXMVAlvisGenerator.coverage" NAME="NuXMVAlvisGenerator Coverage Results" MODIFIED="1570226220560" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>pl.edu.agh.petrinet2modelchecker.generator.nuxmv.*</FILTER>
+    </SUITE>
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="PetriNet2NuSMV" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="CPNConsoleApplication.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/CPNConsoleApplication.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AutGenerator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/generator/aut/AutGenerator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NuXmvValidator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/helper/NuXmvValidator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1215">
+              <caret line="83" column="0" lean-forward="false" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PetriNet2ModelChecker.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/PetriNet2ModelChecker.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2205">
+              <caret line="180" column="0" lean-forward="false" selection-start-line="180" selection-start-column="0" selection-end-line="180" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AboutDialog.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/AboutDialog.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="735">
+              <caret line="56" column="0" lean-forward="true" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+              <folding>
+                <element signature="e#557#684#0" expanded="true" />
+                <element signature="e#683#684#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ImageIcon.class" pinned="false" current-in-tab="false">
+        <entry file="jar:///usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib/rt.jar!/javax/swing/ImageIcon.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="5595">
+              <caret line="373" column="0" lean-forward="false" selection-start-line="373" selection-start-column="0" selection-end-line="373" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>generateNuXmvCode</find>
+      <find>changed</find>
+      <find>exte</find>
+      <find>generateStateVariable</find>
+      <find>-&gt;</find>
+      <find>alvis</find>
+      <find>about</find>
+    </findStrings>
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="true" />
+    </FindUsagesManager>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GradleLocalSettings">
+    <option name="modificationStamps">
+      <map>
+        <entry key="$USER_HOME$/alvis/alvisgit/ALVISC" value="2826093985480" />
+      </map>
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/generator/nuxmv/NuXMVAlvisLiteGenerator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/model/alvis/AgentState.java" />
+        <option value="$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/generator/nuxmv/NuXMVAlvisGenerator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/model/alvis/State.java" />
+        <option value="$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/parser/alvis/AlvisDotParser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/PetriNet2ModelChecker.java" />
+        <option value="$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/AboutDialog.java" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="4">
+    <option name="x" value="1920" />
+    <option name="width" value="1906" />
+    <option name="height" value="1080" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="AndroidView" />
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="PetriNet2ModelChecker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PetriNet2ModelChecker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PetriNet2ModelChecker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="agh" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PetriNet2ModelChecker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="agh" type="462c0819:PsiDirectoryNode" />
+              <item name="petrinet2modelchecker" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PetriNet2ModelChecker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="agh" type="462c0819:PsiDirectoryNode" />
+              <item name="petrinet2modelchecker" type="462c0819:PsiDirectoryNode" />
+              <item name="generator" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PetriNet2ModelChecker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="agh" type="462c0819:PsiDirectoryNode" />
+              <item name="petrinet2modelchecker" type="462c0819:PsiDirectoryNode" />
+              <item name="generator" type="462c0819:PsiDirectoryNode" />
+              <item name="nuxmv" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PetriNet2ModelChecker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="agh" type="462c0819:PsiDirectoryNode" />
+              <item name="petrinet2modelchecker" type="462c0819:PsiDirectoryNode" />
+              <item name="parser" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PetriNet2ModelChecker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PetriNet2ModelChecker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="GoToClass.includeLibraries" value="false" />
+    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="FullScreen" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="pl.edu.agh.petrinet2modelchecker.generator.nuxmv" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.PetriNet2ModelChecker">
+    <configuration name="AlvisDotParser" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="pl.edu.agh.petrinet2modelchecker.parser.alvis.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="pl.edu.agh.petrinet2modelchecker.parser.alvis.AlvisDotParser" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="main" />
+      <envs />
+    </configuration>
+    <configuration name="NuXMVAlvisGenerator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="pl.edu.agh.petrinet2modelchecker.generator.nuxmv.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="pl.edu.agh.petrinet2modelchecker.generator.nuxmv.NuXMVAlvisGenerator" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="main" />
+      <envs />
+    </configuration>
+    <configuration name="PetriNet2ModelChecker" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="pl.edu.agh.petrinet2modelchecker.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="pl.edu.agh.petrinet2modelchecker.PetriNet2ModelChecker" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="main" />
+      <envs />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file id="idea.log" enabled="true" />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+    </configuration>
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
+      <module name="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
+      <method />
+    </configuration>
+    <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
+      <Host>localhost</Host>
+      <Port>5050</Port>
+    </configuration>
+    <list size="3">
+      <item index="0" class="java.lang.String" itemvalue="Application.NuXMVAlvisGenerator" />
+      <item index="1" class="java.lang.String" itemvalue="Application.PetriNet2ModelChecker" />
+      <item index="2" class="java.lang.String" itemvalue="Application.AlvisDotParser" />
+    </list>
+    <recent_temporary>
+      <list size="3">
+        <item index="0" class="java.lang.String" itemvalue="Application.PetriNet2ModelChecker" />
+        <item index="1" class="java.lang.String" itemvalue="Application.NuXMVAlvisGenerator" />
+        <item index="2" class="java.lang.String" itemvalue="Application.AlvisDotParser" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="23124cc2-d9b0-4348-b164-d96552eb2807" name="Default" comment="" />
+      <created>1460494658719</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1460494658719</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="1920" y="0" width="1906" height="1080" extended-state="4" />
+    <layout>
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32890704" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32983193" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2494748" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39836568" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32983193" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/PetriNet2ModelChecker.java</url>
+          <line>180</line>
+          <properties />
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/PetriNet2ModelChecker.java</url>
+          <line>182</line>
+          <properties />
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/AboutDialog.java</url>
+          <line>13</line>
+          <properties />
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="21" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/model/alvis/Am.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/generator/nuxmv/NuXMVAlvisGenerator.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/CPNConsoleApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/generator/aut/AutGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/parser/alvis/AlvisDotParser.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/helper/NuXmvValidator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1215">
+          <caret line="83" column="0" lean-forward="false" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/PetriNet2ModelChecker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1035">
+          <caret line="100" column="19" lean-forward="true" selection-start-line="100" selection-start-column="19" selection-end-line="100" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/model/alvis/State.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/model/alvis/LTSGraph.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/model/alvis/AgentState.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/model/alvis/Am.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/generator/aut/AutGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/parser/alvis/AlvisDotParser.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/helper/NuXmvValidator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1215">
+          <caret line="83" column="0" lean-forward="false" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/PetriNet2ModelChecker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/generator/nuxmv/NuXMVAlvisGenerator.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/model/alvis/State.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/model/alvis/LTSGraph.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/model/alvis/AgentState.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/model/alvis/Am.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/parser/alvis/AlvisDotParser.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/helper/NuXmvValidator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1215">
+          <caret line="83" column="0" lean-forward="false" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/PetriNet2ModelChecker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/generator/nuxmv/NuXMVAlvisGenerator.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/model/alvis/State.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/model/alvis/LTSGraph.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/model/alvis/Am.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/model/alvis/AgentState.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/generator/nuxmv/NuXMVAlvisGenerator.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/parser/alvis/AlvisDotParser.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/helper/NuXmvValidator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/model/alvis/State.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/model/alvis/LTSGraph.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/model/alvis/AgentState.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/model/alvis/Am.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/generator/nuxmv/NuXMVAlvisGenerator.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/parser/alvis/AlvisDotParser.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/helper/NuXmvValidator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1200">
+          <caret line="82" column="9" lean-forward="false" selection-start-line="82" selection-start-column="9" selection-end-line="82" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/model/alvis/Am.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/helper/NuXmvValidator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1215">
+          <caret line="83" column="0" lean-forward="false" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/generator/aut/AutGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/generator/nuxmv/NuXMVAlvisLiteGenerator.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/CPNConsoleApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/model/alvis/AgentState.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/model/alvis/LTSGraph.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/model/alvis/State.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/generator/nuxmv/NuXMVAlvisGenerator.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/parser/alvis/AlvisDotParser.java" />
+    <entry file="jar:///usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib/rt.jar!/javax/swing/ImageIcon.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5595">
+          <caret line="373" column="0" lean-forward="false" selection-start-line="373" selection-start-column="0" selection-end-line="373" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/AboutDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="735">
+          <caret line="56" column="0" lean-forward="true" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+          <folding>
+            <element signature="e#557#684#0" expanded="true" />
+            <element signature="e#683#684#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/pl/edu/agh/petrinet2modelchecker/PetriNet2ModelChecker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2205">
+          <caret line="180" column="0" lean-forward="false" selection-start-line="180" selection-start-column="0" selection-end-line="180" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor>
+            <show-content>
+              <type id="artifact" />
+              <type id="library" />
+            </show-content>
+          </artifact-editor>
+          <last-edited>PetriNet2ModelChecker</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.5" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>main</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>lib1</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

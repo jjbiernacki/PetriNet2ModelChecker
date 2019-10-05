@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="ISO-8859-2" ?>
+<rtcpnet name="">
+<declarations>
+color PR = with factory;
+color CON = with client;
+color BUF = with bufSpace;
+var p: PR;
+var c: CON;
+var b: BUF;
+</declarations>
+<pages>
+<page name="kp" width="1512" height="1512">
+<places>
+<place name="P1" type="PR" marking="6(factory)" time="0" fusion="">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<typeLabel x="0" y="0"/>
+<markingLabel x="0" y="0"/>
+</icon>
+</place>
+<place name="P2" type="PR" marking="" time="0" fusion="">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<typeLabel x="0" y="0"/>
+<markingLabel x="0" y="0"/>
+</icon>
+</place>
+<place name="P3" type="BUF" marking="" time="0" fusion="">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<typeLabel x="0" y="0"/>
+<markingLabel x="0" y="0"/>
+</icon>
+</place>
+<place name="P4" type="CON" marking="3(client)" time="0" fusion="">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<typeLabel x="0" y="0"/>
+<markingLabel x="0" y="0"/>
+</icon>
+</place>
+<place name="P5" type="CON" marking="" time="0" fusion="">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<typeLabel x="0" y="0"/>
+<markingLabel x="0" y="0"/>
+</icon>
+</place>
+<place name="P6" type="BUF" marking="4(bufSpace)" time="0" fusion="">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<typeLabel x="0" y="0"/>
+<markingLabel x="0" y="0"/>
+</icon>
+</place>
+</places>
+<transitions>
+<transition name="T1" priority="0" guard="" substituted="no">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<guardLabel x="0" y="0"/>
+</icon>
+</transition>
+<transition name="T2" priority="0" guard="" substituted="no">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<guardLabel x="0" y="0"/>
+</icon>
+</transition>
+<transition name="T3" priority="0" guard="" substituted="no">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<guardLabel x="0" y="0"/>
+</icon>
+</transition>
+<transition name="T4" priority="0" guard="" substituted="no">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<guardLabel x="0" y="0"/>
+</icon>
+</transition>
+</transitions>
+<arcs>
+<arc place="P1" transition="T1" direction="Out" inExpression=""  outExpression="p" inTime="" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="P2" transition="T1" direction="In" inExpression="p"  outExpression="" inTime="" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="P2" transition="T2" direction="Out" inExpression=""  outExpression="p" inTime="" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="P1" transition="T2" direction="In" inExpression="p"  outExpression="" inTime="" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="P3" transition="T2" direction="In" inExpression="b"  outExpression="" inTime="" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="P3" transition="T3" direction="Out" inExpression=""  outExpression="b" inTime="" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="P5" transition="T3" direction="In" inExpression="c"  outExpression="" inTime="" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="P5" transition="T4" direction="Out" inExpression=""  outExpression="c" inTime="" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="P4" transition="T4" direction="In" inExpression="c"  outExpression="" inTime="" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="P4" transition="T3" direction="Out" inExpression=""  outExpression="c" inTime="" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="P6" transition="T2" direction="Out" inExpression=""  outExpression="b" inTime="" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+<arc place="P6" transition="T3" direction="In" inExpression="b"  outExpression="" inTime="" outTime="">
+<icon x="0" y="0">
+</icon>
+</arc>
+</arcs>
+</page>
+</pages>
+<hierarchy>
+<nodes>
+<node name="kp" id="0" parameters="">
+<icon x="0" y="0" width="0" height="0">
+<nameLabel x="0" y="0"/>
+<parametersLabel x="0" y="0"/>
+</icon>
+</node>
+</nodes>
+<connections>
+</connections>
+</hierarchy>
+</rtcpnet>

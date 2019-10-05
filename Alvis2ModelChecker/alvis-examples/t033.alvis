@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE alvisproject PUBLIC "alvisPublicId-v0.1" "alvisSystemId-v0.1">
+<alvisproject>
+<hierarchy>
+<node agent="" name="System"/>
+</hierarchy>
+<page name="System">
+<agent active="1" height="100.0" index="1" name="A" running="1" width="140.0" x="50.0" y="60.0">
+<port id="1035885752" name="a" x="1.0" y="0.19999999999999998"/>
+<port id="440320692" name="b" x="1.0" y="0.8"/>
+</agent>
+<agent active="1" height="100.0" index="1" name="B" running="1" width="140.0" x="310.0" y="60.0">
+<port id="1955589779" name="p" x="0.0" y="0.2"/>
+<port id="1494863171" name="q" x="0.0" y="0.8"/>
+</agent>
+<connection direction="target" source="1035885752" style="straight" target="1955589779"/>
+<connection direction="target" source="440320692" style="straight" target="1494863171"/>
+</page>
+<code>agent A {
+  x :: Int = 1;
+  select {
+    alt (ready [out(a)]) {out a x;}
+    alt (ready [out(b)]) {out b x;}
+  }
+}
+
+agent B {
+  y :: Int = 0;
+  y = pick [1,2];
+  if(y == 1) {in p y;}
+  else {in q y;}
+}
+</code>
+</alvisproject>
+

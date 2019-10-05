@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE alvisproject PUBLIC "alvisPublicId-v0.1" "alvisSystemId-v0.1">
+<alvisproject>
+<hierarchy>
+<node agent="" name="System"/>
+</hierarchy>
+<page name="System">
+<agent active="1" height="100.0" index="1" name="A" running="1" width="140.0" x="40.0" y="60.0">
+<port id="1394113668" name="a" x="1.0" y="0.5"/>
+</agent>
+<agent active="0" height="100.0" index="1" name="B" running="0" width="140.0" x="310.0" y="120.0">
+<port id="1841701060" name="x" x="0.0" y="0.3"/>
+<port id="783521547" name="y" x="0.0" y="0.7"/>
+</agent>
+<agent active="1" height="100.0" index="1" name="C" running="1" width="140.0" x="40.0" y="190.0">
+<port id="448326008" name="a" x="1.0" y="0.5"/>
+</agent>
+<connection direction="target" source="1394113668" style="straight" target="1841701060"/>
+<connection direction="target" source="1394113668" style="straight" target="783521547"/>
+<connection direction="target" source="448326008" style="straight" target="783521547"/>
+</page>
+<code>agent A, C {
+  out a;
+  out a;
+}
+
+agent B {
+  k :: Int = 0;
+  proc (k == 0) x {in x; k = k + 1; exit;}
+  proc (k &lt; 2) y {in y; k = k + 1; exit;}
+}
+
+</code>
+</alvisproject>
+

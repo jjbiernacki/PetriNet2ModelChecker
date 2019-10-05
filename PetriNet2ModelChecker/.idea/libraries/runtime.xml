@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="runtime">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/rtcpnc/lib/runtime/pkowalski-rtcp-runtime-ui-console-1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/rtcpnc/lib/runtime/pkowalski-rtcp-runtime-coverability-1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/rtcpnc/lib/runtime/pkowalski-utils-1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/rtcpnc/lib/runtime/pkowalski-rtcp-runtime-1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

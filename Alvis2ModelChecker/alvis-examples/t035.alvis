@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE alvisproject PUBLIC "alvisPublicId-v0.1" "alvisSystemId-v0.1">
+<alvisproject>
+<hierarchy>
+<node agent="" name="System"/>
+</hierarchy>
+<page name="System">
+<agent active="1" height="100.0" index="1" name="A" running="1" width="140.0" x="40.0" y="60.0">
+<port id="1922881574" name="a" x="1.0" y="0.8"/>
+<port id="1033459667" name="b" x="1.0" y="0.30000000000000004"/>
+</agent>
+<agent active="1" height="100.0" index="1" name="B" running="1" width="140.0" x="360.0" y="60.0">
+<port id="1804687642" name="p" x="0.0" y="0.6000000000000001"/>
+</agent>
+<agent active="0" height="100.0" index="1" name="C" running="0" width="140.0" x="200.0" y="200.0">
+<port id="883466571" name="x" x="0.21428571428571427" y="0.0"/>
+<port id="1924621625" name="y" x="0.7857142857142858" y="0.0"/>
+</agent>
+<connection direction="target" source="1033459667" style="straight" target="1924621625"/>
+<connection direction="target" source="883466571" style="straight" target="1922881574"/>
+<connection direction="target" source="1804687642" style="straight" target="1924621625"/>
+</page>
+<code>agent A {
+  null;
+  if(ready [in(a), out(b)])
+  {
+    if(ready [in(a)]) {in a;}
+    else {out b;}
+  }
+  else {null;}
+}
+
+agent B {out p;}
+
+agent C {
+  m :: Bool = False;
+  proc (m == True) x {out x; m = False; exit;}
+  proc (m == False) y {in y; m = True; exit;}
+}
+</code>
+</alvisproject>
+

@@ -1,0 +1,36 @@
+digraph G {
+	rankdir=TB;
+	0 [label = "(Sensors, SPP, CheckingFireHazard, Clock1, FireDepartment, Employee, Clock2)\n((normal), (sv), (off), (off), (none), (idle), (off))\n(0, 0, 0, 0, 0, 0, 0)" shape=box];
+	1 [label = "((warning), (sv), (off), (off), (none), (idle), (off))\n(0, 0, 0, 0, 0, 0, 0)" shape=box];
+	2 [label = "((dblWarning), (sv), (off), (off), (none), (idle), (off))\n(0, 0, 0, 0, 0, 0, 0)" shape=box];
+	3 [label = "((warning), (a1), (off), (on), (none), (idle), (off))\n(0, 0, 0, 0, 0, 0, 0)" shape=box];
+	4 [label = "((dblWarning), (a2), (off), (off), (none), (idle), (off))\n(0, 0, 0, 0, 0, 0, 0)" shape=box];
+	5 [label = "((warning), (a1), (off), (on), (none), (act), (off))\n(0, 0, 0, 0, 0, 50, 0)" shape=box];
+	6 [label = "((warning), (a1), (off), (on), (none), (act), (off))\n(0, 0, 0, 0, 0, 70, 0)" shape=box];
+	7 [label = "((dblWarning), (term), (off), (off), (calledFor), (idle), (off))\n(0, 0, 0, 0, 0, 0, 0)" shape=box];
+	8 [label = "((warning), (a1), (on), (on), (none), (act), (on))\n(-50, 0, 120, -50, -50, 0, 180)" shape=box];
+	9 [label = "((warning), (a1), (on), (on), (none), (act), (on))\n(-50, 0, 300, -50, -50, 0, 180)" shape=box];
+	10 [label = "((warning), (a2), (off), (off), (none), (act), (off))\n(-60, 0, 0, 0, -60, 10, -60)" shape=box];
+	11 [label = "((warning), (term), (on), (on), (none), (act), (on))\n(-170, 0, 0, -170, -170, -120, 60)" shape=box];
+	12 [label = "((warning), (a2), (on), (on), (none), (act), (on))\n(-170, 0, 0, -170, -170, -120, 60)" shape=box];
+	13 [label = "((warning), (a2), (on), (on), (none), (act), (off))\n(-230, 0, 120, -230, -230, -180, 0)" shape=box];
+	14 [label = "((warning), (term), (off), (off), (calledFor), (act), (off))\n(-60, 0, 0, 0, 0, 10, -60)" shape=box];
+	15 [label = "((warning), (term), (on), (on), (calledFor), (act), (on))\n(-170, 0, 0, -170, 0, -120, 60)" shape=box];
+	16 [label = "((warning), (term), (on), (on), (calledFor), (act), (off))\n(-230, 0, 120, -230, 0, -180, 0)" shape=box];
+	0 -> 1 [label = "(GetSensorsValue, (warning/senSt))/0"];
+	0 -> 2 [label = "(GetSensorsValue, (dblWarning/senSt))/0"];
+	1 -> 3 [label = "(TurnOnAlarm1, ())/0"];
+	2 -> 4 [label = "(InstantTurnOnAlarm2, (sv/sysSt))/0"];
+	3 -> 5 [label = "(EmpNoticesAlarm, (50/t))/0"];
+	3 -> 6 [label = "(EmpNoticesAlarm, (70/t))/0"];
+	4 -> 7 [label = "(EmergencyCall, ())/0"];
+	5 -> 8 [label = "(ConfirmAlarm, (120/t))/50"];
+	5 -> 9 [label = "(ConfirmAlarm, (300/t))/50"];
+	6 -> 10 [label = "(TurnOnAlarm2, ())/60"];
+	8 -> 11 [label = "(TurnOffAlarm1_2, ())/120"];
+	8 -> 12 [label = "(EmpTurnOnAlarm2, ())/120"];
+	9 -> 13 [label = "(TurnOnAlarm2_2, ())/180"];
+	10 -> 14 [label = "(EmergencyCall, ())/0"];
+	12 -> 15 [label = "(EmergencyCall, ())/0"];
+	13 -> 16 [label = "(EmergencyCall, ())/0"];
+}
